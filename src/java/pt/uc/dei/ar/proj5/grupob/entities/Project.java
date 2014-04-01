@@ -17,6 +17,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -44,7 +45,7 @@ public class Project implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
     
-    @ManyToMany
+    @ManyToOne
     private Paj paj;
     
     @OneToMany (mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)

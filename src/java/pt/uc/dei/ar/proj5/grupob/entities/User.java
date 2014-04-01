@@ -5,7 +5,6 @@
  */
 package pt.uc.dei.ar.proj5.grupob.entities;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,7 +19,7 @@ import javax.validation.constraints.Size;
  * @author sofia
  */
 @MappedSuperclass
-public abstract class User {
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

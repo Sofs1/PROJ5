@@ -3,10 +3,36 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Login</title>
     </h:head>
     <h:body>
-        SOFIA E ORLANDIX THE BESTE
+       <div align="center">
+                <h:form>
+                    <table border="0" cellpadding="0" align="center">
+                        <tr>
+                            <td colspan="2"><h2 align="center">SELF-EVALUATION</h2></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="EMAIL"/></td>
+                            <td><h:inputText value="" required="true" requiredMessage="Email user is required"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel  value="PASSWORD"/></td>
+                            <td><h:inputSecret  value=""/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><h:commandButton  value="Log In" action=""/>
+                                <h:commandButton  value="Sign Up" action="signup" immediate="true"/></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <h:outputLabel id="erro"  style="color:#ff0000" value=""/></td>
+                        </tr>
+
+                    </table>
+                </h:form>
+            </div>
     </h:body>
 </html>
 

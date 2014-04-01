@@ -19,7 +19,7 @@ public class Administrator extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
     
-    @ManyToMany
+    @ManyToMany 
     private List<Paj> pajs;
 
     public Administrator() {

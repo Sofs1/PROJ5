@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./template.xhtml">
+
+            <ui:define name="top">
+                <h:outputLabel value="Hi + name | "/>
+                <h:commandLink action="" value="Edit" />&nbsp;|&nbsp;
+                <h:commandLink action="" value="Delete" />&nbsp;|&nbsp;
+                <h:commandLink action="" value="LOGOUT" />
+            </ui:define>
+
+            <ui:define name="left">
+               <h:commandButton value="OPEN PROJECTS" action=""/>
+               <br></br>
+               <h:commandButton value="CLOSED PROJECTS" action=""/>
+               <br></br>
+               <h:commandButton value="REPORTS" action=""/>
+            </ui:define>
+
+            <ui:define name="content">
+                content
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

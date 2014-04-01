@@ -7,10 +7,20 @@
 package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -22,7 +32,27 @@ public class Project implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    @NotNull
+    @Size(min = 1, max = 150)
+    @Column(length = 150, nullable = false)
+    private String name;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date begDate;
+    
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date endDate;
+    
+    @ManyToMany
+    private Paj paj;
+    
+    @OneToMany (mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Evaluation> evaluations;
 
+    public Project() {
+    }
+    
     public Long getId() {
         return id;
     }
@@ -31,6 +61,47 @@ public class Project implements Serializable {
         this.id = id;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getBegDate() {
+        return begDate;
+    }
+
+    public void setBegDate(Date begDate) {
+        this.begDate = begDate;
+    }
+
+    public Date getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
+    }
+
+    public Paj getPaj() {
+        return paj;
+    }
+
+    public void setPaj(Paj paj) {
+        this.paj = paj;
+    }
+
+    public List<Evaluation> getEvaluations() {
+        return evaluations;
+    }
+
+    public void setEvaluations(List<Evaluation> evaluations) {
+        this.evaluations = evaluations;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

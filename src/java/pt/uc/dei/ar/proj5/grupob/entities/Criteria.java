@@ -7,10 +7,14 @@
 package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -19,10 +23,22 @@ import javax.persistence.Id;
 @Entity
 public class Criteria implements Serializable {
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    @NotNull
+    @Size(min = 1, max = 50)
+    @Column(length = 50, nullable = false)
+    private String description;
+    
+    @ManyToOne
+    private Paj paj;
 
+    public Criteria() {
+    }
+    
     public Long getId() {
         return id;
     }
@@ -31,6 +47,23 @@ public class Criteria implements Serializable {
         this.id = id;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Paj getPaj() {
+        return paj;
+    }
+
+    public void setPaj(Paj paj) {
+        this.paj = paj;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;

@@ -11,6 +11,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -22,7 +25,22 @@ public class Evaluation implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    @ManyToOne
+    private Project project;
+    
+    @ManyToOne
+    private Student student;
+    
+    @OneToOne
+    private Criteria criteria;
+    
+    @NotNull
+    private Double note;
 
+    public Evaluation() {
+    }
+    
     public Long getId() {
         return id;
     }
@@ -31,6 +49,38 @@ public class Evaluation implements Serializable {
         this.id = id;
     }
 
+    public Project getProject() {
+        return project;
+    }
+
+    public void setProject(Project project) {
+        this.project = project;
+    }
+
+    public Student getStudent() {
+        return student;
+    }
+
+    public void setStudent(Student student) {
+        this.student = student;
+    }
+
+    public Criteria getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(Criteria criteria) {
+        this.criteria = criteria;
+    }
+
+    public Double getNote() {
+        return note;
+    }
+
+    public void setNote(Double note) {
+        this.note = note;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;

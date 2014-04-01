@@ -3,14 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  *
@@ -18,9 +19,35 @@ import javax.persistence.Id;
  */
 @Entity
 public class Student extends User implements Serializable {
-    private static final long serialVersionUID = 1L;
-   
 
+    private static final long serialVersionUID = 1L;
+    
+    @ManyToOne 
+    private Paj paj;
+    
+    @OneToMany (mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Evaluation> evaluations;
+
+    public Student() {
+    }
+    
+    public Paj getPaj() {
+        return paj;
+    }
+
+    public void setPaj(Paj paj) {
+        this.paj = paj;
+    }
+
+    public List<Evaluation> getEvaluations() {
+        return evaluations;
+    }
+
+    public void setEvaluations(List<Evaluation> evaluations) {
+        this.evaluations = evaluations;
+    }
+    
+    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -45,5 +72,5 @@ public class Student extends User implements Serializable {
     public String toString() {
         return "pt.uc.dei.ar.proj5.grupob.entities.Student[ id=" + id + " ]";
     }
-    
+
 }

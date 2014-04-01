@@ -3,14 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  *
@@ -18,10 +26,38 @@ import javax.persistence.Id;
  */
 @Entity
 public class Paj implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
+    @NotNull
+    @Size(min = 1, max = 150)
+    @Column(length = 150, nullable = false)
+    private String name;
+
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date yearEd;
+
+    @NotNull
+    @Column(nullable = false)
+    private Integer scaleMax;
+
+    @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Student> students;
+
+    @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Administrator> administrators;
+
+    @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Project> projects;
+
+    @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Criteria> criteria;
+
+    public Paj() {
+    }
 
     public Long getId() {
         return id;
@@ -29,6 +65,62 @@ public class Paj implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Date getYearEd() {
+        return yearEd;
+    }
+
+    public void setYearEd(Date yearEd) {
+        this.yearEd = yearEd;
+    }
+
+    public Integer getScaleMax() {
+        return scaleMax;
+    }
+
+    public void setScaleMax(Integer scaleMax) {
+        this.scaleMax = scaleMax;
+    }
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
+    public List<Administrator> getAdministrators() {
+        return administrators;
+    }
+
+    public void setAdministrators(List<Administrator> administrators) {
+        this.administrators = administrators;
+    }
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
+    public List<Criteria> getCriteria() {
+        return criteria;
+    }
+
+    public void setCriteria(List<Criteria> criteria) {
+        this.criteria = criteria;
     }
 
     @Override
@@ -55,5 +147,5 @@ public class Paj implements Serializable {
     public String toString() {
         return "pt.uc.dei.ar.proj5.grupob.entities.Paj[ id=" + id + " ]";
     }
-    
+
 }

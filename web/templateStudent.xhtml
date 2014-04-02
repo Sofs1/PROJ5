@@ -6,9 +6,6 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:body>
-
-    <h:body>
-
         <div id="top" align="right">
             <ui:insert name="top"><h:outputLabel value="Hi + name | "/>
                 <h:commandLink action="" value="Edit" />&nbsp;|&nbsp;
@@ -18,7 +15,8 @@
         </div>
         <div>
             <div id="left">
-                <ui:insert name="left"><h:commandButton value="OPEN PROJECTS" action=""/>
+                <ui:insert name="left">
+                    <h:commandButton value="OPEN PROJECTS" action=""/>
                     <br></br>
                     <h:commandButton value="CLOSED PROJECTS" action=""/>
                     <br></br>
@@ -26,45 +24,33 @@
                 </ui:insert>
             </div>
             <div id="content" class="left_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
-        </div>
-        <div id="bottom">
-            <ui:insert name="bottom">@Made By Sofia & Orlando</ui:insert>
-        </div>
-
-    </h:body>
-
-            <ui:define name="left">
-                <h:commandButton value="OPEN PROJECTS" action=""/>
-                <br></br>
-                <h:commandButton value="CLOSED PROJECTS" action=""/>
-                <br></br>
-                <h:commandButton value="REPORTS" action=""/>
-            </ui:define>
-
-            <ui:define name="content">
-                <h1>OPEN PROJECTS</h1>
-                <h:panelGrid columns="3">
-                    <h:panelGroup>
-                        <h:dataTable value="" var="proj" border="0" cellpadding="2" cellspacing="0">
-                            <h:column>
-                                <f:facet name="Projects name">
+                <ui:insert name="content">
+                    <h1>OPEN PROJECTS</h1>
+                    <h:panelGrid columns="3">
+                        
+                        <h:panelGroup>
+                            <h:dataTable value="" var="proj" border="0" cellpadding="2" cellspacing="0">
+                                <h:column>
+                                    <f:facet name="Projects name">
+                                        <h:outputText value="" title="Give your evaluation"/>
+                                    </f:facet>
                                     <h:outputText value=""/>
-                                </f:facet>
-                                <h:outputText value=""/>
-                            </h:column>
-                        </h:dataTable>
-                    </h:panelGroup>
-                    <h:panelGroup rendered="false">
-                        <h:dataTable value="" var="crit" border="0" cellpadding="2" cellspacing="0">
-                            <h:column>
-                                <f:facet name="Name of the Project">
-                                    <h:outputText value=""/>
-                                </f:facet>
-                                <h:inputText value=""/>
-                            </h:column>
-                        </h:dataTable>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="false">
+                            <h:dataTable value="" var="crit" border="0" cellpadding="2" cellspacing="0">
+                                <h:column>
+                                    <f:facet name="Name of the Project">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                    <h:inputText value=""/>
+                                </h:column>
+                            </h:dataTable>
+                            <h:commandButton value="SUBMIT" action=""></h:commandButton>
+                        </h:panelGroup>
+
                         <h:panelGroup rendered="false">
                             <h:dataTable value="" var="media" border="0" cellpadding="2" cellspacing="0">
                                 <h:column>
@@ -74,20 +60,16 @@
                                     <h:outputText value=""/>
                                 </h:column>
                             </h:dataTable>
+                            <h:outputLabel value="Your evaluation was submitted"
                         </h:panelGroup>
 
-
-
-
-
-                </h:panelGrid>
-
-
-
-            </ui:define>
-
-
-        </ui:composition>
+                    </h:panelGrid>
+                </ui:insert>
+            </div>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">@Made By Sofia & Orlando</ui:insert>
+        </div>
 
     </h:body>
 </html>

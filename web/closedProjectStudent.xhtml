@@ -1,0 +1,41 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./templateStudent.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1>CLOSED PROJECTS</h1>
+        <h:panelGrid columns="2">
+
+            <h:panelGroup>
+                <h:dataTable value="" var="proj" border="0" cellpadding="2" cellspacing="0">
+                    <h:column>
+                        <f:facet name="Projects name">
+                            <h:outputText value="" title="See your evaluation"/>
+                        </f:facet>
+                        <h:outputText value=""/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="false">
+                <h:dataTable value="" var="crit" border="0" cellpadding="2" cellspacing="0">
+                    <h:column>
+                        <f:facet name="Name of the Project">
+                            <h:outputText value=""/>
+                        </f:facet>
+                        <h:inputText value=""/>
+                    </h:column>
+                </h:dataTable>
+            </h:panelGroup>
+
+        </h:panelGrid>
+
+
+
+    </ui:define>
+
+
+</ui:composition>

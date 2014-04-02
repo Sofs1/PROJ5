@@ -15,7 +15,6 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -47,9 +46,6 @@ public class Paj implements Serializable {
 
     @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Student> students;
-
-    @ManyToMany(mappedBy = "pajs", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<Administrator> administrators;
 
     @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Project> projects;
@@ -98,14 +94,6 @@ public class Paj implements Serializable {
 
     public void setStudents(List<Student> students) {
         this.students = students;
-    }
-
-    public List<Administrator> getAdministrators() {
-        return administrators;
-    }
-
-    public void setAdministrators(List<Administrator> administrators) {
-        this.administrators = administrators;
     }
 
     public List<Project> getProjects() {

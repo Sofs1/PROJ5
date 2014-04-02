@@ -10,6 +10,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -21,16 +22,19 @@ import javax.persistence.OneToMany;
 public class Student extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    @ManyToOne 
+
+    @ManyToOne
     private Paj paj;
-    
-    @OneToMany (mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Evaluation> evaluations;
+
+    @ManyToMany
+    private List<Project> projects;
 
     public Student() {
     }
-    
+
     public Paj getPaj() {
         return paj;
     }
@@ -46,8 +50,15 @@ public class Student extends User implements Serializable {
     public void setEvaluations(List<Evaluation> evaluations) {
         this.evaluations = evaluations;
     }
-    
-    
+
+    public List<Project> getProjects() {
+        return projects;
+    }
+
+    public void setProjects(List<Project> projects) {
+        this.projects = projects;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;

@@ -1,42 +1,49 @@
-<?xml version='1.0' encoding='UTF-8' ?>
+<?xml version='1.0' encoding='UTF-8' ?> 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
 
-    <body>
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>SelfEvaluation</title>
+    </h:head>
 
-        <ui:composition template="./template.xhtml">
+    <h:body>
 
-            <ui:define name="top">
+        <div id="top" align="right">
+            <ui:insert name="top"><h:outputLabel value="Hi + name | "/>
                 <h:outputLabel value="Hi + name | "/>
                 <h:commandLink action="" value="Edit" />&nbsp;|&nbsp;
                 <h:commandLink action="" value="Delete" />&nbsp;|&nbsp;
                 <h:commandLink action="" value="Add administrator" />&nbsp;|&nbsp;
                 <h:commandLink action="" value="LOGOUT" />
-            </ui:define>
+            </ui:insert>
+        </div>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+                    <h:commandButton value="HOME [PAJs]" action=""/>
+                    <br></br>
+                    <h:commandButton value="PROJECTS" action=""/>
+                    <br></br>
+                    <h:commandButton value="CRITERIA" action=""/>
+                    <br></br>
+                    <h:commandButton value="USERS LIST" action=""/>
+                    <br></br>
+                    <h:commandButton value="REPORTS" action=""/>
+                </ui:insert>
+            </div>
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+        </div>
+        <div id="bottom">
+            <ui:insert name="bottom">@Made By Sofia & Orlando</ui:insert>
+        </div>
 
-            <ui:define name="left">
-               <h:commandButton value="HOME [PAJs]" action=""/>
-               <br></br>
-               <h:commandButton value="PROJECTS" action=""/>
-               <br></br>
-               <h:commandButton value="CRITERIA" action=""/>
-               <br></br>
-               <h:commandButton value="USERS LIST" action=""/>
-               <br></br>
-               <h:commandButton value="REPORTS" action=""/>
-            </ui:define>
+    </h:body>
 
-            <ui:define name="content">
-                content
-            </ui:define>
-
-            <ui:define name="bottom">
-                bottom
-            </ui:define>
-
-        </ui:composition>
-
-    </body>
 </html>

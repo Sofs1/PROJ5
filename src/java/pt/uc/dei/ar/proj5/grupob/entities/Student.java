@@ -31,7 +31,7 @@ public class Student extends User implements Serializable {
     private List<Evaluation> evaluations;
     
     @OneToMany
-    private Log log;
+    private List<Log> log;
 
     @ManyToMany
     private List<Project> projects;
@@ -47,18 +47,15 @@ public class Student extends User implements Serializable {
         this.paj = paj;
     }
 
-    public Log getLog() {
+    public List<Log> getLog() {
         return log;
     }
 
-    public void setLog(Log log) {
+    public void setLog(List<Log> log) {
         this.log = log;
     }
-    
-    
-    
 
-    public List<Evaluation> getEvaluations() {
+   public List<Evaluation> getEvaluations() {
         return evaluations;
     }
 

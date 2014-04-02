@@ -27,6 +27,9 @@ public class Student extends User implements Serializable {
     
     @OneToMany (mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Evaluation> evaluations;
+    
+    @OneToMany
+    private Log log;
 
     public Student() {
     }
@@ -38,6 +41,17 @@ public class Student extends User implements Serializable {
     public void setPaj(Paj paj) {
         this.paj = paj;
     }
+
+    public Log getLog() {
+        return log;
+    }
+
+    public void setLog(Log log) {
+        this.log = log;
+    }
+    
+    
+    
 
     public List<Evaluation> getEvaluations() {
         return evaluations;

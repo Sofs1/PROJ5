@@ -29,7 +29,6 @@ public class Log implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     
-
     @NotNull
     @Size(min = 1, max = 150)
     @Column(length = 150, nullable = false)

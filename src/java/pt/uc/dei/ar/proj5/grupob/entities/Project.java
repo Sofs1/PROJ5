@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
@@ -29,31 +28,35 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class Project implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @NotNull
     @Size(min = 1, max = 150)
     @Column(length = 150, nullable = false)
     private String name;
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date begDate;
-    
+
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
-    
+
     @ManyToOne
     private Paj paj;
-    
-    @OneToMany (mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+
+    @OneToMany(mappedBy = "project", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Evaluation> evaluations;
+
+    @ManyToMany(mappedBy = "projects")
+    private List<Student> students;
 
     public Project() {
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -101,8 +104,15 @@ public class Project implements Serializable {
     public void setEvaluations(List<Evaluation> evaluations) {
         this.evaluations = evaluations;
     }
-    
-    
+
+    public List<Student> getStudents() {
+        return students;
+    }
+
+    public void setStudents(List<Student> students) {
+        this.students = students;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -127,5 +137,5 @@ public class Project implements Serializable {
     public String toString() {
         return "pt.uc.dei.ar.proj5.grupob.entities.Project[ id=" + id + " ]";
     }
-    
+
 }

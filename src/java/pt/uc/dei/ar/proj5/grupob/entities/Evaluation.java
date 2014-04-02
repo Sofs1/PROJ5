@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -21,28 +19,29 @@ import javax.validation.constraints.NotNull;
  */
 @Entity
 public class Evaluation implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @ManyToOne
     private Project project;
-    
+
     @ManyToOne
     private Student student;
-    
-    @OneToOne
+
+    @ManyToOne
     private Criteria criteria;
     
-    private int num;
+    private int nume;
     
     @NotNull
     private Double note;
 
     public Evaluation() {
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -82,7 +81,7 @@ public class Evaluation implements Serializable {
     public void setNote(Double note) {
         this.note = note;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -107,5 +106,5 @@ public class Evaluation implements Serializable {
     public String toString() {
         return "pt.uc.dei.ar.proj5.grupob.entities.Evaluation[ id=" + id + " ]";
     }
-    
+
 }

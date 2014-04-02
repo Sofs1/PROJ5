@@ -6,9 +6,7 @@
 package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 
 /**
  *
@@ -18,22 +16,11 @@ import javax.persistence.ManyToMany;
 public class Administrator extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
-    @ManyToMany 
-    private List<Paj> pajs;
 
     public Administrator() {
     }
 
-    public List<Paj> getPajs() {
-        return pajs;
-    }
-
-    public void setPajs(List<Paj> pajs) {
-        this.pajs = pajs;
-    }
-    
-        @Override
+    @Override
     public int hashCode() {
         int hash = 0;
         hash += (id != null ? id.hashCode() : 0);

@@ -33,9 +33,7 @@ public class Evaluation implements Serializable {
 
     @ManyToOne
     private Criteria criteria;
-    
-    private int nume;
-    
+        
     @NotNull
     private Double note;
 

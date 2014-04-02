@@ -7,12 +7,17 @@ package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author sofia
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Administrator.findByEmail", query = "SELECT u FROM Administrator u WHERE u.email = :email")
+})
 public class Administrator extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;

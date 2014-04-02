@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:body>
+
+        <ui:composition template="./templateAdmin.xhtml">
+
+            <ui:define name="content">
+                <h1>Administrator Sign Up</h1>
+
+                <table border="0" align="center" >
+                    <tr>
+                        <td><h:outputLabel value="NAME"  /></td>
+                        <td><h:inputText title="name" value="" required="true" requiredMessage="The name field is required"></h:inputText></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="EMAIL"/></td>
+                        <td>
+                            <h:inputText value=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="PASSWORD" /></td>
+                        <td><h:inputSecret value="" required="true" requiredMessage="Password field is required"/></td>
+                    </tr>
+                    <tr>
+                        <td><h:outputLabel value="CONFIRM PASS" /></td>
+                        <td><h:inputSecret value="" required="true" requiredMessage="Confirm password"/></td>
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td><h:commandButton value="SAVE" action=""/>
+                            <h:commandButton immediate="true" value="CANCEL" action="index"/></td>
+
+                    </tr>
+                    <tr>
+                        <td></td>
+                        <td colspan="2" ><h:messages style="color:#ff0000"/></td></tr>
+                    <td><h:outputLabel  style="color:#ff0000" value="" /></td>
+
+
+                </table>
+
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </h:body>
+</html>

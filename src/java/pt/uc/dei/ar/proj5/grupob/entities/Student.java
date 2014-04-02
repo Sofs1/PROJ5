@@ -13,6 +13,8 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
@@ -20,6 +22,9 @@ import javax.persistence.OneToMany;
  * @author sofia
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Student.findByEmail", query = "SELECT u FROM Student u WHERE u.email = :email")
+})
 public class Student extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;

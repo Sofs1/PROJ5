@@ -150,6 +150,17 @@ public class UserController {
             return "index";
         }
     }
+    
+    public String searchAdmin() {
+        try {
+            userEJB.setUser(adminFacade.searchAdmin(user.getEmail(), user.getPass()));
+            return "adminLandingPage";
+        } catch (NotRegistedEmailException | PasswordException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            erro = ex.getMessage();
+            return "adminLogin";
+        }
+    }
 
     public List<Paj> listAllPajs() {
         return pajFacade.findAll();

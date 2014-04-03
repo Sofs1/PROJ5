@@ -7,8 +7,10 @@ package pt.uc.dei.ar.proj5.grupob.controllers;
 
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
+import pt.uc.dei.ar.proj5.grupob.facades.PajFacade;
 
 /**
  *
@@ -19,9 +21,16 @@ import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 public class PajController {
 
     private Paj paj;
+    @Inject
+    private PajFacade pajFacade;
 
     public PajController() {
     }
+    
+//    @PostConstruct
+//    public void initPajController() {
+//        this.paj = new Paj();
+//    }
 
     public Paj getPaj() {
         return paj;
@@ -30,12 +39,23 @@ public class PajController {
     public void setPaj(Paj paj) {
         this.paj = paj;
     }
-    
-    
 
-    @PostConstruct
-    public void initPajController() {
-        this.paj = new Paj();
+    public PajFacade getPajFacade() {
+        return pajFacade;
     }
 
+    public void setPajFacade(PajFacade pajFacade) {
+        this.pajFacade = pajFacade;
+    }
+    
+    public String createPaj(){
+        pajFacade.create(paj);
+        return "adminLandingPage";
+    }
+    
+    public void removepaj(){
+        
+    }
+            
+            
 }

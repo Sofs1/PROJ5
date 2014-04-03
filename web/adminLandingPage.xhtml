@@ -3,7 +3,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:body>
 
@@ -11,32 +12,39 @@
 
             <ui:define name="content">
                 <h1>All PAJ Editions</h1>
-                <h:messages style="color:#ff0000"/>
-                <h:dataTable value="" var="paj" border="0" cellpadding="2" cellspacing="0">
-                    <h:column>
-                        <f:facet name="header" class="dataTableTitle">PAJ ID</f:facet>
-                            #{paj.id}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header" class="dataTableTitle">PAJ Name</f:facet>
-                            #{paj.name}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header" class="dataTableTitle">PAJ Year</f:facet>
-                            #{paj.id}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header" class="dataTableTitle">PAJ Size</f:facet>
-                            #{paj.id}
-                    </h:column>
-                    <h:column>
-                        <h:commandButton type="submit" value="Remove" action="#{#}" >
-                            <f:setPropertyActionListener target="#{#}" value="#{paj}" />
-                        </h:commandButton>
-                    </h:column>
-                </h:dataTable>
-                <h:commandButton type="submit" value="Add PAJ" action="#{#}" />
+
+                <h:form>
+                    <h:dataTable value="#{userController.listAllPajs()}" var="paj" border="0" cellpadding="2" cellspacing="0">
+                        <h:column>
+                            <f:facet name="header" class="dataTableTitle">PAJ ID</f:facet>
+                                #{paj.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header" class="dataTableTitle">PAJ Name</f:facet>
+                                #{paj.name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header" class="dataTableTitle">PAJ Year</f:facet>
+                                #{paj.id}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header" class="dataTableTitle">PAJ Size</f:facet>
+                                #{paj.id}
+                        </h:column>
+                        <h:column>
+                            <h:commandButton type="submit" value="Remove" action="#{pajController.removepaj()}" >
+                                <f:setPropertyActionListener target="#{pajController.removepaj()}" value="#{paj}" />
+                            </h:commandButton>
+                        </h:column>
+                    </h:dataTable>
+                    <h:messages style="color:#ff0000"/>
+                    <h:commandButton type="submit" value="Add PAJ" onclick="PF('dlg2').show();" />
+                    <p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">  
+                        <h:inputText value="#{pajController.paj.name}"/>  
+                    </p:dialog> 
+                </h:form>
             </ui:define>
+
 
         </ui:composition>
 

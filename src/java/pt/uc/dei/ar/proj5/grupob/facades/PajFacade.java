@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ar.proj5.grupob.facades;
 
 import javax.ejb.Stateless;
@@ -17,6 +16,7 @@ import pt.uc.dei.ar.proj5.grupob.entities.Paj;
  */
 @Stateless
 public class PajFacade extends AbstractFacade<Paj> {
+
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
 
@@ -28,5 +28,5 @@ public class PajFacade extends AbstractFacade<Paj> {
     public PajFacade() {
         super(Paj.class);
     }
-    
+
 }

@@ -22,14 +22,14 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><h:commandButton  value="Log In" action="#{userController.searchLogged()}"/></td>
+                        <td><h:commandButton  value="Log In" action="#{userController.searchAdmin()}"/></td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <h:outputLabel id="erro"  style="color:#ff0000" value=""/>
                         </td>
                     </tr>
-
+                    <h:outputLabel value="#{userController.erro}"></h:outputLabel>
                 </table>
             </h:form>
         </div>

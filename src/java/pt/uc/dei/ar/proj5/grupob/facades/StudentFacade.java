@@ -66,7 +66,7 @@ public class StudentFacade extends AbstractFacade<Student> {
         } else if (!user.getPass().equals(passConf)) {
             throw new PasswordException();
         } else {
-            String passEncripted = Encrypt.encryptWithMD5(user.getPass());
+            String passEncripted = Encrypt.cryptWithMD5(user.getPass());
             user.setPass(passEncripted);
             getEntityManager().persist(user);
         }
@@ -83,7 +83,7 @@ public class StudentFacade extends AbstractFacade<Student> {
      */
     public User searchStudent(String email, String password) throws NotRegistedEmailException, PasswordException {
         User studTemp = getStudentbyEmail(email);
-        String passEncripted = Encrypt.encryptWithMD5(studTemp.getPass());
+        String passEncripted = Encrypt.cryptWithMD5(studTemp.getPass());
         if (studTemp == null) {
             throw new NotRegistedEmailException();
         } else if (!studTemp.getPass().equals(passEncripted)) {

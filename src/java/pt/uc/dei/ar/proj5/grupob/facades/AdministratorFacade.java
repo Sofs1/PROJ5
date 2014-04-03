@@ -56,7 +56,7 @@ public class AdministratorFacade extends AbstractFacade<Administrator> {
      */
     public User searchAdmin(String email, String password) throws NotRegistedEmailException, PasswordException {
         User adminTemp = getAdminbyEmail(email);
-        String passEncripted = Encrypt.encryptWithMD5(adminTemp.getPass());
+        String passEncripted = Encrypt.cryptWithMD5(password);
         if (adminTemp == null) {
             throw new NotRegistedEmailException();
         } else if (!adminTemp.getPass().equals(passEncripted)) {

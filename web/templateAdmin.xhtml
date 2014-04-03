@@ -18,8 +18,8 @@
                 <h:outputLabel value="Hi #{userEJB.user.name} | "/>
                 <h:commandLink action="#{userController.editUser()}" value="Edit" />&nbsp;|&nbsp;
                 <h:commandLink action="#{userController.removeUser()}" value="Delete" />&nbsp;|&nbsp;
-                <h:commandLink action="#{userController.editUser()}" value="Add administrator" />&nbsp;|&nbsp;
-                <h:commandLink action="#{userController.editUser()}" value="LOGOUT" />
+                <h:commandLink action="adminSignup" value="Add administrator" />&nbsp;|&nbsp;
+                <h:commandLink action="#{userController.logout()}" value="LOGOUT" />
             </ui:insert>
         </div>
         <div>
@@ -27,13 +27,13 @@
                 <ui:insert name="left">
                     <h:commandButton value="HOME [PAJs]" action="templateAdmin"/>
                     <br></br>
-                    <h:commandButton value="PROJECTS" action="" disabled="#{empty userEJB.pajSelected}" />
+                    <h:commandButton value="PROJECTS"  disabled="#{empty userEJB.pajSelected}" />
                     <br></br>
-                    <h:commandButton value="CRITERIA" action="" disabled="#{empty userEJB.pajSelected}"/>
+                    <h:commandButton value="CRITERIA" disabled="#{empty userEJB.pajSelected}"/>
                     <br></br>
-                    <h:commandButton value="USERS LIST" action="" disabled="#{empty userEJB.pajSelected}"/>
+                    <h:commandButton value="USERS LIST" disabled="#{empty userEJB.pajSelected}"/>
                     <br></br>
-                    <h:commandButton value="REPORTS" action="" disabled="#{empty userEJB.pajSelected}"/>
+                    <h:commandButton value="REPORTS"  disabled="#{empty userEJB.pajSelected}"/>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">

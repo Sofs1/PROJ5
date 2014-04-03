@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title>Sign Up</title>
     </h:head>
@@ -15,21 +16,21 @@
                         <td colspan="2"  ><h2> SIGN UP SELF EVALUATION</h2></td></tr>
                     <tr>
                         <td><h:outputLabel value="NAME"  /></td>
-                        <td><h:inputText title="name" value="#{userController.student.name}" required="true" requiredMessage="The name field is required"></h:inputText></td>
+                        <td><p:inputText title="name" value="#{userController.student.name}" required="true" requiredMessage="The name field is required"></p:inputText></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="EMAIL"/></td>
                         <td>
-                            <h:inputText value="#{userController.student.email}"/>
+                            <p:inputText value="#{userController.student.email}"/>
                         </td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="PASSWORD" /></td>
-                        <td><h:inputSecret value="#{userController.student.pass}" required="true" requiredMessage="Password field is required"/></td>
+                        <td><p:password value="#{userController.student.pass}" required="true" requiredMessage="Password field is required" feedback="true"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="CONFIRM PASS" /></td>
-                        <td><h:inputSecret value="#{userController.passConf}" required="true" requiredMessage="Confirm password"/></td>
+                        <td><p:password value="#{userController.passConf}" required="true" requiredMessage="Confirm password"/></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -41,7 +42,7 @@
                         <td></td>
                         <td>
                             <h:selectOneMenu   value="#{userController.selectedPaj}" required="true" requiredMessage="You need to choose a PAJ edition" >
-                                <f:selectItems value="#{userController.listAllPajs}" />                  
+                                <f:selectItems value="#{userController.listAllPajs()}" />                  
                             </h:selectOneMenu >
                         </td>
                     </tr>

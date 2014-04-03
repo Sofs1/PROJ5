@@ -11,26 +11,27 @@
         <div align="center">
 
             <h:form>
+                <!--                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/> -->
                 <table border="0" align="center" >
                     <tr>
                         <td colspan="2"  ><h2> SIGN UP SELF EVALUATION</h2></td></tr>
                     <tr>
                         <td><h:outputLabel value="NAME"  /></td>
-                        <td><p:inputText title="name" value="#{userController.student.name}" required="true" requiredMessage="The name field is required"></p:inputText></td>
+                        <td><p:inputText id="n" title="name" value="#{userController.student.name}" required="true" requiredMessage="The name field is required"></p:inputText></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="EMAIL"/></td>
                         <td>
-                            <p:inputText value="#{userController.student.email}"/>
+                            <p:inputText id="mail" value="#{userController.student.email}" required="true"/>
                         </td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="PASSWORD" /></td>
-                        <td><p:password value="#{userController.student.pass}" required="true" requiredMessage="Password field is required" feedback="true"/></td>
+                        <td><p:password id="pass1" value="#{userController.student.pass}" label="Password" match="pass2" required="true" requiredMessage="Password field is required" feedback="true"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="CONFIRM PASS" /></td>
-                        <td><p:password value="#{userController.passConf}" required="true" requiredMessage="Confirm password"/></td>
+                        <td><p:password id="pass2" value="#{userController.passConf}" label="Confirmation Pass" required="true" requiredMessage="Confirm password"/></td>
                     </tr>
                     <tr>
                         <td></td>
@@ -46,8 +47,17 @@
                             </h:selectOneMenu >
                         </td>
                     </tr>
+
+                    <tr>
+                        <td colspan="2"  >
+                            <p:message for="n" />
+                            <p:message for="mail" />
+                            <p:message for="pass1" />
+                            <p:message for="pass2" />
+
+                        </td>
+                    </tr>
                 </table>
-                <h:messages style="color:#ff0000"/>
                 <h:outputLabel  style="color:#ff0000" value="" />
             </h:form>
         </div>

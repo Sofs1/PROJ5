@@ -17,6 +17,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -37,8 +38,9 @@ public class Paj implements Serializable {
     @Column(length = 150, nullable = false)
     private String name;
 
-    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
-    private Date yearEd;
+    @NotNull
+    @Column(nullable= false) 
+    private int yearEd;
 
     @NotNull
     @Column(nullable = false)
@@ -72,11 +74,11 @@ public class Paj implements Serializable {
         this.name = name;
     }
 
-    public Date getYearEd() {
+    public int getYearEd() {
         return yearEd;
     }
 
-    public void setYearEd(Date yearEd) {
+    public void setYearEd(int yearEd) {
         this.yearEd = yearEd;
     }
 

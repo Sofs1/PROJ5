@@ -27,10 +27,10 @@ public class PajController {
     public PajController() {
     }
     
-//    @PostConstruct
-//    public void initPajController() {
-//        this.paj = new Paj();
-//    }
+    @PostConstruct
+    public void initPajController() {
+        this.paj = new Paj();
+    }
 
     public Paj getPaj() {
         return paj;

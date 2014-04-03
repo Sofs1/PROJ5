@@ -38,11 +38,16 @@
                         </h:column>
                     </h:dataTable>
                     <h:messages style="color:#ff0000"/>
-                    <h:commandButton type="submit" value="Add PAJ" onclick="PF('dlg2').show();" />
-                    <p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">  
-                        <h:inputText value="#{pajController.paj.name}"/>  
-                    </p:dialog> 
+                    <h:commandButton type="button" value="Add PAJ" onclick="PF('dlg2').show();" />
                 </h:form>
+                <p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">
+                    <h:form>
+                        <h:inputText value="#{pajController.paj.name}"/>  
+                        <h:inputText value="#{pajController.paj.yearEd}" required="true" requiredMessage="Year required"/>
+                        <h:commandButton value="SAVE" action="#{pajController.createPaj()}"></h:commandButton>
+                    </h:form>
+                </p:dialog> 
+
             </ui:define>
 
 

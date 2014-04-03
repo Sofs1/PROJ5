@@ -12,10 +12,8 @@
             <h:panelGroup>
                 <h:dataTable value="" var="proj" border="0" cellpadding="2" cellspacing="0">
                     <h:column>
-                        <f:facet name="Projects name">
-                            <h:outputText value="" title="See your evaluation"/>
-                        </f:facet>
-                        <h:outputText value=""/>
+                        <f:facet name="Projects name">Project Name</f:facet>
+                        <h:outputText value="" title="See evaluation"/>
                     </h:column>
                 </h:dataTable>
             </h:panelGroup>
@@ -23,10 +21,12 @@
             <h:panelGroup rendered="false">
                 <h:dataTable value="" var="crit" border="0" cellpadding="2" cellspacing="0">
                     <h:column>
-                        <f:facet name="Name of the Project">
-                            <h:outputText value=""/>
-                        </f:facet>
-                        <h:inputText value=""/>
+                        <f:facet name="Evaluation">Criteria</f:facet>
+                        <h:outputText value="" />
+                    </h:column>
+                    <h:column>
+                        <f:facet name="Classification">Classification</f:facet>
+                        <h:outputText value="" />
                     </h:column>
                 </h:dataTable>
             </h:panelGroup>

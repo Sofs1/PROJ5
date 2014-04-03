@@ -43,6 +43,9 @@ public class User {
     protected String pass;
 
     
+    public User() {
+    }
+    
     public Integer getId() {
         return id;
     }

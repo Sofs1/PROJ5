@@ -5,7 +5,8 @@
  */
 package pt.uc.dei.ar.proj5.grupob.ejbs;
 
-import javax.ejb.Stateless;
+import javax.ejb.Stateful;
+import javax.enterprise.context.SessionScoped;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -21,16 +22,28 @@ import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
  *
  * @author sofia
  */
-@Stateless
-public class userEJB {
+@Stateful
+@SessionScoped
+public class UserEJB {
 
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
+    
+    private User user;
 
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    
+    
     /**
      * search the user with the given email
      *

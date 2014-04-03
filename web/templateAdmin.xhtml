@@ -17,8 +17,6 @@
             <ui:insert name="top">
                 <h:form>
                     <h:outputLabel value="Hi #{userEJB.user.name} | "/>
-                    <h:commandLink action="#{userController.editUser()}" value="Edit" />&nbsp;|&nbsp;
-                    <h:commandLink action="#{userController.removeUser()}" value="Delete" />&nbsp;|&nbsp;
                     <h:commandLink action="adminSignup" value="Add administrator" />&nbsp;|&nbsp;
                     <h:commandLink action="#{userController.logout()}" value="LOGOUT" />
                 </h:form>

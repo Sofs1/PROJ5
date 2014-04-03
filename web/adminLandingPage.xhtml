@@ -16,20 +16,16 @@
                 <h:form>
                     <h:dataTable value="#{userController.listAllPajs()}" var="paj" border="0" cellpadding="2" cellspacing="0">
                         <h:column>
-                            <f:facet name="header" class="dataTableTitle">PAJ ID</f:facet>
-                                #{paj.id}
-                        </h:column>
-                        <h:column>
                             <f:facet name="header" class="dataTableTitle">PAJ Name</f:facet>
                                 #{paj.name}
                         </h:column>
                         <h:column>
                             <f:facet name="header" class="dataTableTitle">PAJ Year</f:facet>
-                                #{paj.id}
+                                #{paj.yearEd}
                         </h:column>
                         <h:column>
                             <f:facet name="header" class="dataTableTitle">PAJ Size</f:facet>
-                                #{paj.id}
+                                #{paj.projects.size()}
                         </h:column>
                         <h:column>
                             <h:commandButton type="submit" value="Remove" action="#{pajController.removepaj()}" >
@@ -40,11 +36,28 @@
                     <h:messages style="color:#ff0000"/>
                     <h:commandButton type="button" value="Add PAJ" onclick="PF('dlg2').show();" />
                 </h:form>
-                <p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">
+                <p:dialog id="modalDialog" header="Create Paj Edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
                     <h:form>
-                        <h:inputText value="#{pajController.paj.name}"/>  
-                        <h:inputText value="#{pajController.paj.yearEd}" required="true" requiredMessage="Year required"/>
-                        <h:commandButton value="SAVE" action="#{pajController.createPaj()}"></h:commandButton>
+                        <table>
+                            <tr>
+                                <td><h:outputLabel value="Name"/></td>
+                                <td><h:inputText value="#{pajController.paj.name}"/></td>
+                            </tr>
+                            <tr>
+                                <td><h:outputLabel value="Year"/></td>
+                                <td><h:inputText value="#{pajController.paj.yearEd}" required="true" requiredMessage="Year required"/></td>
+                            </tr>
+                            <tr>
+                                <td><h:outputLabel value="Scale"/></td>
+                                <td><h:inputText value="#{pajController.paj.scaleMax}" required="true" requiredMessage="Scale required"/></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><h:commandButton value="SAVE" action="#{pajController.createPaj()}"></h:commandButton></td>
+                            </tr>
+                        </table>
+
+
                     </h:form>
                 </p:dialog> 
 

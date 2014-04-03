@@ -16,7 +16,9 @@ import pt.uc.dei.ar.proj5.grupob.ejbs.UserEJB;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.entities.User;
+import pt.uc.dei.ar.proj5.grupob.facades.AdministratorFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.PajFacade;
+import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 import pt.uc.dei.ar.proj5.grupob.util.DuplicateEmailException;
 import pt.uc.dei.ar.proj5.grupob.util.NotRegistedEmailException;
 import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
@@ -31,6 +33,10 @@ public class UserController {
 
     @Inject
     private PajFacade pajFacade;
+    @Inject
+    private StudentFacade studentFacade;
+    @Inject
+    private AdministratorFacade adminFacade;
     @Inject
     private UserEJB userEJB;
     private String passConf;
@@ -107,9 +113,25 @@ public class UserController {
         this.pajFacade = pajFacade;
     }
 
+    public StudentFacade getStudentFacade() {
+        return studentFacade;
+    }
+
+    public void setStudentFacade(StudentFacade studentFacade) {
+        this.studentFacade = studentFacade;
+    }
+
+    public AdministratorFacade getAdminFacade() {
+        return adminFacade;
+    }
+
+    public void setAdminFacade(AdministratorFacade adminFacade) {
+        this.adminFacade = adminFacade;
+    }
+
     public String createStudent() {
         try {
-            userEJB.createStudent(student, passConf);
+            studentFacade.createStudent(student, passConf);
             return "index";
         } catch (PasswordException | DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -120,7 +142,7 @@ public class UserController {
 
     public String searchLogged() {
         try {
-            userEJB.setUser(userEJB.searchLogged(user.getEmail(), user.getPass()));
+            userEJB.setUser(studentFacade.searchStudent(user.getEmail(), user.getPass()));
             return "templateStudent";
         } catch (NotRegistedEmailException | PasswordException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
@@ -128,8 +150,8 @@ public class UserController {
             return "index";
         }
     }
-    
-    public List<Paj> listAllPajs(){
+
+    public List<Paj> listAllPajs() {
         return pajFacade.findAll();
     }
 

@@ -32,19 +32,20 @@
                         <td><h:inputSecret value="#{userController.passConf}" required="true" requiredMessage="Confirm password"/></td>
                     </tr>
                     <tr>
+                        <td><h:outputLabel value="PAJ EDITION" /></td>
+                        <td>
+                            <h:selectOneMenu   value="#{userController.selectedPaj}" required="true" requiredMessage="You need to choose a PAJ edition" >
+                                <f:selectItems value="#{userController.listAllPajs()}" />                  
+                            </h:selectOneMenu >
+                        </td>
+                    </tr>
+                    <tr>
                         <td></td>
                         <td><h:commandButton value="SAVE" action="#{userController.createStudent()}"/>
                             <h:commandButton immediate="true" value="CANCEL" action="index"/></td>
 
                     </tr>
-                    <tr>
-                        <td></td>
-                        <td>
-                            <h:selectOneMenu   value="#{userController.selectedPaj}" required="true" requiredMessage="You need to choose a PAJ edition" >
-                                <f:selectItems value="#{userController.listAllPajs}" />                  
-                            </h:selectOneMenu >
-                        </td>
-                    </tr>
+
                 </table>
                 <h:messages style="color:#ff0000"/>
                 <h:outputLabel  style="color:#ff0000" value="" />

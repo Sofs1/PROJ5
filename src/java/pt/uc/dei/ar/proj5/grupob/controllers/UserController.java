@@ -154,5 +154,18 @@ public class UserController {
     public List<Paj> listAllPajs() {
         return pajFacade.findAll();
     }
+    
+    public void editUser(){
+        
+    }
+    
+    public void removeUser(){
+        
+    }
+    
+     public void logout(){
+        
+    }
+
 
 }

@@ -35,8 +35,8 @@
                         #{project.evaluations.size()}
                 </h:column>
                 <h:column>
-                    <h:commandButton type="submit" value="Remove" action="#{#}" >
-                        <f:setPropertyActionListener target="#{#}" value="#{paj}" />
+                    <h:commandButton type="submit" value="Remove" action="#{projectController.removeProject()}" >
+                        <f:setPropertyActionListener target="#{projectController.projectSelected}" value="#{paj}" />
                     </h:commandButton>
                 </h:column>
             </h:dataTable>

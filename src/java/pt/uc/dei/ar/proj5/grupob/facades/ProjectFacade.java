@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
+import pt.uc.dei.ar.proj5.grupob.util.ExistEvaluationOnProjectException;
 
 /**
  *
@@ -39,6 +40,18 @@ public class ProjectFacade extends AbstractFacade<Project> {
         p.setPaj(paj);
         this.create(p);
         pajFacade.edit(paj);
+    }
+    
+    public void removeProject(Project p) throws ExistEvaluationOnProjectException {
+        
+        if (!p.getEvaluations().isEmpty()) {
+            
+            throw new ExistEvaluationOnProjectException();
+        } else {
+            
+            this.remove(p);
+        }
+        
     }
     
 }

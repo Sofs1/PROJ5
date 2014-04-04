@@ -18,7 +18,7 @@
                 <h:form>
                     <h:outputLabel value="Hi #{userEJB.user.name} | "/>
                     <h:commandLink action="adminSignup" value="Add administrator" />&nbsp;|&nbsp;
-                    <h:commandLink action="#{userController.logout()}" value="LOGOUT" />
+                    <h:commandLink action="#{userController.logoutAdm()}" value="LOGOUT" />
                 </h:form>
             </ui:insert>
         </div>

@@ -102,18 +102,18 @@ public class StudentFacade extends AbstractFacade<Student> {
      * @throws PasswordException
      * @throws DuplicateEmailException
      */
-//    public void editUserFacade(User user, String passConf, String email) throws PasswordException, DuplicateEmailException {
-//        User studTemp = getUserbyEmail(email);
-//        if (!user.getPass().equals(passConf)) {
-//            throw new PasswordException();
-//        } else {
-//            if (studTemp == null || studTemp.getId() == user.getId()) {
-//                String passEncripted = Encrypt.encryptWithMD5(user.getPass());
-//                user.setPass(passEncripted);
-//                getEntityManager().merge(user);
-//            } else {
-//                throw new DuplicateEmailException();
-//            }
-//        }
-//    }
+    public void editStudentFacade(User user, String passConf, String email) throws PasswordException, DuplicateEmailException {
+        User studTemp = getStudentbyEmail(email);
+        if (!user.getPass().equals(passConf)) {
+            throw new PasswordException();
+        } else {
+            if (studTemp == null || studTemp.getId() == user.getId()) {
+                String passEncripted = Encrypt.cryptWithMD5(user.getPass());
+                user.setPass(passEncripted);
+                getEntityManager().merge(user);
+            } else {
+                throw new DuplicateEmailException();
+            }
+        }
+    }
 }

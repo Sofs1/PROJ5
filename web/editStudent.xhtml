@@ -1,16 +1,12 @@
 <?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Sign Up</title>
-    </h:head>
-    <h:body>
-        <div align="center">
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./templateStudent.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:p="http://primefaces.org/ui">
 
-            <h:form>
+    <ui:define name="content">
+        <h:form>
                 <table border="0" align="center" >
                     <tr>
                         <td colspan="2"  ><h2> SIGN UP SELF EVALUATION</h2></td></tr>
@@ -33,18 +29,8 @@
                         <td><p:password id="pass2" value="#{userController.passConf}" label="Confirmation Pass" required="true" requiredMessage="Confirm password"/></td>
                     </tr>
                     <tr>
-                        <td><h:outputLabel value="PAJ EDITION" /></td>
-                        <td>
-                            <h:selectOneMenu  value="#{userController.selectedPaj}">
-                                <f:selectItems value="#{userController.listAllPajs()}" var="paj" itemLabel="#{paj.name}" />
-                            </h:selectOneMenu >
-
-
-                        </td>
-                    </tr>
-                    <tr>
                         <td></td>
-                        <td><h:commandButton value="SAVE" action="#{userController.createStudent()}"/>
+                        <td><h:commandButton value="SAVE" action="#{userController.editStudent()}"/>
                             <h:commandButton immediate="true" value="CANCEL" action="index"/></td>
 
                     </tr>
@@ -60,9 +46,6 @@
                     </tr>
                 </table>
             </h:form>
-        </div>
+    </ui:define>
 
-    </h:body>
-
-</html>
-
+</ui:composition>

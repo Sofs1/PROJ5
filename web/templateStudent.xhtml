@@ -7,20 +7,21 @@
 
     <h:body>
         <div id="top" align="right">
-            <ui:insert name="top"><h:outputLabel value="Hi + name | "/>
-                <h:commandLink action="" value="Edit" />&nbsp;|&nbsp;
+            <ui:insert name="top">
+                <h:outputLabel value="Hi #{userEJB.user.name} | "/>
+                <h:commandLink action="editStudent" value="Edit" />&nbsp;|&nbsp;
                 <h:commandLink action="" value="Delete" />&nbsp;|&nbsp;
-                <h:commandLink action="" value="LOGOUT" />
+                <h:commandLink action="#{userController.logoutStud()}" value="LOGOUT" />
             </ui:insert>
         </div>
         <div>
             <div id="left">
                 <ui:insert name="left">
-                    <h:commandButton value="OPEN PROJECTS" action=""/>
+                    <h:commandButton value="OPEN PROJECTS" action="templateStudent"/>
                     <br></br>
-                    <h:commandButton value="CLOSED PROJECTS" action=""/>
+                    <h:commandButton value="CLOSED PROJECTS" action="closedProjectStudent"/>
                     <br></br>
-                    <h:commandButton value="REPORTS" action=""/>
+                    <h:commandButton value="REPORTS" action="reportsStudent"/>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">

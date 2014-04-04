@@ -28,13 +28,13 @@
                     <h:form>
                         <h:commandButton value="HOME [PAJs]" action="adminLandingPage"/>
                         <br></br>
-                        <h:commandButton value="PROJECTS" disabled="#{empty userEJB.pajSelected}" />
+                        <h:commandButton value="PROJECTS" disabled="#{empty userEJB.pajSelected}" action="adminProjects"/>
                         <br></br>
-                        <h:commandButton value="CRITERIA" disabled="#{empty userEJB.pajSelected}"/>
+                        <h:commandButton value="CRITERIA" disabled="#{empty userEJB.pajSelected}" action="setCriteriaView"/>
                         <br></br>
-                        <h:commandButton value="USERS LIST" disabled="#{empty userEJB.pajSelected}"/>
+                        <h:commandButton value="USERS LIST" disabled="#{empty userEJB.pajSelected}" action="usersListAdmin"/>
                         <br></br>
-                        <h:commandButton value="REPORTS"  disabled="#{empty userEJB.pajSelected}"/>
+                        <h:commandButton value="REPORTS"  disabled="#{empty userEJB.pajSelected}" action="setCriteriaView"/>
                     </h:form>
                 </ui:insert>
             </div>

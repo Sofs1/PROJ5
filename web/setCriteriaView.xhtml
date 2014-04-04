@@ -2,17 +2,32 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:body>
-
         <ui:composition template="./templateAdmin.xhtml">
-
             <ui:define name="content">
                 <h1>Criteria</h1>
+                <h:form>
+                    <br></br>
+                    <h:inputText value="#{pajController.criteria.description}"/>
+                    <h:commandButton value="ADD CRITERIA" action="#{pajController.createCriteria()}" />
+                    <br></br>
+                    <br></br>
+                </h:form>
+                <h:form>
+                    <h:dataTable value="#{userEJB.pajSelected.criteria}" var="crit" border="0" cellpadding="2" cellspacing="0">
+                        <h:column>
+                            <f:facet name="header">LIST CRITERIA</f:facet>
+                                #{crit.description}
+                        </h:column>
+                        <h:column>
+                            <h:commandLink  actionListener="#{pajController.removeCriteria(crit)}" value="remove"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:form>
             </ui:define>
-
         </ui:composition>
-
     </h:body>
 </html>

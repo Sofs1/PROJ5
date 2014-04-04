@@ -9,6 +9,7 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
+import pt.uc.dei.ar.proj5.grupob.entities.Project;
 
 /**
  *
@@ -27,6 +28,15 @@ public class PajFacade extends AbstractFacade<Paj> {
 
     public PajFacade() {
         super(Paj.class);
+    }
+
+    public boolean exitsEvaluations(Paj paj) {
+        for (Project p : paj.getProjects()) {
+            if (!p.getEvaluations().isEmpty()) {
+                return true;
+            }
+        }
+        return false;
     }
 
 }

@@ -6,9 +6,12 @@
 package pt.uc.dei.ar.proj5.grupob.facades;
 
 import javax.ejb.Stateless;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
+import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.entities.User;
 import pt.uc.dei.ar.proj5.grupob.util.DuplicateEmailException;
@@ -22,6 +25,9 @@ import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
  */
 @Stateless
 public class StudentFacade extends AbstractFacade<Student> {
+
+    @Inject
+    private EvaluationFacade evaluationFacade;
 
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
@@ -115,5 +121,24 @@ public class StudentFacade extends AbstractFacade<Student> {
                 throw new DuplicateEmailException();
             }
         }
+    }
+
+    /**
+     *
+     * @param student
+     * @param paj
+     */
+    public void deleteStudent(Student student, Paj paj) {
+        for (Student s : paj.getStudents()) {
+            if (s.getId() == student.getId()) {
+                paj.getStudents().remove(s);
+            }
+        }
+        Query q = em.createNamedQuery("Evaluation.findStudent");
+        q.setParameter("id", student.getId());
+        for (Evaluation e : evaluationFacade.findAll()) {
+
+        }
+
     }
 }

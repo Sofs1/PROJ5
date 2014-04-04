@@ -11,6 +11,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -18,6 +20,9 @@ import javax.validation.constraints.NotNull;
  * @author sofia
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Evaluation.findStudent", query = "SELECT u FROM Evaluation u WHERE u.student.id = :id")
+})
 public class Evaluation implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -33,7 +38,7 @@ public class Evaluation implements Serializable {
 
     @ManyToOne
     private Criteria criteria;
-        
+
     @NotNull
     private Double note;
 

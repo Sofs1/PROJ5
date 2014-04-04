@@ -16,8 +16,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -39,7 +37,7 @@ public class Paj implements Serializable {
     private String name;
 
     @NotNull
-    @Column(nullable= false) 
+    @Column(nullable = false)
     private int yearEd;
 
     @NotNull

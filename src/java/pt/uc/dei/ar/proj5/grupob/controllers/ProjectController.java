@@ -10,7 +10,6 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import javax.validation.constraints.Future;
 import pt.uc.dei.ar.proj5.grupob.ejbs.UserEJB;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
@@ -28,7 +27,6 @@ public class ProjectController {
     @Inject
     private UserEJB session;
     private Project project;
-    @Future
     private Date begDate;
     private Date endDate;
 
@@ -73,13 +71,13 @@ public class ProjectController {
         this.endDate = endDate;
     }
 
-    public String createNewProject() {
+    public void createNewProject() {
 
         project.setBegDate(begDate);
         project.setEndDate(endDate);
 
         projectFacade.addProject(project, session.getPajSelected());
-        return "insidePajEdition";
+        //return "adminProjects";
     }
 
 }

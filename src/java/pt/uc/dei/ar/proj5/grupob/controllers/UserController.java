@@ -10,8 +10,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.servlet.http.HttpSession;
 import pt.uc.dei.ar.proj5.grupob.ejbs.UserEJB;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -150,7 +152,7 @@ public class UserController {
             return "index";
         }
     }
-    
+
     public String searchAdmin() {
         try {
             userEJB.setUser(adminFacade.searchAdmin(user.getEmail(), user.getPass()));
@@ -165,18 +167,44 @@ public class UserController {
     public List<Paj> listAllPajs() {
         return pajFacade.findAll();
     }
-    
-    public void editUser(){
-        
-    }
-    
-    public void removeUser(){
-        
-    }
-    
-     public void logout(){
-        
+
+    public void editUser() {
+
     }
 
+    public void removeUser() {
+
+    }
+
+    public String logoutAdm() {
+        userEJB.setUser(null);
+        userEJB.setPajSelected(null);
+        invalidateSession();
+        return "index";
+    }
+
+    public String logoutStud() {
+        userEJB.setUser(null);
+        invalidateSession();
+        return "index";
+    }
+
+    private void invalidateSession() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
+        session.invalidate();
+    }
+    
+    public String editStudent() {
+        try {
+            studentFacade.editStudentFacade(student, passConf, userEJB.getUser().getEmail());
+            return "listMusics";
+        } catch (PasswordException | DuplicateEmailException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            erro = ex.getMessage();
+            return null;
+        }
+
+    }
 
 }

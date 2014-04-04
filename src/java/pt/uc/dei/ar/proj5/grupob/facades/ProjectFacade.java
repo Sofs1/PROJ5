@@ -35,7 +35,6 @@ public class ProjectFacade extends AbstractFacade<Project> {
     }
     
     public void addProject(Project p, Paj paj) {
-        
         paj.getProjects().add(p);
         p.setPaj(paj);
         this.create(p);

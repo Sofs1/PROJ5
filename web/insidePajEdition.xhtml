@@ -3,37 +3,75 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
 
     <h:body>
 
         <ui:composition template="./templateAdmin.xhtml">
 
             <ui:define name="content">
-                <h1>Project Name (pick from controller)</h1>
+                <h1>#{userEJB.pajSelected.name}</h1>
                 <h:messages style="color:#ff0000"/>
-                <h:dataTable value="" var="project" border="0" cellpadding="2" cellspacing="0">
-                    <h:column>
-                        <f:facet name="header" class="dataTableTitle">Project Name</f:facet>
-                            #{project.name}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header" class="dataTableTitle">Beginning Date</f:facet>
-                            #{project.endDate}
-                    </h:column>
-                    <h:column>
-                        <f:facet name="header" class="dataTableTitle">Submitions</f:facet>
-                            #{project.submitions}
-                    </h:column>
-                    <h:column>
-                        <h:commandButton type="submit" value="Remove" action="#{#}" >
-                            <f:setPropertyActionListener target="#{#}" value="#{paj}" />
-                        </h:commandButton>
-                    </h:column>
-                </h:dataTable>
-                <h:commandButton type="submit" value="Add PAJ" action="#{#}" />
+                <h:form>
+                    <h:dataTable value="#{userEJB.pajSelected.projects}" var="project" border="0" cellpadding="2" cellspacing="0">
+                        <h:column>
+                            <f:facet name="header" class="dataTableTitle">Project Name</f:facet>
+                                #{project.name}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header" class="dataTableTitle">Beginning Date</f:facet>
+                                #{project.begDate.toString()}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header" class="dataTableTitle">Submitions</f:facet>
+                                #{project.endDate.toString()}
+                        </h:column>
+                        <h:column>
+                            <h:commandButton type="submit" value="Remove" action="#{#}" >
+                                <f:setPropertyActionListener target="#{#}" value="#{paj}" />
+                            </h:commandButton>
+                        </h:column>
+                    </h:dataTable>
+                    <h:commandButton type="button" value="Add Project" onclick="PF('dlg2').show();" />
+                </h:form>
+                <p:dialog id="modalDialog" header="Create Project" widgetVar="dlg2" modal="true" height="auto" width="auto">
+                    <h:form>
+                        <table>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Project Name"/>
+                                </td>
+                                <td>
+                                    <p:inputText id="n" title="name" value="#{projectController.project.name}" required="true" requiredMessage="Project name field is required"></p:inputText>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Beginning Date"/>
+                                </td>
+                                <td>
+                                    <p:calendar value="#{projectController.begDate}" id="popupButtonCal" showOn="button" effect="explode"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="End Date"/>
+                                </td>
+                                <td>
+                                    <p:calendar value="#{projectController.endDate}" id="popupButtonCal2" showOn="button" effect="explode"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <h:commandButton type="submit" value="SAVE" action="#{projectController.createNewProject()}"/>
+                                </td>
+                            </tr>
+                        </table>
+                    </h:form>
+                </p:dialog>
             </ui:define>
-
         </ui:composition>
 
     </h:body>

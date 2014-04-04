@@ -11,7 +11,6 @@
         <div align="center">
 
             <h:form>
-                <!--                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true"/> -->
                 <table border="0" align="center" >
                     <tr>
                         <td colspan="2"  ><h2> SIGN UP SELF EVALUATION</h2></td></tr>
@@ -22,7 +21,7 @@
                     <tr>
                         <td><h:outputLabel value="EMAIL"/></td>
                         <td>
-                            <p:inputText id="mail" value="#{userController.student.email}" required="true"/>
+                            <p:inputText id="mail" label="Email" value="#{userController.student.email}" required="true" requiredMessage="Email is required"/>
                         </td>
                     </tr>
                     <tr>
@@ -36,9 +35,11 @@
                     <tr>
                         <td><h:outputLabel value="PAJ EDITION" /></td>
                         <td>
-                            <h:selectOneMenu   value="#{userController.selectedPaj}" required="true" requiredMessage="You need to choose a PAJ edition" >
-                                <f:selectItems value="#{userController.listAllPajs()}" />                  
+                            <h:selectOneMenu  value="#{userController.selectedPaj}">
+                                <f:selectItems value="#{userController.listAllPajs()}" var="paj" itemLabel="#{paj.name}" />
                             </h:selectOneMenu >
+
+
                         </td>
                     </tr>
                     <tr>
@@ -58,7 +59,10 @@
                         </td>
                     </tr>
                 </table>
-                <h:outputLabel  style="color:#ff0000" value="" />
+                <p:commandButton id="modalDialogButton" value="Modal" onclick="PF('dlg2').show();" type="button"/> 
+                <p:dialog id="modalDialog" header="Modal Dialog" widgetVar="dlg2" modal="true" height="100">  
+                    <h:outputText value="This is a Modal Dialog." />  
+                </p:dialog> 
             </h:form>
         </div>
 

@@ -17,7 +17,7 @@
                     <h:dataTable value="#{userController.listAllPajs()}" var="paj" border="0" cellpadding="2" cellspacing="0">
                         <h:column>
                             <f:facet name="header" class="dataTableTitle">PAJ Name</f:facet>
-                            <h:link  value="#{paj.name}" outcome="insidePajEdition">
+                            <h:link  value="#{paj.name}" outcome="adminProjects">
                                 <f:param  name="username" value="mkyong" />
 
                             </h:link>
@@ -36,7 +36,7 @@
                             </h:commandButton>
                         </h:column>
                         <h:column>
-                            <h:commandButton type="submit" value="View" action="insidePajEdition" >
+                            <h:commandButton type="submit" value="View" action="adminProjects" >
                                 <f:setPropertyActionListener target="#{userEJB.pajSelected}" value="#{paj}" />
                             </h:commandButton>
                         </h:column>
@@ -62,7 +62,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td><h:commandButton value="SAVE" action="#{pajController.createPaj()}"></h:commandButton></td>
+                                <td><p:commandButton value="SAVE" actionListener="#{pajController.createPaj()}"></p:commandButton></td>
                             </tr>
                         </table>
 

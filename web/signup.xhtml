@@ -2,39 +2,44 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Sign Up</title>
     </h:head>
     <h:body>
         <div align="center">
 
-            <h:form>
+            <h:form id="signTbl">
                 <table border="0" align="center" >
                     <tr>
                         <td colspan="2"  ><h2> SIGN UP SELF EVALUATION</h2></td></tr>
                     <tr>
                         <td><h:outputLabel value="NAME"  /></td>
-                        <td><p:inputText id="n" title="name" value="#{userController.student.name}" required="true" requiredMessage="The name field is required"></p:inputText></td>
+                        <td><p:inputText id="n" value="#{registrationController.student.name}" required="true" requiredMessage="The name field is required"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="EMAIL"/></td>
                         <td>
-                            <p:inputText id="mail" label="Email" value="#{userController.student.email}" required="true" requiredMessage="Email is required"/>
+                            <p:inputText id="mail" label="Email" value="#{registrationController.student.email}" required="true" requiredMessage="Email is required"/>
                         </td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="PASSWORD" /></td>
-                        <td><p:password id="pass1" value="#{userController.student.pass}" label="Password" match="pass2" required="true" requiredMessage="Password field is required" feedback="true"/></td>
+                        <td><p:password id="pass1" value="#{registrationController.student.pass}" label="Password" match="pass2" required="true" requiredMessage="Password field is required" feedback="true"/></td>
                     </tr>
                     <tr>
                         <td><h:outputLabel value="CONFIRM PASS" /></td>
-                        <td><p:password id="pass2" value="#{userController.passConf}" label="Confirmation Pass" required="true" requiredMessage="Confirm password"/></td>
+                        <td><p:password id="pass2" value="#{registrationController.passConf}" label="Confirmation Pass" required="true" requiredMessage="Confirm password"/></td>
                     </tr>
+                    <td></td>
+                    <td>
+                        <p:commandButton value="PAJ Edition" oncomplete="PF('dlg2').show()" update="list_paj" />
+                    </td>
                     <tr>
                         <td></td>
-                        <td><p:commandButton value="ADD PAJ EDITION" oncomplete="PF('dlg2').show()" update="list_paj" />
-                            <h:commandButton immediate="true" value="CANCEL" action="index"/></td>
+                        <td><p:commandButton type="submit" value="Save" action="#{registrationController.createStudent()}"/>
+                            <p:commandButton immediate="true" value="CANCEL" action="#{registrationController.cancelView()}"/></td>
 
                     </tr>
 
@@ -44,23 +49,22 @@
                             <p:message for="mail" />
                             <p:message for="pass1" />
                             <p:message for="pass2" />
-
                         </td>
                     </tr>
                 </table>
                 <h:form id="list_paj">
                     <p:dialog id="dialog_paj" header="Choose PAJ edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
-                        <p:dataTable value="#{userController.listAllPajs()}" var="paj" rowKey="#{paj}" selectionMode="single" selection="#{userController.selectedPaj}" paginator="true" paginatorPosition="bottom" rows="8"  >
+                        <p:dataTable value="#{registrationController.listAllPajs()}" var="paj" rowKey="#{paj}" selectionMode="single" selection="#{registrationController.selectedPaj}" paginator="true" rows="8">
                             <p:column>
                                 #{paj.name}                           
                             </p:column>
+                            <f:facet name="footer">
+                                <p:commandButton value="Select" icon="ui-icon-circle-check" oncomplete="PF('dlg2').hide()"/>
+                            </f:facet>
                         </p:dataTable>
-                        <h:commandButton value="Save" action="#{userController.createStudent()}" />
                     </p:dialog>
                 </h:form>
             </h:form>
-
-
         </div>
 
     </h:body>

@@ -5,13 +5,17 @@
  */
 package pt.uc.dei.ar.proj5.grupob.facades;
 
+import java.util.Iterator;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
+import pt.uc.dei.ar.proj5.grupob.entities.Log;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
+import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.entities.User;
 import pt.uc.dei.ar.proj5.grupob.util.DuplicateEmailException;
@@ -25,18 +29,24 @@ import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
  */
 @Stateless
 public class StudentFacade extends AbstractFacade<Student> {
-
+    
     @Inject
     private EvaluationFacade evaluationFacade;
-
+    
+    @Inject
+    private ProjectFacade projectFacade;
+    
+    @Inject
+    private LogFacade logFacade;
+    
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public StudentFacade() {
         super(Student.class);
     }
@@ -124,21 +134,42 @@ public class StudentFacade extends AbstractFacade<Student> {
     }
 
     /**
+     * first remove all the Student traces and then remove the Student
      *
      * @param student
      * @param paj
      */
     public void deleteStudent(Student student, Paj paj) {
+        int idStd = student.getId();
+
+        // remove from Students list of Paj that student
         for (Student s : paj.getStudents()) {
-            if (s.getId() == student.getId()) {
+            if (s.getId() == idStd) {
                 paj.getStudents().remove(s);
             }
         }
-        Query q = em.createNamedQuery("Evaluation.findStudent");
-        q.setParameter("id", student.getId());
+        getEntityManager().merge(paj);
+
+        // remove from Evaluation BD the evaluations from that Student
         for (Evaluation e : evaluationFacade.findAll()) {
-
+            if (e.getStudent().getId() == idStd) {
+                getEntityManager().remove(getEntityManager().merge(e));
+            }
         }
-
+        //remove from all projects that student
+        for (Project p : projectFacade.findAll()) {
+            for (int i = 0; i < p.getStudents().size(); i++) {
+                Student temp = p.getStudents().get(i);
+                if (temp.getId() == idStd) {
+                    getEntityManager().remove(getEntityManager().merge(temp));
+                }
+            }
+        }
+        //remove student from Log's table
+        for (Log l : logFacade.findAll()) {
+            if (l.getStudent().getId() == idStd) {
+                getEntityManager().remove(l);
+            }
+        }
     }
 }

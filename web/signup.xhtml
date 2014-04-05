@@ -50,11 +50,12 @@
                 </table>
                 <h:form id="list_paj">
                     <p:dialog id="dialog_paj" header="Choose PAJ edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
-                        <p:dataTable value="#{userController.listAllPajs()}" var="paj" rowKey="#{paj.id}" selectionMode="single" selection="#{userController.selectedPaj}">
+                        <p:dataTable value="#{userController.listAllPajs()}" var="paj" rowKey="#{paj.id}" selectionMode="single" selection="#{userController.selectedPaj}" paginator="true" rows="8"  >
                             <p:column>
-                                <h:commandButton value="#{paj.name}" action="#{userController.createStudent()}" />                            
+                                #{paj.name}                           
                             </p:column>
                         </p:dataTable>
+                        <h:commandButton value="Save" action="#{userController.createStudent()}" />
                     </p:dialog>
                 </h:form>
             </h:form>

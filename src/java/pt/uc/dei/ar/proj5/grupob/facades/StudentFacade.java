@@ -5,17 +5,12 @@
  */
 package pt.uc.dei.ar.proj5.grupob.facades;
 
-import java.util.Iterator;
-import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
-import pt.uc.dei.ar.proj5.grupob.entities.Log;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
-import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.entities.User;
 import pt.uc.dei.ar.proj5.grupob.util.DuplicateEmailException;
@@ -38,6 +33,9 @@ public class StudentFacade extends AbstractFacade<Student> {
 
     @Inject
     private LogFacade logFacade;
+
+    @Inject
+    private PajFacade pajFacade;
 
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
@@ -73,10 +71,11 @@ public class StudentFacade extends AbstractFacade<Student> {
      *
      * @param user
      * @param passConf
+     * @param paj
      * @throws PasswordException
      * @throws DuplicateEmailException
      */
-    public void createStudent(Student user, String passConf) throws PasswordException, DuplicateEmailException {
+    public void createStudent(Student user, String passConf, Paj paj) throws PasswordException, DuplicateEmailException {
         if (getStudentbyEmail(user.getEmail()) != null) {
             throw new DuplicateEmailException();
         } else if (!user.getPass().equals(passConf)) {
@@ -85,6 +84,11 @@ public class StudentFacade extends AbstractFacade<Student> {
             String passEncripted = Encrypt.cryptWithMD5(user.getPass());
             user.setPass(passEncripted);
             getEntityManager().persist(user);
+            user.setPaj(paj);
+            paj.getStudents().add(user);
+            edit(user);
+            pajFacade.edit(paj);
+
         }
     }
 
@@ -123,7 +127,7 @@ public class StudentFacade extends AbstractFacade<Student> {
         if (!user.getPass().equals(passConf)) {
             throw new PasswordException();
         } else {
-            if (studTemp == null || studTemp.getId() == user.getId()) {
+            if (studTemp == null || studTemp.getId().equals(user.getId())) {
                 String passEncripted = Encrypt.cryptWithMD5(user.getPass());
                 user.setPass(passEncripted);
                 getEntityManager().merge(user);

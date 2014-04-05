@@ -43,6 +43,7 @@ public class UserController {
     private UserEJB userEJB;
     private String passConf;
     private Student student;
+    private Student studentEdit;
     private User user;
     private String erro;
     private Paj selectedPaj;
@@ -56,7 +57,9 @@ public class UserController {
     @PostConstruct
     public void initUser() {
         this.student = new Student();
+        this.studentEdit = (Student) userEJB.getUser();
         this.user = new User();
+        this.selectedPaj = new Paj();
     }
 
     public Paj getSelectedPaj() {
@@ -131,14 +134,18 @@ public class UserController {
         this.adminFacade = adminFacade;
     }
 
+    public Student getStudentEdit() {
+        return studentEdit;
+    }
+
+    public void setStudentEdit(Student studentEdit) {
+        this.studentEdit = studentEdit;
+    }
+
     public String createStudent() {
 
         try {
-            studentFacade.createStudent(student, passConf);
-            student.setPaj(selectedPaj);
-            selectedPaj.getStudents().add(student);
-            studentFacade.edit(student);
-            pajFacade.edit(selectedPaj);
+            studentFacade.createStudent(student, passConf, selectedPaj);
             userEJB.setUser(student);
             return "templateStudent";
         } catch (PasswordException | DuplicateEmailException ex) {
@@ -174,20 +181,9 @@ public class UserController {
         return pajFacade.findAll();
     }
 
-    public String editUser() {
-        try {
-            studentFacade.editStudentFacade(student, passConf, userEJB.getUser().getEmail());
-            return "listMusics";
-        } catch (PasswordException | DuplicateEmailException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
-            return null;
-        }
-
-    }
-
-    public void removeUser() {
+    public String removeUser() {
         studentFacade.deleteStudent((Student) userEJB.getUser(), userEJB.getPajSelected());
+        return "index";
     }
 
     public String logoutAdm() {
@@ -211,8 +207,8 @@ public class UserController {
 
     public String editStudent() {
         try {
-            studentFacade.editStudentFacade(student, passConf, userEJB.getUser().getEmail());
-            return "listMusics";
+            studentFacade.editStudentFacade(studentEdit, passConf, userEJB.getUser().getEmail());
+            return "templateStudent";
         } catch (PasswordException | DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();

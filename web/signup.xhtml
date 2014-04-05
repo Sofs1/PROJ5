@@ -10,7 +10,7 @@
     <h:body>
         <div align="center">
 
-            <h:form>
+            <h:form id="signTbl">
                 <table border="0" align="center" >
                     <tr>
                         <td colspan="2"  ><h2> SIGN UP SELF EVALUATION</h2></td></tr>
@@ -33,12 +33,12 @@
                         <td><p:password id="pass2" value="#{registrationController.passConf}" label="Confirmation Pass" required="true" requiredMessage="Confirm password"/></td>
                     </tr>
                     <td></td>
-                    <td colspan="2"  >
-                        <p:commandButton value="Choose PAJ Edition" oncomplete="PF('dlg2').show()" update="list_paj" />
+                    <td>
+                        <p:commandButton value="PAJ Edition" oncomplete="PF('dlg2').show()" update="list_paj" />
                     </td>
                     <tr>
                         <td></td>
-                        <td><h:commandButton type="submit" value="Save" action="#{registrationController.createStudent()}"/>
+                        <td><p:commandButton type="submit" value="Save" action="#{registrationController.createStudent()}"/>
                             <p:commandButton immediate="true" value="CANCEL" action="#{registrationController.cancelView()}"/></td>
 
                     </tr>
@@ -59,7 +59,7 @@
                                 #{paj.name}                           
                             </p:column>
                             <f:facet name="footer">
-                                <p:commandButton value="Select" icon="ui-icon-circle-check" oncomplete="PF('dlg2').hide()" />
+                                <p:commandButton value="Select" icon="ui-icon-circle-check" oncomplete="PF('dlg2').hide()"/>
                             </f:facet>
                         </p:dataTable>
                     </p:dialog>

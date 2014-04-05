@@ -120,7 +120,7 @@ public class RegistrationController implements Serializable {
     public String createStudent() {
 
         try {
-            studentFacade.createStudent(student, passConf);
+            studentFacade.createStudent(student, passConf, selectedPaj);
             student.setPaj(selectedPaj);
             selectedPaj.getStudents().add(student);
             studentFacade.edit(student);

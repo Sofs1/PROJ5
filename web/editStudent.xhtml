@@ -9,20 +9,20 @@
         <h:form>
             <table border="0" align="center" >
                 <tr>
-                    <td colspan="2"  ><h2> SIGN UP SELF EVALUATION</h2></td></tr>
+                    <td colspan="2"  ><h2>EDIT YOUR ACCOUNT</h2></td></tr>
                 <tr>
                     <td><h:outputLabel value="NAME"  /></td>
-                    <td><p:inputText id="n" title="name" value="#{userController.student.name}" required="true" requiredMessage="The name field is required"></p:inputText></td>
+                    <td><p:inputText id="n" title="name" value="#{userController.studentEdit.name}" required="true" requiredMessage="The name field is required"></p:inputText></td>
                 </tr>
                 <tr>
                     <td><h:outputLabel value="EMAIL"/></td>
                     <td>
-                        <p:inputText id="mail" label="Email" value="#{userController.student.email}" required="true" requiredMessage="Email is required"/>
+                        <p:inputText id="mail" label="Email" value="#{userController.studentEdit.email}" required="true" requiredMessage="Email is required"/>
                     </td>
                 </tr>
                 <tr>
                     <td><h:outputLabel value="PASSWORD" /></td>
-                    <td><p:password id="pass1" value="#{userController.student.pass}" label="Password" match="pass2" required="true" requiredMessage="Password field is required" feedback="true"/></td>
+                    <td><p:password id="pass1" value="#{userController.studentEdit.pass}" label="Password" match="pass2" required="true" requiredMessage="Password field is required" feedback="true"/></td>
                 </tr>
                 <tr>
                     <td><h:outputLabel value="CONFIRM PASS" /></td>

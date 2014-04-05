@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -38,41 +39,41 @@
                 <ui:insert name="content">
                     <h1>OPEN PROJECTS</h1>
                     <h:panelGrid columns="3">
-                        <!--
-                                                <h:panelGroup>
-                                                    <h:dataTable value="" var="proj" border="0" cellpadding="2" cellspacing="0">
-                                                        <h:column>
-                                                            <f:facet name="Projects name">
-                                                                <h:outputText value="" title="Give your evaluation"/>
-                                                            </f:facet>
-                                                            <h:outputText value=""/>
-                                                        </h:column>
-                                                    </h:dataTable>
-                                                </h:panelGroup>
-                        
-                                                <h:panelGroup rendered="false">
-                                                    <h:dataTable value="" var="crit" border="0" cellpadding="2" cellspacing="0">
-                                                        <h:column>
-                                                            <f:facet name="Name of the Project">
-                                                                <h:outputText value=""/>
-                                                            </f:facet>
-                                                            <h:inputText value=""/>
-                                                        </h:column>
-                                                    </h:dataTable>
-                                                    <h:commandButton value="SUBMIT" action=""></h:commandButton>
-                                                </h:panelGroup>
-                        
-                                                <h:panelGroup rendered="false">
-                                                    <h:dataTable value="" var="media" border="0" cellpadding="2" cellspacing="0">
-                                                        <h:column>
-                                                            <f:facet name="Average">
-                                                                <h:outputText value=""/>
-                                                            </f:facet>
-                                                            <h:outputText value=""/>
-                                                        </h:column>
-                                                    </h:dataTable>
-                                                    <h:outputLabel value="Your evaluation was submitted"
-                                            </h:panelGroup> -->
+
+                        <h:panelGroup>
+                            <h:dataTable value="" var="proj" border="0" cellpadding="2" cellspacing="0">
+                                <h:column>
+                                    <f:facet name="Projects name">
+                                        <h:outputText value="" title="Give your evaluation"/>
+                                    </f:facet>
+                                    <h:outputText value=""/>
+                                </h:column>
+                            </h:dataTable>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="false">
+                            <h:dataTable value="" var="crit" border="0" cellpadding="2" cellspacing="0">
+                                <h:column>
+                                    <f:facet name="Name of the Project">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                    <h:inputText value=""/>
+                                </h:column>
+                            </h:dataTable>
+                            <h:commandButton value="SUBMIT" action=""></h:commandButton>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="false">
+                            <h:dataTable value="" var="media" border="0" cellpadding="2" cellspacing="0">
+                                <h:column>
+                                    <f:facet name="Average">
+                                        <h:outputText value=""/>
+                                    </f:facet>
+                                    <h:outputText value=""/>
+                                </h:column>
+                            </h:dataTable>
+                            <h:outputLabel value="Your evaluation was submitted"/>
+                        </h:panelGroup> 
 
                     </h:panelGrid>
                 </ui:insert>

@@ -33,7 +33,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><p:commandButton value="SAVE" oncomplete="PF('dlg2').show()" update="list_paj" />
+                        <td><p:commandButton value="ADD PAJ EDITION" oncomplete="PF('dlg2').show()" update="list_paj" />
                             <h:commandButton immediate="true" value="CANCEL" action="index"/></td>
 
                     </tr>
@@ -50,7 +50,7 @@
                 </table>
                 <h:form id="list_paj">
                     <p:dialog id="dialog_paj" header="Choose PAJ edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
-                        <p:dataTable value="#{userController.listAllPajs()}" var="paj" rowKey="#{paj.id}" selectionMode="single" selection="#{userController.selectedPaj}" paginator="true" rows="8"  >
+                        <p:dataTable value="#{userController.listAllPajs()}" var="paj" rowKey="#{paj}" selectionMode="single" selection="#{userController.selectedPaj}" paginator="true" paginatorPosition="bottom" rows="8"  >
                             <p:column>
                                 #{paj.name}                           
                             </p:column>

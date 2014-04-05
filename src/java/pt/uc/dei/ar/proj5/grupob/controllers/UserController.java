@@ -57,7 +57,6 @@ public class UserController {
     @PostConstruct
     public void initUser() {
         this.student = new Student();
-        this.studentEdit = (Student) userEJB.getUser();
         this.user = new User();
         this.selectedPaj = new Paj();
     }
@@ -206,6 +205,7 @@ public class UserController {
     }
 
     public String editStudent() {
+        this.studentEdit = (Student) userEJB.getUser();
         try {
             studentFacade.editStudentFacade(studentEdit, passConf, userEJB.getUser().getEmail());
             return "templateStudent";

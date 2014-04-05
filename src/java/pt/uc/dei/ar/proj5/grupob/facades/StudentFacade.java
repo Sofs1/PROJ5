@@ -25,15 +25,14 @@ import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
 @Stateless
 public class StudentFacade extends AbstractFacade<Student> {
 
-    @Inject
-    private EvaluationFacade evaluationFacade;
-
-    @Inject
-    private ProjectFacade projectFacade;
-
-    @Inject
-    private LogFacade logFacade;
-
+//    @Inject
+//    private EvaluationFacade evaluationFacade;
+//
+//    @Inject
+//    private ProjectFacade projectFacade;
+//
+//    @Inject
+//    private LogFacade logFacade;
     @Inject
     private PajFacade pajFacade;
 

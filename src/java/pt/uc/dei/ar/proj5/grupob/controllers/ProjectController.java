@@ -39,7 +39,6 @@ public class ProjectController {
 
     @PostConstruct
     public void init() {
-
         project = new Project();
     }
 
@@ -112,7 +111,6 @@ public class ProjectController {
     }
 
     public void removeProject(Project p) {
-
         try {
             projectFacade.removeProject(p, session.getPajSelected());
             //return "adminProjects";

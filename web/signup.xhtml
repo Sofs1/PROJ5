@@ -54,7 +54,7 @@
                 </table>
                 <h:form id="list_paj">
                     <p:dialog id="dialog_paj" header="Choose PAJ edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
-                        <p:dataTable value="#{registrationController.listAllPajs()}" var="paj" rowKey="#{paj}" selectionMode="single" selection="#{registrationController.selectedPaj}" paginator="true" rows="8">
+                        <p:dataTable value="#{registrationController.listAllPajs()}" var="paj" rowKey="#{paj}" selectionMode="single" selection="#{registrationController.selectedPaj}" paginator="true" rows="8" paginatorPosition="bottom">
                             <p:column>
                                 #{paj.name}                           
                             </p:column>

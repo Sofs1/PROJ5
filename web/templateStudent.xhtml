@@ -9,8 +9,8 @@
         <div id="top" align="right">
             <ui:insert name="top">
                 <h:outputLabel value="Hi #{userEJB.user.name} | "/>
-                <h:commandLink action="editStudent" value="Edit" />&nbsp;|&nbsp;
-                <h:commandLink action="" value="Delete" />&nbsp;|&nbsp;
+                <h:commandLink action="#{userController.editUser()}" value="Edit" />&nbsp;|&nbsp;
+                <h:commandLink action="#{userController.removeUser()}" value="Delete" />&nbsp;|&nbsp;
                 <h:commandLink action="#{userController.logoutStud()}" value="LOGOUT" />
             </ui:insert>
         </div>
@@ -28,41 +28,41 @@
                 <ui:insert name="content">
                     <h1>OPEN PROJECTS</h1>
                     <h:panelGrid columns="3">
+                        <!--
+                                                <h:panelGroup>
+                                                    <h:dataTable value="" var="proj" border="0" cellpadding="2" cellspacing="0">
+                                                        <h:column>
+                                                            <f:facet name="Projects name">
+                                                                <h:outputText value="" title="Give your evaluation"/>
+                                                            </f:facet>
+                                                            <h:outputText value=""/>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                </h:panelGroup>
                         
-                        <h:panelGroup>
-                            <h:dataTable value="" var="proj" border="0" cellpadding="2" cellspacing="0">
-                                <h:column>
-                                    <f:facet name="Projects name">
-                                        <h:outputText value="" title="Give your evaluation"/>
-                                    </f:facet>
-                                    <h:outputText value=""/>
-                                </h:column>
-                            </h:dataTable>
-                        </h:panelGroup>
-
-                        <h:panelGroup rendered="false">
-                            <h:dataTable value="" var="crit" border="0" cellpadding="2" cellspacing="0">
-                                <h:column>
-                                    <f:facet name="Name of the Project">
-                                        <h:outputText value=""/>
-                                    </f:facet>
-                                    <h:inputText value=""/>
-                                </h:column>
-                            </h:dataTable>
-                            <h:commandButton value="SUBMIT" action=""></h:commandButton>
-                        </h:panelGroup>
-
-                        <h:panelGroup rendered="false">
-                            <h:dataTable value="" var="media" border="0" cellpadding="2" cellspacing="0">
-                                <h:column>
-                                    <f:facet name="Average">
-                                        <h:outputText value=""/>
-                                    </f:facet>
-                                    <h:outputText value=""/>
-                                </h:column>
-                            </h:dataTable>
-                            <h:outputLabel value="Your evaluation was submitted"
-                        </h:panelGroup>
+                                                <h:panelGroup rendered="false">
+                                                    <h:dataTable value="" var="crit" border="0" cellpadding="2" cellspacing="0">
+                                                        <h:column>
+                                                            <f:facet name="Name of the Project">
+                                                                <h:outputText value=""/>
+                                                            </f:facet>
+                                                            <h:inputText value=""/>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                    <h:commandButton value="SUBMIT" action=""></h:commandButton>
+                                                </h:panelGroup>
+                        
+                                                <h:panelGroup rendered="false">
+                                                    <h:dataTable value="" var="media" border="0" cellpadding="2" cellspacing="0">
+                                                        <h:column>
+                                                            <f:facet name="Average">
+                                                                <h:outputText value=""/>
+                                                            </f:facet>
+                                                            <h:outputText value=""/>
+                                                        </h:column>
+                                                    </h:dataTable>
+                                                    <h:outputLabel value="Your evaluation was submitted"
+                                            </h:panelGroup> -->
 
                     </h:panelGrid>
                 </ui:insert>

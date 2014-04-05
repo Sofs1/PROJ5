@@ -29,16 +29,16 @@ public class Student extends User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Paj paj;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "student", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Evaluation> evaluations;
-    
-    @OneToMany
+
+    @OneToMany(cascade = CascadeType.PERSIST, orphanRemoval = true)
     private List<Log> log;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Project> projects;
 
     public Student() {
@@ -60,7 +60,7 @@ public class Student extends User implements Serializable {
         this.log = log;
     }
 
-   public List<Evaluation> getEvaluations() {
+    public List<Evaluation> getEvaluations() {
         return evaluations;
     }
 

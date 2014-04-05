@@ -37,10 +37,10 @@
 
             </h:dataTable>
             <h:messages style="color:#ff0000"/>
-            <h:commandButton type="button" value="Add PAJ" onclick="PF('dlg2').show();" />
+            <p:commandButton value="Add PAJ" oncomplete="PF('dlg2').show()" update=":pajEd"/>
         </h:form>
         <p:dialog id="modalDialog" header="Create Paj Edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
-            <h:form>
+            <h:form id="pajEd">
                 <table>
                     <tr>
                         <td><h:outputLabel value="Name"/></td>
@@ -56,7 +56,7 @@
                     </tr>
                     <tr>
                         <td></td>
-                        <td><p:commandButton value="SAVE" actionListener="#{pajController.createPaj()}"></p:commandButton></td>
+                        <td><h:commandButton type="submit" value="SAVE" action="#{pajController.createPaj()}"/></td>
                     </tr>
                 </table>
 

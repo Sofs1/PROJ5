@@ -5,7 +5,6 @@
  */
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -35,7 +34,7 @@ public class ListStudentsController {
     @Inject
     private StudentFacade studentFacade;
     private UIForm table_listStudents;
-    private UIForm buttom_add;
+//    private UIForm buttom_add;
     private UIForm table_listStudentsToProject;
 
     /**
@@ -50,14 +49,14 @@ public class ListStudentsController {
         this.listStudentPajToProject = new ArrayList<>();
         this.listStudentSelected = new ArrayList<>();
     }
-
-    public UIForm getButtom_add() {
-        return buttom_add;
-    }
-
-    public void setButtom_add(UIForm buttom_add) {
-        this.buttom_add = buttom_add;
-    }
+//
+//    public UIForm getButtom_add() {
+//        return buttom_add;
+//    }
+//
+//    public void setButtom_add(UIForm buttom_add) {
+//        this.buttom_add = buttom_add;
+//    }
 
     public List<Student> getListStudentSelected() {
         return listStudentSelected;
@@ -126,7 +125,7 @@ public class ListStudentsController {
     public void showListStudents() {
         listStudentPaj = studentFacade.listStudentsPaj(userLogado.getPajSelected());
         table_listStudents.setRendered(true);
-        buttom_add.setRendered(true);
+        // buttom_add.setRendered(true);
     }
 
     public void showSearchStudents() {

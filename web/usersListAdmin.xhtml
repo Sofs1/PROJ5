@@ -30,8 +30,8 @@
                     </p:column>
                 </p:dataTable>
             </h:form> 
-            <h:form binding="#{listStudentsController.buttom_add}" rendered="false">
-                <h:commandButton  value="Add Selected"  action="#{listStudentsController.addStudentsToList()}" />
+            <h:form>
+                <p:commandButton  value="Add Selected"  action="#{listStudentsController.addStudentsToList()}" />
             </h:form>
             <h:form binding="#{listStudentsController.table_listStudentsToProject}" rendered="false">
 

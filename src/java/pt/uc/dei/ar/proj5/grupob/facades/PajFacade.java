@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
+import pt.uc.dei.ar.proj5.grupob.util.PajDeleteException;
 
 /**
  *
@@ -37,6 +38,15 @@ public class PajFacade extends AbstractFacade<Paj> {
             }
         }
         return false;
+    }
+
+    public void removePaj(Paj paj) throws PajDeleteException {
+        if (!exitsEvaluations(paj)) {
+            remove(em.merge(paj));
+        } else {
+            throw new PajDeleteException();
+        }
+
     }
 
 }

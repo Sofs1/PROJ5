@@ -26,7 +26,7 @@
                 </h:column>
                 <h:column>
                     <h:commandButton type="submit" value="Remove" action="#{pajController.removepaj()}" >
-                        <f:setPropertyActionListener target="#{pajController.removepaj()}" value="#{paj}" />
+                        <f:setPropertyActionListener target="#{pajController.paj}" value="#{paj}" />
                     </h:commandButton>
                 </h:column>
                 <h:column>
@@ -37,6 +37,7 @@
 
             </h:dataTable>
             <h:messages style="color:#ff0000"/>
+            <h:outputText value="#{pajController.erro}" style="color:#ff0000"/>
             <p:commandButton value="Add PAJ" oncomplete="PF('dlg2').show()" update=":pajEd"/>
         </h:form>
         <p:dialog id="modalDialog" header="Create Paj Edition" widgetVar="dlg2" modal="true" height="auto" width="auto">

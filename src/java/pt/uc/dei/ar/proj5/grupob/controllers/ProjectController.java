@@ -6,6 +6,7 @@
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
@@ -13,7 +14,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import pt.uc.dei.ar.proj5.grupob.ejbs.UserEJB;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
+import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
+import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 import pt.uc.dei.ar.proj5.grupob.util.ExistEvaluationOnProjectException;
 
 /**
@@ -26,6 +29,8 @@ public class ProjectController {
 
     @Inject
     private ProjectFacade projectFacade;
+    @Inject
+    private StudentFacade studentFacade;
     @Inject
     private UserEJB session;
     private Project project;
@@ -40,6 +45,14 @@ public class ProjectController {
     @PostConstruct
     public void init() {
         project = new Project();
+    }
+
+    public StudentFacade getStudentFacade() {
+        return studentFacade;
+    }
+
+    public void setStudentFacade(StudentFacade studentFacade) {
+        this.studentFacade = studentFacade;
     }
 
     public String getErro() {
@@ -119,7 +132,13 @@ public class ProjectController {
             erro = ex.getMessage();
             //return null;
         }
+    }
 
+    public void giveEvaluation(Project p) {
+    }
+
+    public List<Project> listOpenProjects() {
+        return studentFacade.openProjects((Student) session.getUser());
     }
 
 }

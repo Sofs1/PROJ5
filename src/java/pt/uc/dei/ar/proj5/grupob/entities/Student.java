@@ -23,7 +23,10 @@ import javax.persistence.OneToMany;
  */
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Student.findByEmail", query = "SELECT u FROM Student u WHERE u.email = :email")
+    @NamedQuery(name = "Student.findByEmail", query = "SELECT u FROM Student u WHERE u.email = :email"),
+    @NamedQuery(name = "Student.findByPaj", query = "SELECT u FROM Student u WHERE u.paj = :paj"),
+    @NamedQuery(name = "Student.searchStudents", query = "SELECT m FROM Student m WHERE m.name LIKE :name and m.paj = :paj")
+
 })
 public class Student extends User implements Serializable {
 

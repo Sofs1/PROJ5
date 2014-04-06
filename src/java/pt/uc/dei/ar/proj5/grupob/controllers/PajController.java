@@ -5,6 +5,8 @@
  */
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -14,6 +16,7 @@ import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.facades.CriteriaFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.PajFacade;
+import pt.uc.dei.ar.proj5.grupob.util.PajDeleteException;
 
 /**
  *
@@ -31,6 +34,7 @@ public class PajController {
     private UserEJB userEJB;
     @Inject
     private CriteriaFacade criteriaFacade;
+    private String erro;
 
     public PajController() {
     }
@@ -39,6 +43,14 @@ public class PajController {
     public void initPajController() {
         this.paj = new Paj();
         this.criteria = new Criteria();
+    }
+
+    public String getErro() {
+        return erro;
+    }
+
+    public void setErro(String erro) {
+        this.erro = erro;
     }
 
     public CriteriaFacade getCriteriaFacade() {
@@ -91,7 +103,12 @@ public class PajController {
     }
 
     public void removepaj() {
-
+        try {
+            pajFacade.removePaj(paj);
+        } catch (PajDeleteException ex) {
+            Logger.getLogger(PajController.class.getName()).log(Level.SEVERE, null, ex);
+            erro = ex.getMessage();
+        }
     }
 
     public String createCriteria() {

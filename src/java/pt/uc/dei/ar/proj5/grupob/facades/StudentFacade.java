@@ -5,12 +5,17 @@
  */
 package pt.uc.dei.ar.proj5.grupob.facades;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TemporalType;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
+import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.entities.User;
 import pt.uc.dei.ar.proj5.grupob.util.DuplicateEmailException;
@@ -33,9 +38,6 @@ public class StudentFacade extends AbstractFacade<Student> {
 //
 //    @Inject
 //    private LogFacade logFacade;
-    @Inject
-    private PajFacade pajFacade;
-
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
 
@@ -82,11 +84,11 @@ public class StudentFacade extends AbstractFacade<Student> {
         } else {
             String passEncripted = Encrypt.cryptWithMD5(user.getPass());
             user.setPass(passEncripted);
-            getEntityManager().persist(user);
+            create(user);
             user.setPaj(paj);
             paj.getStudents().add(user);
             edit(user);
-            pajFacade.edit(paj);
+            em.merge(paj);
 
         }
     }
@@ -102,7 +104,7 @@ public class StudentFacade extends AbstractFacade<Student> {
      */
     public User searchStudent(String email, String password) throws NotRegistedEmailException, PasswordException {
         User studTemp = getStudentbyEmail(email);
-        String passEncripted = Encrypt.cryptWithMD5(studTemp.getPass());
+        String passEncripted = Encrypt.cryptWithMD5(password);
         if (studTemp == null) {
             throw new NotRegistedEmailException();
         } else if (!studTemp.getPass().equals(passEncripted)) {
@@ -174,5 +176,35 @@ public class StudentFacade extends AbstractFacade<Student> {
 //                getEntityManager().remove(l);
 //            }
 //        }
+    }
+
+    public List<Project> openProjects(Student s) {
+        List<Project> temp = new ArrayList<>();
+        for (Project p : s.getProjects()) {
+            if (!p.getBegDate().before(new Date()) && !p.getEndDate().after(new Date())) {
+                temp.add(p);
+            }
+        }
+        return temp;
+    }
+
+    public List<Student> listStudentsPaj(Paj paj) {
+        Query q = em.createNamedQuery("Student.findByPaj");
+        q.setParameter("paj", paj);
+        try {
+            return (List<Student>) q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public List<Student> getSearchByName(String str, Paj paj) {
+        Query q = em.createNamedQuery("Student.searchStudents");
+        q.setParameter("name", "%" + str + "%").setParameter("paj", paj);
+        try {
+            return (List<Student>) q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
     }
 }

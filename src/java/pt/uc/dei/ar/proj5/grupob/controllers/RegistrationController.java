@@ -6,6 +6,7 @@
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,7 +52,6 @@ public class RegistrationController implements Serializable {
     @PostConstruct
     public void initUser() {
         this.student = new Student();
-
     }
 
     public PajFacade getPajFacade() {
@@ -129,14 +129,17 @@ public class RegistrationController implements Serializable {
     }
 
     public String createStudent() {
-
         try {
             studentFacade.createStudent(student, passConf, selectedPaj);
             userLogado.setUser(student);
             conversation.end();
             return "templateStudent";
 
-        } catch (PasswordException | DuplicateEmailException ex) {
+        } catch (PasswordException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            erro = ex.getMessage();
+            return "signup";
+        } catch (DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
             return "signup";
@@ -147,4 +150,5 @@ public class RegistrationController implements Serializable {
         conversation.end();
         return "index";
     }
+
 }

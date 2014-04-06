@@ -43,9 +43,7 @@ public class ProjectFacade extends AbstractFacade<Project> {
     }
 
     public void removeProject(Project p, Paj paj) throws ExistEvaluationOnProjectException {
-
         if (!p.getEvaluations().isEmpty()) {
-
             throw new ExistEvaluationOnProjectException();
         } else {
             paj.getProjects().remove(p);

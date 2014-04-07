@@ -37,7 +37,6 @@ public class ViewProjectController {
     public void init() {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         setSelectedProject((Project) flash.get("project"));
-        selectedProject = new Project();
     }
 
     public Project getSelectedProject() {

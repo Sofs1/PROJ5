@@ -218,7 +218,7 @@ public class UserController {
 
     public String homeAdmin() {
         userEJB.setPajSelected(null);
-        return "adminLandingPage";
+        return "adminHome";
     }
 
 }

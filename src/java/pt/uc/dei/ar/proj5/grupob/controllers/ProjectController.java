@@ -140,6 +140,7 @@ public class ProjectController {
      * Saves selected playlist in flash scope to use in selected playlist
      * edition
      *
+     * @param p
      * @return String
      */
     public String openProject(Project p) {

@@ -134,6 +134,10 @@ public class ProjectController {
         }
     }
 
+    public String openProject(Project p) {
+        return "openProjectAdmin";
+    }
+
     public void giveEvaluation(Project p) {
     }
 

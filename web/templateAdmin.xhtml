@@ -25,7 +25,7 @@
             <div id="left">
                 <ui:insert name="left">
                     <h:form>
-                        <h:commandButton value="HOME [PAJs]" action="adminLandingPage"/>
+                        <h:commandButton value="HOME [PAJs]" action="#{userController.homeAdmin()}"/>
                         <br></br>
                         <h:commandButton value="PROJECTS" disabled="#{empty userEJB.pajSelected}" action="adminProjects"/>
                         <br></br>

@@ -31,7 +31,7 @@
                 </h:column>
                 <h:column>
                     <h:commandButton type="submit" value="View" action="adminProjects" >
-                        <f:setPropertyActionListener target="#{userEJB.pajSelected}" value="#{paj}" />
+                        <f:setPropertyActionListener target="#{sessionController.pajSelected}" value="#{paj}" />
                     </h:commandButton>
                 </h:column>
 

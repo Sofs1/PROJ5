@@ -17,7 +17,7 @@
                     <br></br>
                 </h:form>
                 <h:form>
-                    <h:dataTable value="#{userEJB.pajSelected.criteria}" var="crit" border="0" cellpadding="2" cellspacing="0">
+                    <h:dataTable value="#{sessionController.pajSelected.criteria}" var="crit" border="0" cellpadding="2" cellspacing="0">
                         <h:column>
                             <f:facet name="header">LIST CRITERIA</f:facet>
                                 #{crit.description}

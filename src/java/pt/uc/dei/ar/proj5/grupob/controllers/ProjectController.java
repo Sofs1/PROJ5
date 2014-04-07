@@ -10,9 +10,11 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pt.uc.dei.ar.proj5.grupob.ejbs.UserEJB;
+import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
@@ -32,7 +34,7 @@ public class ProjectController {
     @Inject
     private StudentFacade studentFacade;
     @Inject
-    private UserEJB session;
+    private SessionController session;
     private Project project;
     private Date begDate;
     private Date endDate;
@@ -95,11 +97,11 @@ public class ProjectController {
         this.endDate = endDate;
     }
 
-    public UserEJB getSession() {
+    public SessionController getSession() {
         return session;
     }
 
-    public void setSession(UserEJB session) {
+    public void setSession(SessionController session) {
         this.session = session;
     }
 
@@ -134,8 +136,19 @@ public class ProjectController {
         }
     }
 
+    /**
+     * Saves selected playlist in flash scope to use in selected playlist
+     * edition
+     *
+     * @return String
+     */
     public String openProject(Project p) {
+
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        flash.put("project", p);
+
         return "openProjectAdmin";
+
     }
 
     public void giveEvaluation(Project p) {

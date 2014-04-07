@@ -15,7 +15,7 @@ import javax.enterprise.context.Conversation;
 import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pt.uc.dei.ar.proj5.grupob.ejbs.UserEJB;
+import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.facades.PajFacade;
@@ -44,7 +44,7 @@ public class RegistrationController implements Serializable {
     private String erro;
     private Paj selectedPaj;
     @Inject
-    private UserEJB userLogado;
+    private SessionController userLogado;
 
     public RegistrationController() {
     }
@@ -114,11 +114,11 @@ public class RegistrationController implements Serializable {
         this.conversation = conversation;
     }
 
-    public UserEJB getUserLogado() {
+    public SessionController getUserLogado() {
         return userLogado;
     }
 
-    public void setUserLogado(UserEJB userLogado) {
+    public void setUserLogado(SessionController userLogado) {
         this.userLogado = userLogado;
     }
 

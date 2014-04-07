@@ -1,0 +1,34 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./templateAdmin.xhtml"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+    <ui:define name="content">
+        <h1>Project: #{viewProjectController.selectedProject.name}</h1>
+        <h:form>
+            <h:dataTable value="#{viewProjectController.selectedProject.students}" var="projectStud" border="0" cellpadding="2" cellspacing="0">
+                <h:column>
+                    <f:facet name="header" class="projectStudents">Student Name</f:facet>
+                        #{projectStud.name}
+                </h:column>
+                <h:column>
+                    <f:facet name="header" class="projectStudents">Submited?</f:facet>
+                        #{viewProjectController.submitionSearch(projectStud)}
+                </h:column>
+                <h:column>
+                    <f:facet name="header" class="projectStudents">See</f:facet>
+                    <h:commandButton value="+Info" action="#{#}"/> 
+                </h:column>
+                <h:column>
+                    <f:facet name="header" class="projectStudents">Send Mail</f:facet>
+                    <h:commandButton action="#{viewProjectController.sendMailToStudent(projectStud)}" value="Send email"/>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+
+    </ui:define>
+
+</ui:composition>

@@ -11,7 +11,7 @@ import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pt.uc.dei.ar.proj5.grupob.ejbs.UserEJB;
+import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.facades.CriteriaFacade;
@@ -31,7 +31,7 @@ public class PajController {
     private PajFacade pajFacade;
     private Criteria criteria;
     @Inject
-    private UserEJB userEJB;
+    private SessionController userEJB;
     @Inject
     private CriteriaFacade criteriaFacade;
     private String erro;
@@ -61,11 +61,11 @@ public class PajController {
         this.criteriaFacade = criteriaFacade;
     }
 
-    public UserEJB getUserEJB() {
+    public SessionController getUserEJB() {
         return userEJB;
     }
 
-    public void setUserEJB(UserEJB userEJB) {
+    public void setUserEJB(SessionController userEJB) {
         this.userEJB = userEJB;
     }
 

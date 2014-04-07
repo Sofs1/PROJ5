@@ -12,7 +12,7 @@ import javax.faces.component.UIForm;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-import pt.uc.dei.ar.proj5.grupob.ejbs.UserEJB;
+import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 
@@ -30,7 +30,7 @@ public class ListStudentsController {
 
     private String searchStudent;
     @Inject
-    private UserEJB userLogado;
+    private SessionController userLogado;
     @Inject
     private StudentFacade studentFacade;
     private UIForm table_listStudents;
@@ -82,11 +82,11 @@ public class ListStudentsController {
         this.searchStudent = searchStudent;
     }
 
-    public UserEJB getUserLogado() {
+    public SessionController getUserLogado() {
         return userLogado;
     }
 
-    public void setUserLogado(UserEJB userLogado) {
+    public void setUserLogado(SessionController userLogado) {
         this.userLogado = userLogado;
     }
 

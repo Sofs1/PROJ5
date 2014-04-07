@@ -16,7 +16,7 @@
             <h:dataTable value="#{sessionController.pajSelected.projects}" var="project" border="0" cellpadding="2" cellspacing="0">
                 <h:column>
                     <f:facet name="header" class="dataTableTitle">Project Name</f:facet>
-                        #{project.name}
+                    <h:commandLink action="#{projectController.openProject(project)}" value="#{project.name}"/>
                 </h:column>
                 <h:column>
                     <f:facet name="header" class="dataTableTitle">Beginning Date</f:facet>
@@ -34,9 +34,7 @@
                     <f:facet name="header" class="dataTableTitle">Submitions</f:facet>
                         #{project.evaluations.size()}
                 </h:column>
-                <h:column>
-                    <h:commandButton action="#{projectController.openProject(project)}" value="Open Project"/>
-                </h:column>
+
             </h:dataTable>
             <p:commandButton value="Add Project" oncomplete="PF('dlg2').show()" update=":di"/>
         </h:form>

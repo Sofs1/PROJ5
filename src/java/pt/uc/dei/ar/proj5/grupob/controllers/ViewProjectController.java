@@ -16,6 +16,7 @@ import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
+import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
@@ -39,6 +40,8 @@ public class ViewProjectController {
     private String erro;
     private String confirmedEvaluation;
     private Project projectSelected;
+    private Student studentlogado;
+    private Evaluation evaluation;
 
     private UIPanel evaluationPanel;
 
@@ -46,7 +49,23 @@ public class ViewProjectController {
     public void init() {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         setSelectedProject((Project) flash.get("project"));
-        this.projectSelected = new Project();
+        studentlogado = (Student) session.getUser();
+    }
+
+    public Evaluation getEvaluation() {
+        return evaluation;
+    }
+
+    public void setEvaluation(Evaluation evaluation) {
+        this.evaluation = evaluation;
+    }
+
+    public Student getStudentlogado() {
+        return studentlogado;
+    }
+
+    public void setStudentlogado(Student studentlogado) {
+        this.studentlogado = studentlogado;
     }
 
     public String getConfirmedEvaluation() {
@@ -125,7 +144,6 @@ public class ViewProjectController {
                 found = true;
             }
         }
-
         return result;
     }
 

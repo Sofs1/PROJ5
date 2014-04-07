@@ -14,7 +14,9 @@
             <h:dataTable value="#{userController.listAllPajs()}" var="paj" border="0" cellpadding="2" cellspacing="0">
                 <h:column>
                     <f:facet name="header" class="dataTableTitle">PAJ Name</f:facet>
-                    <h:link  value="#{paj.name}" outcome="adminProjects"></h:link>
+                    <h:commandLink type="submit" value="#{paj.name}" action="adminProjects" >
+                        <f:setPropertyActionListener target="#{sessionController.pajSelected}" value="#{paj}" />
+                    </h:commandLink>
                 </h:column>
                 <h:column>
                     <f:facet name="header" class="dataTableTitle">PAJ Year</f:facet>
@@ -25,15 +27,11 @@
                         #{paj.projects.size()}
                 </h:column>
                 <h:column>
-                    <h:commandButton type="submit" value="Remove" action="#{pajController.removepaj()}" >
+                    <h:commandLink type="submit" value="Remove" action="#{pajController.removepaj()}" >
                         <f:setPropertyActionListener target="#{pajController.paj}" value="#{paj}" />
-                    </h:commandButton>
+                    </h:commandLink>
                 </h:column>
-                <h:column>
-                    <h:commandButton type="submit" value="View" action="adminProjects" >
-                        <f:setPropertyActionListener target="#{sessionController.pajSelected}" value="#{paj}" />
-                    </h:commandButton>
-                </h:column>
+
 
             </h:dataTable>
             <h:messages style="color:#ff0000"/>

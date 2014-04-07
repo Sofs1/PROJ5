@@ -21,8 +21,6 @@ public class CriteriaFacade extends AbstractFacade<Criteria> {
 
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
-    @Inject
-    private PajFacade pajFacade;
 
     @Override
     protected EntityManager getEntityManager() {
@@ -37,13 +35,13 @@ public class CriteriaFacade extends AbstractFacade<Criteria> {
         paj.getCriteria().add(criteria);
         criteria.setPaj(paj);
         this.create(criteria);
-        pajFacade.edit(paj);
+        em.merge(paj);
     }
-    
+
     public void removeCriteria(Criteria criteria, Paj paj) {
         paj.getCriteria().remove(criteria);
         this.remove(criteria);
-        pajFacade.edit(paj);
+        em.merge(paj);
     }
 
 }

@@ -9,11 +9,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TemporalType;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -30,14 +28,6 @@ import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
 @Stateless
 public class StudentFacade extends AbstractFacade<Student> {
 
-//    @Inject
-//    private EvaluationFacade evaluationFacade;
-//
-//    @Inject
-//    private ProjectFacade projectFacade;
-//
-//    @Inject
-//    private LogFacade logFacade;
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
 

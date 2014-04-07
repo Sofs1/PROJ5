@@ -221,4 +221,21 @@ public class UserController {
         return "adminLandingPage";
     }
 
+    public String createAdmin() {
+        try {
+            studentFacade.createStudent(student, passConf, selectedPaj);
+            userEJB.setUser(student);
+            return "templateStudent";
+
+        } catch (PasswordException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            erro = ex.getMessage();
+            return "signup";
+        } catch (DuplicateEmailException ex) {
+            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            erro = ex.getMessage();
+            return "signup";
+        }
+    }
+
 }

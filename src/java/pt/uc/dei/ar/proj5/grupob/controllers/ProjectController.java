@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
@@ -36,8 +37,6 @@ public class ProjectController {
     @Inject
     private SessionController session;
     private Project project;
-    private Date begDate;
-    private Date endDate;
     private Project projectSelected;
     private String erro;
 
@@ -81,22 +80,6 @@ public class ProjectController {
         this.project = project;
     }
 
-    public Date getBegDate() {
-        return begDate;
-    }
-
-    public void setBegDate(Date begDate) {
-        this.begDate = begDate;
-    }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
     public SessionController getSession() {
         return session;
     }
@@ -117,10 +100,6 @@ public class ProjectController {
      * Create a new project invoking addProject(Project, Paj) from Project bean
      */
     public void createNewProject() {
-
-        project.setBegDate(begDate);
-        project.setEndDate(endDate);
-
         projectFacade.addProject(project, session.getPajSelected());
         //return "adminProjects";
     }
@@ -150,13 +129,6 @@ public class ProjectController {
 
         return "openProjectAdmin";
 
-    }
-
-    public void giveEvaluation(Project p) {
-    }
-
-    public List<Project> listOpenProjects() {
-        return studentFacade.openProjects((Student) session.getUser());
     }
 
 }

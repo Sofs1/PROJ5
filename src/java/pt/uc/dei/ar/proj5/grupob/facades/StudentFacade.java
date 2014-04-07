@@ -179,7 +179,7 @@ public class StudentFacade extends AbstractFacade<Student> {
     public List<Project> openProjects(Student s) {
         List<Project> temp = new ArrayList<>();
         for (Project p : s.getProjects()) {
-            if (!p.getBegDate().before(new Date()) && !p.getEndDate().after(new Date())) {
+            if (!p.getBegDate().after(new Date()) && !p.getEndDate().before(new Date())) {
                 temp.add(p);
             }
         }

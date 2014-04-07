@@ -56,7 +56,7 @@
                             <h:outputLabel value="Beginning Date"/>
                         </td>
                         <td>
-                            <p:calendar value="#{projectController.begDate}" binding="#{startDateComponent}" id="popupButtonCal" showOn="button" effect="explode" required="true" requiredMessage="Beggining date is required"/>
+                            <p:calendar value="#{projectController.project.begDate}" binding="#{startDateComponent}" id="popupButtonCal" showOn="button" effect="explode" required="true" requiredMessage="Beggining date is required"/>
                         </td>
                     </tr>
                     <tr>
@@ -64,7 +64,7 @@
                             <h:outputLabel value="End Date"/>
                         </td>
                         <td>
-                            <p:calendar value="#{projectController.endDate}" id="popupButtonCal2" showOn="button" effect="explode" required="true" requiredMessage="End date is required">
+                            <p:calendar value="#{projectController.project.endDate}" id="popupButtonCal2" showOn="button" effect="explode" required="true" requiredMessage="End date is required">
                                 <f:validator validatorId="dateRangeValidator" />
                                 <f:attribute name="startDateComponent" value="#{startDateComponent}" />
                             </p:calendar>

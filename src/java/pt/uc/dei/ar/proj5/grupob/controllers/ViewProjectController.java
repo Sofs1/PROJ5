@@ -20,8 +20,10 @@ import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
+import pt.uc.dei.ar.proj5.grupob.facades.EvaluationFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
+import pt.uc.dei.ar.proj5.grupob.util.NoEntriesToEvaluation;
 
 /**
  *
@@ -36,6 +38,8 @@ public class ViewProjectController {
     private ProjectFacade projectFacade;
     @Inject
     private StudentFacade studentFacade;
+    @Inject
+    private EvaluationFacade evaluationFacade;
     @Inject
     private SessionController session;
     @Inject
@@ -52,6 +56,14 @@ public class ViewProjectController {
     public void init() {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         setSelectedProject((Project) flash.get("project"));
+    }
+
+    public EvaluationFacade getEvaluationFacade() {
+        return evaluationFacade;
+    }
+
+    public void setEvaluationFacade(EvaluationFacade evaluationFacade) {
+        this.evaluationFacade = evaluationFacade;
     }
 
     public List<Evaluation> getStudentEvaluations() {
@@ -168,7 +180,13 @@ public class ViewProjectController {
     }
 
     public void giveEvaluation() {
-        studentFacade.submitEvaluations(studentEvaluations);
+        try {
+            evaluationFacade.giveEvaluation(studentEvaluations);
+            confirmedEvaluation = "Evaluation submitted";
+        } catch (NoEntriesToEvaluation ex) {
+            Logger.getLogger(ViewProjectController.class.getName()).log(Level.SEVERE, null, ex);
+            erro = ex.getMessage();
+        }
     }
 
     public List<Project> listOpenProjects() {
@@ -176,7 +194,8 @@ public class ViewProjectController {
     }
 
     public void openEvaluation(Project p) {
-        this.studentEvaluations = studentFacade.studentEvaluationsSetCriteria((Student) session.getUser(), p);
+        projectSelected = p;
+        this.studentEvaluations = evaluationFacade.studentEvaluationsSetCriteria((Student) session.getUser(), p);
         evaluationPanel.setRendered(true);
     }
 
@@ -184,6 +203,10 @@ public class ViewProjectController {
         return studentFacade.listStudentsPaj(loggedUser.getPajSelected(), selectedProject);
         //table_listStudents.setRendered(true);
         // buttom_add.setRendered(true);
+    }
+
+    public List<Evaluation> givenEvaluations() {
+        return evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), projectSelected);
     }
 
 }

@@ -5,19 +5,15 @@
  */
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
-import java.util.Date;
-import java.util.List;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
-import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 import pt.uc.dei.ar.proj5.grupob.util.ExistEvaluationOnProjectException;
@@ -116,8 +112,7 @@ public class ProjectController {
     }
 
     /**
-     * Saves selected playlist in flash scope to use in selected playlist
-     * edition
+     * Saves selected project in flash scope to use in selected project view
      *
      * @param p
      * @return String

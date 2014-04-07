@@ -15,6 +15,7 @@ import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.mail.MessagingException;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
@@ -37,6 +38,8 @@ public class ViewProjectController {
     private StudentFacade studentFacade;
     @Inject
     private SessionController session;
+    @Inject
+    private SessionController loggedUser;
     private String erro;
     private String confirmedEvaluation;
     private Project projectSelected;
@@ -132,6 +135,14 @@ public class ViewProjectController {
         this.projectFacade = projectFacade;
     }
 
+    public SessionController getLoggedUser() {
+        return loggedUser;
+    }
+
+    public void setLoggedUser(SessionController loggedUser) {
+        this.loggedUser = loggedUser;
+    }
+
     public String submitionSearch(Student s) {
 
         String result = "No";
@@ -150,7 +161,7 @@ public class ViewProjectController {
     public void sendMailToStudent(Student s) {
         try {
             studentFacade.sendMail(s);
-        } catch (RuntimeException e) {
+        } catch (MessagingException e) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, e);
             erro = e.getMessage();
         }
@@ -167,6 +178,12 @@ public class ViewProjectController {
     public void openEvaluation(Project p) {
         projectSelected = p;
         evaluationPanel.setRendered(true);
+    }
+
+    public List<Student> returnListStudents() {
+        return studentFacade.listStudentsPaj(loggedUser.getPajSelected(), selectedProject);
+        //table_listStudents.setRendered(true);
+        // buttom_add.setRendered(true);
     }
 
 }

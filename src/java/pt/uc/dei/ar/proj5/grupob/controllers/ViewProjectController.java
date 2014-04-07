@@ -37,6 +37,7 @@ public class ViewProjectController {
     @Inject
     private SessionController session;
     private String erro;
+    private String confirmedEvaluation;
     private Project projectSelected;
 
     private UIPanel evaluationPanel;
@@ -46,6 +47,14 @@ public class ViewProjectController {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         setSelectedProject((Project) flash.get("project"));
         this.projectSelected = new Project();
+    }
+
+    public String getConfirmedEvaluation() {
+        return confirmedEvaluation;
+    }
+
+    public void setConfirmedEvaluation(String confirmedEvaluation) {
+        this.confirmedEvaluation = confirmedEvaluation;
     }
 
     public SessionController getSession() {
@@ -139,7 +148,7 @@ public class ViewProjectController {
 
     public void openEvaluation(Project p) {
         projectSelected = p;
-
+        evaluationPanel.setRendered(true);
     }
 
 }

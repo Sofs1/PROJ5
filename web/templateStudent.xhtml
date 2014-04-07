@@ -72,7 +72,7 @@
                         <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
                             <h:form>
                                 <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0">
-                                    <f:facet name="header">PROJECT #{viewProjectController.projectSelected.name}</f:facet>
+                                    <f:facet name="header">PROJECT #{viewProjectController.projectSelected.name}  MAX SCALE: #{viewProjectController.session}</f:facet>
                                     <h:column>   
                                         <f:facet name="header">Criteria</f:facet>
                                         <h:outputLabel value="#{eval.criteria.description}"/>

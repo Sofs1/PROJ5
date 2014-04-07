@@ -178,6 +178,12 @@ public class StudentFacade extends AbstractFacade<Student> {
 //        }
     }
 
+    /**
+     * Look for the Project's List from that student with evaluation in course
+     *
+     * @param s (student)
+     * @return Project's List
+     */
     public List<Project> openProjects(Student s) {
         List<Project> temp = new ArrayList<>();
         for (Project p : s.getProjects()) {
@@ -223,6 +229,14 @@ public class StudentFacade extends AbstractFacade<Student> {
         }
     }
 
+    /**
+     * Look from the list of Paj'Students for the Students with that string in
+     * the name
+     *
+     * @param str
+     * @param paj
+     * @return Student's list
+     */
     public List<Student> getSearchByName(String str, Paj paj) {
         Query q = em.createNamedQuery("Student.searchStudents");
         q.setParameter("name", "%" + str + "%").setParameter("paj", paj);
@@ -269,6 +283,13 @@ public class StudentFacade extends AbstractFacade<Student> {
         }
     }
 
+    /**
+     * Create a list of evaluations from that student to a defined project
+     *
+     * @param student
+     * @param p (project)
+     * @return Evaluation's list
+     */
     public List<Evaluation> studentEvaluationsSetCriteria(Student student, Project p) {
         List<Evaluation> studentEvaluations = new ArrayList<>();
         for (Criteria c : student.getPaj().getCriteria()) {
@@ -282,6 +303,11 @@ public class StudentFacade extends AbstractFacade<Student> {
         return studentEvaluations;
     }
 
+    /**
+     * Persit the List of Evaluations from 1student about 1project
+     *
+     * @param list
+     */
     public void submitEvaluations(List<Evaluation> list) {
         for (Evaluation e : list) {
             em.persist(e);

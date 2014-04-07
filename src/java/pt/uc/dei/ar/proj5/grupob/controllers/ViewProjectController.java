@@ -5,7 +5,6 @@
  */
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,7 +17,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.mail.MessagingException;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
-import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -45,7 +43,6 @@ public class ViewProjectController {
     private String erro;
     private String confirmedEvaluation;
     private Project projectSelected;
-    private Student studentlogado;
     private Evaluation evaluation;
     private List<Evaluation> studentEvaluations;
 
@@ -55,7 +52,6 @@ public class ViewProjectController {
     public void init() {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         setSelectedProject((Project) flash.get("project"));
-        studentlogado = (Student) session.getUser();
     }
 
     public List<Evaluation> getStudentEvaluations() {
@@ -72,14 +68,6 @@ public class ViewProjectController {
 
     public void setEvaluation(Evaluation evaluation) {
         this.evaluation = evaluation;
-    }
-
-    public Student getStudentlogado() {
-        return studentlogado;
-    }
-
-    public void setStudentlogado(Student studentlogado) {
-        this.studentlogado = studentlogado;
     }
 
     public String getConfirmedEvaluation() {
@@ -188,7 +176,7 @@ public class ViewProjectController {
     }
 
     public void openEvaluation(Project p) {
-        this.studentEvaluations = studentFacade.studentEvaluationsSetCriteria(studentlogado, p);
+        this.studentEvaluations = studentFacade.studentEvaluationsSetCriteria((Student) session.getUser(), p);
         evaluationPanel.setRendered(true);
     }
 

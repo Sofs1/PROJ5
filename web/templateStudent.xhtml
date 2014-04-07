@@ -71,18 +71,18 @@
 
                         <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
                             <h:form>
-                                <h:dataTable value="#{viewProjectController.studentlogado.paj.criteria}" var="crit" border="0" cellpadding="2" cellspacing="0">
+                                <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0">
                                     <f:facet name="header">PROJECT #{viewProjectController.projectSelected.name}</f:facet>
                                     <h:column>   
                                         <f:facet name="header">Criteria</f:facet>
-                                        <h:outputLabel value="#{crit.description}"/>
+                                        <h:outputLabel value="#{eval.criteria.description}"/>
                                     </h:column>
                                     <h:column>   
                                         <f:facet name="header">Evaluation</f:facet>
-                                        <h:inputText value="#{viewProjectController.evaluation.note}"/>
+                                        <h:inputText value="#{eval.note}"/>
                                     </h:column>
                                 </h:dataTable>
-                                <h:commandButton value="SUBMIT" ></h:commandButton>
+                                <h:commandButton value="SUBMIT" action="#{viewProjectController.giveEvaluation()}"></h:commandButton>
                             </h:form>
                         </h:panelGroup>
                         <!--

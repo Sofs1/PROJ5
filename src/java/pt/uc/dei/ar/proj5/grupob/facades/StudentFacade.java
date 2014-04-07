@@ -20,6 +20,8 @@ import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
+import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -264,6 +266,31 @@ public class StudentFacade extends AbstractFacade<Student> {
 
         } catch (MessagingException e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    public List<Evaluation> studentEvaluationsSetCriteria(Student student, Project p) {
+        List<Evaluation> studentEvaluations = new ArrayList<>();
+        for (Criteria c : student.getPaj().getCriteria()) {
+            Evaluation temp = new Evaluation();
+            temp.setStudent(student);
+            temp.setProject(p);
+            temp.setCriteria(c);
+            temp.setNote(0.0);
+            studentEvaluations.add(temp);
+        }
+        return studentEvaluations;
+    }
+
+    public void submitEvaluations(List<Evaluation> list) {
+        for (Evaluation e : list) {
+            em.persist(e);
+            e.getProject().getEvaluations().add(e);
+            em.merge(e.getProject());
+            e.getStudent().getEvaluations().add(e);
+            em.merge(e.getStudent());
+            e.getCriteria().getEvaluations().add(e);
+            em.merge(e.getCriteria());
         }
     }
 }

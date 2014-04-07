@@ -7,6 +7,7 @@ package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,7 +39,7 @@ public class Criteria implements Serializable {
     @ManyToOne
     private Paj paj;
 
-    @OneToMany(mappedBy = "criteria")
+    @OneToMany(mappedBy = "criteria", cascade = CascadeType.PERSIST)
     private List<Evaluation> evaluations;
 
     public Criteria() {

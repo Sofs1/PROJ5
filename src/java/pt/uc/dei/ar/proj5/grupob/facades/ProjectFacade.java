@@ -20,9 +20,6 @@ import pt.uc.dei.ar.proj5.grupob.util.ExistEvaluationOnProjectException;
 @Stateless
 public class ProjectFacade extends AbstractFacade<Project> {
 
-    @Inject
-    private PajFacade pajFacade;
-
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
 
@@ -39,7 +36,7 @@ public class ProjectFacade extends AbstractFacade<Project> {
         paj.getProjects().add(p);
         p.setPaj(paj);
         this.create(p);
-        pajFacade.edit(paj);
+        em.merge(paj);
     }
 
     public void removeProject(Project p, Paj paj) throws ExistEvaluationOnProjectException {
@@ -48,7 +45,7 @@ public class ProjectFacade extends AbstractFacade<Project> {
         } else {
             paj.getProjects().remove(p);
             this.remove(p);
-            pajFacade.edit(paj);
+            em.merge(paj);
         }
 
     }

@@ -36,14 +36,6 @@ import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
 @Stateless
 public class StudentFacade extends AbstractFacade<Student> {
 
-//    @Inject
-//    private EvaluationFacade evaluationFacade;
-//
-//    @Inject
-//    private ProjectFacade projectFacade;
-//
-//    @Inject
-//    private LogFacade logFacade;
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
 

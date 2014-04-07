@@ -20,15 +20,14 @@ import pt.uc.dei.ar.proj5.grupob.entities.User;
 @Named
 @Stateful
 @SessionScoped
-public class UserEJB implements Serializable {
+public class SessionController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     private User user;
     private Paj pajSelected;
-    private Long idPajSelected;
 
-    public UserEJB() {
+    public SessionController() {
     }
 
     @PostConstruct
@@ -52,14 +51,6 @@ public class UserEJB implements Serializable {
 
     public void setPajSelected(Paj pajSelected) {
         this.pajSelected = pajSelected;
-    }
-
-    public Long getIdPajSelected() {
-        return idPajSelected;
-    }
-
-    public void setIdPajSelected(Long idPajSelected) {
-        this.idPajSelected = idPajSelected;
     }
 
 }

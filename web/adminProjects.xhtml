@@ -10,10 +10,10 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <h1>#{userEJB.pajSelected.name}</h1>
+        <h1>#{sessionController.pajSelected.name}</h1>
         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
         <h:form>
-            <h:dataTable value="#{userEJB.pajSelected.projects}" var="project" border="0" cellpadding="2" cellspacing="0">
+            <h:dataTable value="#{sessionController.pajSelected.projects}" var="project" border="0" cellpadding="2" cellspacing="0">
                 <h:column>
                     <f:facet name="header" class="dataTableTitle">Project Name</f:facet>
                         #{project.name}

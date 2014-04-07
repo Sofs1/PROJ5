@@ -9,11 +9,15 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.component.UIForm;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
+import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
+import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 
 /**
@@ -33,9 +37,12 @@ public class ListStudentsController {
     private SessionController userLogado;
     @Inject
     private StudentFacade studentFacade;
+    @Inject
+    private ProjectFacade projectFacade;
     private UIForm table_listStudents;
 //    private UIForm buttom_add;
     private UIForm table_listStudentsToProject;
+    private Project projectSelected;
 
     /**
      * Creates a new instance of ListStudentsController
@@ -46,9 +53,13 @@ public class ListStudentsController {
 
     @PostConstruct
     public void initUser() {
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        setProjectSelected((Project) flash.get("project"));
+        setListStudentSelected((List<Student>) flash.get("studentList"));
         this.listStudentPajToProject = new ArrayList<>();
         this.listStudentSelected = new ArrayList<>();
     }
+
 //
 //    public UIForm getButtom_add() {
 //        return buttom_add;
@@ -57,6 +68,13 @@ public class ListStudentsController {
 //    public void setButtom_add(UIForm buttom_add) {
 //        this.buttom_add = buttom_add;
 //    }
+    public Project getProjectSelected() {
+        return projectSelected;
+    }
+
+    public void setProjectSelected(Project projectSelected) {
+        this.projectSelected = projectSelected;
+    }
 
     public List<Student> getListStudentSelected() {
         return listStudentSelected;
@@ -122,9 +140,15 @@ public class ListStudentsController {
         this.table_listStudentsToProject = table_listStudentsToProject;
     }
 
-    public void showListStudents() {
-        listStudentPaj = studentFacade.listStudentsPaj(userLogado.getPajSelected());
-        table_listStudents.setRendered(true);
+    //Não está a ser usado
+//    public void showListStudents() {
+//        listStudentPaj = studentFacade.listStudentsPaj(userLogado.getPajSelected());
+//        table_listStudents.setRendered(true);
+//        // buttom_add.setRendered(true);
+//    }
+    public List<Student> returnListStudents() {
+        return studentFacade.listStudentsPaj(userLogado.getPajSelected(), projectSelected);
+        //table_listStudents.setRendered(true);
         // buttom_add.setRendered(true);
     }
 
@@ -142,4 +166,18 @@ public class ListStudentsController {
         listStudentPajToProject.remove(st);
     }
 
+    public void passProject(Project p) {
+
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        flash.put("project", p);
+
+    }
+
+    public String addStudentsToProject() {
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        flash.put("studentList", listStudentSelected);
+        Project p = projectSelected;
+        projectFacade.addUsersToProject(listStudentSelected, p);
+        return "openProjectAdmin";
+    }
 }

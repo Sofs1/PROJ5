@@ -10,7 +10,7 @@
 
     <ui:define name="content">
         <h1>Project: #{viewProjectController.selectedProject.name}</h1>
-        <h:panelGrid columns="2">
+        <p:panelGrid columns="2">
             <h:form>
                 Project Name: #{viewProjectController.selectedProject.name}
                 <br></br>
@@ -23,7 +23,9 @@
                 <h:outputText value="#{viewProjectController.selectedProject.endDate}">
                     <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
                 </h:outputText>
-
+                <br></br>
+                <p:commandButton id="multiViewButton" value="Show all Students" icon="ui-icon-search"  
+                                 oncomplete="PF('studList').show()" action="#{listStudentsController.passProject(viewProjectController.selectedProject)}"/> 
             </h:form>
             <h:form>
                 <h:dataTable value="#{viewProjectController.selectedProject.students}" var="projectStud" border="0" cellpadding="2" cellspacing="0">
@@ -45,20 +47,24 @@
                     </h:column>
                 </h:dataTable>
             </h:form>
+        </p:panelGrid>
 
-            <h:form  binding="#{listStudentsController.table_listStudents}" rendered="false">
-                <h:commandButton  value="Search Students" action="#{listStudentsController.showSearchStudents()}"/>
-                <p:dataTable value="#{listStudentsController.listStudentPaj}" var="student" rowKey="#{student.id}" selection="#{listStudentsController.listStudentSelected}" paginator="true" rows="8" paginatorPosition="bottom">
-                    <p:column selectionMode="multiple"/>
-                    <p:column headerText="ID">
-                        #{student.id}                           
-                    </p:column>
-                    <p:column headerText="Name">
-                        #{student.name}                           
-                    </p:column>
-                </p:dataTable>
-            </h:form> 
-        </h:panelGrid>
+
+        <p:dialog id="dialog" header="Car Detail" widgetVar="studList" resizable="false"  
+                  showEffect="fade" hideEffect="explode"> 
+            <p:dataTable value="#{viewProjectController.returnListStudents()}" var="student" rowKey="#{student.id}" selection="#{listStudentsController.listStudentSelected}" paginator="true" rows="8" paginatorPosition="bottom">
+                <p:column selectionMode="multiple"/>
+                <p:column headerText="ID">
+                    #{student.id}                           
+                </p:column>
+                <p:column headerText="Name">
+                    #{student.name}                           
+                </p:column>
+            </p:dataTable>
+            <h:form>
+                <h:commandButton value="Add to project" action="#{listStudentsController.addStudentsToProject()}"/>
+            </h:form>
+        </p:dialog>
 
     </ui:define>
 

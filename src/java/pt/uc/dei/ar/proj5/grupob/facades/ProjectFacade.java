@@ -5,12 +5,14 @@
  */
 package pt.uc.dei.ar.proj5.grupob.facades;
 
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
+import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.util.ExistEvaluationOnProjectException;
 
 /**
@@ -19,6 +21,9 @@ import pt.uc.dei.ar.proj5.grupob.util.ExistEvaluationOnProjectException;
  */
 @Stateless
 public class ProjectFacade extends AbstractFacade<Project> {
+
+    @Inject
+    private StudentFacade studentFacade;
 
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
@@ -30,6 +35,14 @@ public class ProjectFacade extends AbstractFacade<Project> {
 
     public ProjectFacade() {
         super(Project.class);
+    }
+
+    public StudentFacade getStudentFacade() {
+        return studentFacade;
+    }
+
+    public void setStudentFacade(StudentFacade studentFacade) {
+        this.studentFacade = studentFacade;
     }
 
     public void addProject(Project p, Paj paj) {
@@ -48,6 +61,20 @@ public class ProjectFacade extends AbstractFacade<Project> {
             em.merge(paj);
         }
 
+    }
+
+    public void addUsersToProject(List<Student> st, Project p) {
+
+        for (Student s : st) {
+
+            s.getProjects().add(p);
+            em.merge(st);
+            p.getStudents().add(s);
+            em.merge(p);
+        }
+
+//        p.getStudents().addAll(st);
+//        em.persist(p);
     }
 
 }

@@ -5,6 +5,7 @@
  */
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +30,7 @@ import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
  */
 @Named("viewProjectController")
 @ViewScoped
-public class ViewProjectController {
+public class ViewProjectController implements Serializable {
 
     private Project selectedProject;
     @Inject

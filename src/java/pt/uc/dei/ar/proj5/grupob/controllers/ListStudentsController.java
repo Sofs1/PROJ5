@@ -5,6 +5,7 @@
  */
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -26,7 +27,7 @@ import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
  */
 @Named
 @ViewScoped
-public class ListStudentsController {
+public class ListStudentsController implements Serializable {
 
     private List<Student> listStudentSelected;
     private List<Student> listStudentPaj;
@@ -57,7 +58,7 @@ public class ListStudentsController {
         setProjectSelected((Project) flash.get("project"));
         setListStudentSelected((List<Student>) flash.get("studentList"));
         this.listStudentPajToProject = new ArrayList<>();
-        this.listStudentSelected = new ArrayList<>();
+        //this.listStudentSelected = new ArrayList<>();
     }
 
 //
@@ -173,11 +174,11 @@ public class ListStudentsController {
 
     }
 
-    public String addStudentsToProject() {
-        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-        flash.put("studentList", listStudentSelected);
+    public void addStudentsToProject() {
+//        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+//        flash.put("studentList", listStudentSelected);
         Project p = projectSelected;
         projectFacade.addUsersToProject(listStudentSelected, p);
-        return "openProjectAdmin";
+        //return "openProjectAdmin";
     }
 }

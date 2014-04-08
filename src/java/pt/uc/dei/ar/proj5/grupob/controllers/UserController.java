@@ -43,7 +43,7 @@ public class UserController {
     private SessionController userEJB;
     private String passConf;
     private Student student;
-    private User studentEdit;
+    private Student studentEdit;
     private User user;
     private String erro;
     private Paj selectedPaj;
@@ -59,7 +59,6 @@ public class UserController {
         this.student = new Student();
         this.user = new User();
         this.selectedPaj = new Paj();
-        this.studentEdit = userEJB.getUser();
     }
 
     public Paj getSelectedPaj() {
@@ -134,11 +133,11 @@ public class UserController {
         this.adminFacade = adminFacade;
     }
 
-    public User getStudentEdit() {
+    public Student getStudentEdit() {
         return studentEdit;
     }
 
-    public void setStudentEdit(User studentEdit) {
+    public void setStudentEdit(Student studentEdit) {
         this.studentEdit = studentEdit;
     }
 
@@ -208,7 +207,7 @@ public class UserController {
     }
 
     public String editStudent() {
-        //this.studentEdit = userEJB.getUser();
+        this.studentEdit = (Student) userEJB.getUser();
         try {
             studentFacade.editStudentFacade(studentEdit, passConf, userEJB.getUser().getEmail());
             return "templateStudent";

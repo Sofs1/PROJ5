@@ -201,7 +201,7 @@ public class StudentFacade extends AbstractFacade<Student> {
     public List<Project> closedProjects(Student s) {
         List<Project> temp = new ArrayList<>();
         for (Project p : s.getProjects()) {
-            if (!p.getEndDate().after(new Date())) {
+            if (!p.getBegDate().before(new Date()) && !p.getEndDate().after(new Date())) {
                 temp.add(p);
             }
         }

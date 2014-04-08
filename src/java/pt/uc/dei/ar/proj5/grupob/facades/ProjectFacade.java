@@ -68,11 +68,11 @@ public class ProjectFacade extends AbstractFacade<Project> {
         for (Student s : st) {
 
             s.getProjects().add(p);
-            em.merge(st);
+            em.merge(s);
             p.getStudents().add(s);
-            em.merge(p);
-        }
 
+        }
+        em.merge(p);
 //        p.getStudents().addAll(st);
 //        em.persist(p);
     }

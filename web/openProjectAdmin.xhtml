@@ -9,6 +9,7 @@
 
 
     <ui:define name="content">
+
         <h1>Project: #{viewProjectController.selectedProject.name}</h1>
         <p:panelGrid columns="2">
             <h:form>
@@ -24,9 +25,9 @@
                     <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
                 </h:outputText>
                 <br></br>
-                <p:commandButton id="multiViewButton" value="Show all Students" icon="ui-icon-search"  
-                                 oncomplete="PF('studList').show()" action="#{listStudentsController.passProject(viewProjectController.selectedProject)}"/> 
             </h:form>
+
+
             <h:form>
                 <h:dataTable value="#{viewProjectController.selectedProject.students}" var="projectStud" border="0" cellpadding="2" cellspacing="0">
                     <h:column>
@@ -47,12 +48,15 @@
                     </h:column>
                 </h:dataTable>
             </h:form>
+
         </p:panelGrid>
+        <h:form>
+            <p:commandButton id="multiViewButton" value="Show all Students" icon="ui-icon-search"  
+                             oncomplete="PF('studList').show()"/>
+        </h:form>
+        <h:form id="studListe">
 
-
-        <p:dialog id="dialog" header="Car Detail" widgetVar="studList" resizable="false"  
-                  showEffect="fade" hideEffect="explode"> 
-            <p:dataTable value="#{viewProjectController.returnListStudents()}" var="student" rowKey="#{student.id}" selection="#{listStudentsController.listStudentSelected}" paginator="true" rows="8" paginatorPosition="bottom">
+            <p:dataTable value="#{viewProjectController.returnListStudents()}" var="student" rowKey="#{student}" selection="#{viewProjectController.studentsList}" paginator="true" rows="8" paginatorPosition="bottom">
                 <p:column selectionMode="multiple"/>
                 <p:column headerText="ID">
                     #{student.id}                           
@@ -60,12 +64,10 @@
                 <p:column headerText="Name">
                     #{student.name}                           
                 </p:column>
+                <f:facet name="footer"><p:commandButton value="Add to project" ajax="false" actionListener="#{viewProjectController.addStudentsToProject()}"/></f:facet>
             </p:dataTable>
-            <h:form>
-                <h:commandButton value="Add to project" action="#{listStudentsController.addStudentsToProject()}"/>
-            </h:form>
-        </p:dialog>
 
+        </h:form>
     </ui:define>
 
 </ui:composition>

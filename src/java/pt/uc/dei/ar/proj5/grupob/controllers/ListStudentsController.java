@@ -54,9 +54,9 @@ public class ListStudentsController implements Serializable {
 
     @PostConstruct
     public void initUser() {
-        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-        setProjectSelected((Project) flash.get("project"));
-        setListStudentSelected((List<Student>) flash.get("studentList"));
+        //Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        //setProjectSelected((Project) flash.get("project"));
+        //setListStudentSelected((List<Student>) flash.get("studentList"));
         this.listStudentPajToProject = new ArrayList<>();
         //this.listStudentSelected = new ArrayList<>();
     }
@@ -174,11 +174,12 @@ public class ListStudentsController implements Serializable {
 
     }
 
-    public void addStudentsToProject() {
-//        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-//        flash.put("studentList", listStudentSelected);
-        Project p = projectSelected;
-        projectFacade.addUsersToProject(listStudentSelected, p);
-        //return "openProjectAdmin";
-    }
+//    public void addStudentsToProject() {
+////        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+////        flash.put("studentList", listStudentSelected);
+//
+//        Project p = projectSelected;
+//        projectFacade.addUsersToProject(listStudentSelected, p);
+//        //return "openProjectAdmin";
+//    }
 }

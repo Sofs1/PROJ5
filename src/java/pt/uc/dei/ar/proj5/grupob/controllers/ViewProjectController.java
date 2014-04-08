@@ -50,6 +50,7 @@ public class ViewProjectController implements Serializable {
     private Project projectSelected;
     private Evaluation evaluation;
     private List<Evaluation> studentEvaluations;
+    private List<Student> studentsList;
 
     private UIPanel evaluationPanel;
 
@@ -155,6 +156,14 @@ public class ViewProjectController implements Serializable {
         this.loggedUser = loggedUser;
     }
 
+    public List<Student> getStudentsList() {
+        return studentsList;
+    }
+
+    public void setStudentsList(List<Student> studentsList) {
+        this.studentsList = studentsList;
+    }
+
     public String submitionSearch(Student s) {
 
         String result = "No";
@@ -202,12 +211,18 @@ public class ViewProjectController implements Serializable {
 
     public List<Student> returnListStudents() {
         return studentFacade.listStudentsPaj(loggedUser.getPajSelected(), selectedProject);
-        //table_listStudents.setRendered(true);
-        // buttom_add.setRendered(true);
     }
 
     public List<Evaluation> givenEvaluations() {
         return evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), projectSelected);
+    }
+
+    public void addStudentsToProject() {
+
+        List<Student> list = studentsList;
+        Project p = selectedProject;
+        projectFacade.addUsersToProject(studentsList, p);
+
     }
 
 }

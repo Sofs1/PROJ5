@@ -20,8 +20,6 @@ import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
-import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -195,38 +193,47 @@ public class StudentFacade extends AbstractFacade<Student> {
     }
 
     public List<Student> listStudentsPaj(Paj paj, Project proj) {
-        Query q = em.createNamedQuery("Student.findByPaj");
+
+        Query q = em.createNamedQuery("Student.findByPajNoProject");
+
         q.setParameter("paj", paj);
-
-        try {
-            List<Student> studs = (List<Student>) q.getResultList();
-            List<Student> selected = new ArrayList();
-            boolean have = false;
-
-            for (int i = 0; i < studs.size(); i++) {
-
-                if (studs.get(i).getProjects().isEmpty()) {
-
-                    selected.add(studs.get(i));
-                } else {
-                    for (int j = 0; j < studs.get(i).getProjects().size() && !have; j++) {
-
-                        if (studs.get(i).getProjects().get(j).equals(proj) || studs.get(i).getProjects().isEmpty()) {
-
-                            have = true;
-
-                        } else {
-
-                            selected.add(studs.get(i));
-                        }
-                    }
-                    have = false;
-                }
-            }
-            return selected;
-        } catch (Exception e) {
-            return null;
-        }
+        q.setParameter("project", proj);
+        return (List<Student>) q.getResultList();
+//        Query q = em.createNamedQuery("Student.findByPaj");
+//        q.setParameter("paj", paj.getId());
+//    
+//
+//        try {
+//            List<Student> studs = (List<Student>) q.getResultList();
+//            List<Student> selected = new ArrayList();
+//            boolean have = false;
+//
+//            for (int i = 0; i < studs.size(); i++) {
+//
+//                if (studs.get(i).getProjects().isEmpty()) {
+//
+//                    selected.add(studs.get(i));
+//
+//                } else {
+//
+//                    for (int j = 0; j < studs.get(i).getProjects().size() && !have; j++) {
+//
+//                        if (studs.get(i).getProjects().get(j).equals(proj)) {
+//
+//                            have = true;
+//
+//                        } else {
+//
+//                            selected.add(studs.get(i));
+//                        }
+//                    }
+//                    have = false;
+//                }
+//            }
+//            return selected;
+//        } catch (Exception e) {
+//            return null;
+//        }
     }
 
     /**

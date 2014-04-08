@@ -283,40 +283,4 @@ public class StudentFacade extends AbstractFacade<Student> {
         }
     }
 
-    /**
-     * Create a list of evaluations from that student to a defined project
-     *
-     * @param student
-     * @param p (project)
-     * @return Evaluation's list
-     */
-    public List<Evaluation> studentEvaluationsSetCriteria(Student student, Project p) {
-        List<Evaluation> studentEvaluations = new ArrayList<>();
-        for (Criteria c : student.getPaj().getCriteria()) {
-            Evaluation temp = new Evaluation();
-            temp.setStudent(student);
-            temp.setProject(p);
-            temp.setCriteria(c);
-            temp.setNote(0.0);
-            studentEvaluations.add(temp);
-        }
-        return studentEvaluations;
-    }
-
-    /**
-     * Persit the List of Evaluations from 1student about 1project
-     *
-     * @param list
-     */
-    public void submitEvaluations(List<Evaluation> list) {
-        for (Evaluation e : list) {
-            em.persist(e);
-            e.getProject().getEvaluations().add(e);
-            em.merge(e.getProject());
-            e.getStudent().getEvaluations().add(e);
-            em.merge(e.getStudent());
-            e.getCriteria().getEvaluations().add(e);
-            em.merge(e.getCriteria());
-        }
-    }
 }

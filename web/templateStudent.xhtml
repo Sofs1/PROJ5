@@ -72,31 +72,26 @@
                         <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
                             <h:form>
                                 <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0">
-                                    <f:facet name="header">PROJECT #{viewProjectController.projectSelected.name}  MAX SCALE: #{viewProjectController.session}</f:facet>
+                                    <f:facet name="header">PROJECT #{viewProjectController.projectSelected.name}</f:facet>
                                     <h:column>   
                                         <f:facet name="header">Criteria</f:facet>
                                         <h:outputLabel value="#{eval.criteria.description}"/>
                                     </h:column>
                                     <h:column>   
-                                        <f:facet name="header">Evaluation</f:facet>
-                                        <h:inputText value="#{eval.note}"/>
+                                        <f:facet name="header">Evaluation MAX SCALE: #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
+                                        <h:inputText value="#{eval.note}" disabled="#{!empty viewProjectController.givenEvaluations()}"/>
+                                    </h:column>
+                                    <h:column rendered="#{!empty viewProjectController.givenEvaluations()}">   
+                                        <f:facet name="header">Average</f:facet>
+                                        <h:outputLabel value="media"/>
                                     </h:column>
                                 </h:dataTable>
-                                <h:commandButton value="SUBMIT" action="#{viewProjectController.giveEvaluation()}"></h:commandButton>
+                                <h:commandButton value="SUBMIT" action="#{viewProjectController.giveEvaluation()}" disabled="#{!empty viewProjectController.givenEvaluations()}"></h:commandButton>
+                                <br></br>
+                                <h:outputLabel value ="#{viewProjectController.erro}"/>
+                                <h:outputLabel value ="#{viewProjectController.confirmedEvaluation}"/>
                             </h:form>
                         </h:panelGroup>
-                        <!--
-                                                <h:panelGroup rendered="false">
-                                                    <h:dataTable value="" var="media" border="0" cellpadding="2" cellspacing="0">
-                                                        <h:column>
-                                                            <f:facet name="Average">
-                                                                <h:outputText value=""/>
-                                                            </f:facet>
-                                                            <h:outputText value=""/>
-                                                        </h:column>
-                                                    </h:dataTable>
-                                                    <h:outputLabel value="Your evaluation was submitted"/>
-                                                </h:panelGroup> -->
 
                     </h:panelGrid> 
                 </ui:insert>

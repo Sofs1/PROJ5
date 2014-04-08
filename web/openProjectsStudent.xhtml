@@ -61,7 +61,7 @@
                 </h:form>
             </h:panelGroup>
             <p:dialog id="dialog" header="Submit Evaluation" widgetVar="confirmEval" resizable="false"  
-                      showEffect="fade" hideEffect="explode"> 
+                      showEffect="fade" hideEffect="explode" modal="true" closable="false"> 
                 <h:outputLabel value="Do you really want to submit your Evaluation? After that, you can´t changed it!"/>
                 <h:form>
                     <h:commandButton value="YES" action="#{viewProjectController.giveEvaluation()}"/>

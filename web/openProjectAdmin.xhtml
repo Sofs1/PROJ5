@@ -55,18 +55,19 @@
                              oncomplete="PF('studList').show()"/>
         </h:form>
         <h:form id="studListe">
-
-            <p:dataTable value="#{viewProjectController.returnListStudents()}" var="student" rowKey="#{student}" selection="#{viewProjectController.studentsList}" paginator="true" rows="8" paginatorPosition="bottom">
-                <p:column selectionMode="multiple"/>
-                <p:column headerText="ID">
-                    #{student.id}                           
-                </p:column>
-                <p:column headerText="Name">
-                    #{student.name}                           
-                </p:column>
-                <f:facet name="footer"><p:commandButton value="Add to project" ajax="false" actionListener="#{viewProjectController.addStudentsToProject()}"/></f:facet>
-            </p:dataTable>
-
+            <p:dialog id="dialog" header="Add student(s) to project" widgetVar="studList" resizable="false"  
+                      showEffect="fade" hideEffect="explode" modal="true"> 
+                <p:dataTable value="#{viewProjectController.returnListStudents()}" var="student" rowKey="#{student}" selection="#{viewProjectController.studentsList}" paginator="true" rows="8" paginatorPosition="bottom" style="width: 600px; height: 400px;">
+                    <p:column selectionMode="multiple"/>
+                    <p:column headerText="ID">
+                        #{student.id}                           
+                    </p:column>
+                    <p:column headerText="Name">
+                        #{student.name}                           
+                    </p:column>
+                    <f:facet name="footer"><p:commandButton value="Add to project" ajax="false" actionListener="#{viewProjectController.addStudentsToProject()}"/></f:facet>
+                </p:dataTable>
+            </p:dialog>
         </h:form>
     </ui:define>
 

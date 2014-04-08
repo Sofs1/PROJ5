@@ -192,6 +192,22 @@ public class StudentFacade extends AbstractFacade<Student> {
         return temp;
     }
 
+    /**
+     * Look for the Project's List from that student with evaluation in course
+     *
+     * @param s (student)
+     * @return Project's List
+     */
+    public List<Project> closedProjects(Student s) {
+        List<Project> temp = new ArrayList<>();
+        for (Project p : s.getProjects()) {
+            if (!p.getEndDate().after(new Date())) {
+                temp.add(p);
+            }
+        }
+        return temp;
+    }
+
     public List<Student> listStudentsPaj(Paj paj, Project proj) {
 
         Query q = em.createNamedQuery("Student.findByPajNoProject");

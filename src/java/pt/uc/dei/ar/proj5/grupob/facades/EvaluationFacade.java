@@ -13,10 +13,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
-import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
-import pt.uc.dei.ar.proj5.grupob.util.AlreadyExistsYourEvaluation;
 import pt.uc.dei.ar.proj5.grupob.util.NoEntriesToEvaluation;
 
 /**
@@ -84,6 +82,46 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         q.setParameter("id_st", s.getId()).setParameter("id_proj", p.getId());
         try {
             return (List<Evaluation>) q.getResultList();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Double avgProject(Project p) {
+        Query q = em.createNamedQuery("Evaluation.avgProj");
+        q.setParameter("id_proj", p.getId());
+        try {
+            return (Double) q.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Double avgStudent(Student s) {
+        Query q = em.createNamedQuery("Evaluation.avgStud");
+        q.setParameter("id_st", s.getId());
+        try {
+            return (Double) q.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Double avgStudentProject(Student s, Project p) {
+        Query q = em.createNamedQuery("Evaluation.avgStudProj");
+        q.setParameter("id_st", s.getId()).setParameter("id_proj", p.getId());
+        try {
+            return (Double) q.getSingleResult();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
+    public Double avgStudentCriteria(Student s, Criteria c) {
+        Query q = em.createNamedQuery("Evaluation.avgStudCrit");
+        q.setParameter("id_st", s.getId()).setParameter("id_crit", c.getId());
+        try {
+            return (Double) q.getSingleResult();
         } catch (Exception e) {
             return null;
         }

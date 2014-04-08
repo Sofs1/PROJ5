@@ -50,6 +50,7 @@ public class ViewProjectController implements Serializable {
     private Project projectSelected;
     private Evaluation evaluation;
     private List<Evaluation> studentEvaluations;
+    private Double avg;
     private List<Student> studentsList;
 
     private UIPanel evaluationPanel;
@@ -58,6 +59,15 @@ public class ViewProjectController implements Serializable {
     public void init() {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         setSelectedProject((Project) flash.get("project"));
+        confirmedEvaluation = "Evaluation submitted";
+    }
+
+    public Double getAvg() {
+        return avg;
+    }
+
+    public void setAvg(Double avg) {
+        this.avg = avg;
     }
 
     public EvaluationFacade getEvaluationFacade() {
@@ -192,7 +202,8 @@ public class ViewProjectController implements Serializable {
     public void giveEvaluation() {
         try {
             evaluationFacade.giveEvaluation(studentEvaluations);
-            confirmedEvaluation = "Evaluation submitted";
+            openEvaluation(projectSelected);
+            //avg = evaluationFacade.avgProject(selectedProject);
         } catch (NoEntriesToEvaluation ex) {
             Logger.getLogger(ViewProjectController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
@@ -203,9 +214,14 @@ public class ViewProjectController implements Serializable {
         return studentFacade.openProjects((Student) session.getUser());
     }
 
+    public List<Project> listClosedProjects() {
+        return studentFacade.closedProjects((Student) session.getUser());
+    }
+
     public void openEvaluation(Project p) {
         projectSelected = p;
         this.studentEvaluations = evaluationFacade.studentEvaluationsSetCriteria((Student) session.getUser(), p);
+        avg = evaluationFacade.avgProject(p);
         evaluationPanel.setRendered(true);
     }
 

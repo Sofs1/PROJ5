@@ -147,7 +147,7 @@ public class UserController {
         try {
             studentFacade.createStudent(student, passConf, selectedPaj);
             userEJB.setUser(student);
-            return "templateStudent";
+            return "openProjectsStudent";
         } catch (PasswordException | DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
@@ -159,7 +159,7 @@ public class UserController {
         try {
             userEJB.setUser(studentFacade.searchStudent(user.getEmail(), user.getPass()));
             userEJB.setPajSelected(((Student) userEJB.getUser()).getPaj());
-            return "templateStudent";
+            return "openProjectsStudent";
         } catch (NotRegistedEmailException | PasswordException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();

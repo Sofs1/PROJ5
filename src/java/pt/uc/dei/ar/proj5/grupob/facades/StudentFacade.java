@@ -20,8 +20,6 @@ import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
-import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -188,6 +186,22 @@ public class StudentFacade extends AbstractFacade<Student> {
         List<Project> temp = new ArrayList<>();
         for (Project p : s.getProjects()) {
             if (!p.getBegDate().after(new Date()) && !p.getEndDate().before(new Date())) {
+                temp.add(p);
+            }
+        }
+        return temp;
+    }
+
+    /**
+     * Look for the Project's List from that student with evaluation in course
+     *
+     * @param s (student)
+     * @return Project's List
+     */
+    public List<Project> closedProjects(Student s) {
+        List<Project> temp = new ArrayList<>();
+        for (Project p : s.getProjects()) {
+            if (!p.getEndDate().after(new Date())) {
                 temp.add(p);
             }
         }

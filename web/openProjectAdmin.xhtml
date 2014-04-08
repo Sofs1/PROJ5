@@ -11,7 +11,7 @@
     <ui:define name="content">
 
         <h1>Project: #{viewProjectController.selectedProject.name}</h1>
-        <p:panelGrid columns="2">
+        <p:panelGrid columns="3">
             <h:form>
                 Project Name: #{viewProjectController.selectedProject.name}
                 <br></br>
@@ -38,16 +38,32 @@
                         <f:facet name="header" class="dataTableTitle">Submited?</f:facet>
                             #{viewProjectController.submitionSearch(projectStud)}
                     </h:column>
-                    <h:column>
-                        <f:facet name="header" class="dataTableTitle">See</f:facet>
-                        <h:commandButton value="+Info"/> 
+<!--                    <h:column binding="#{viewProjectController.columSee}" rendered="#{!empty viewProjectController.studentEvaluations}">
+                     <f:facet name="header" class="dataTableTitle">See</f:facet>
+                    <h:commandLink value="See" action="#{viewProjectController.viewStudentEvaluation(projectStud)}"/> 
                     </h:column>
-                    <h:column>
+                    <h:column binding="#{viewProjectController.columEmail}" rendered="#{empty viewProjectController.listEvaluationStudent(projectStud)}">
                         <f:facet name="header" class="dataTableTitle">Send Mail</f:facet>
-                        <h:commandButton action="#{viewProjectController.sendMailToStudent(projectStud)}" value="Send email"/>
-                    </h:column>
+                        <h:commandLink action="#{viewProjectController.sendMailToStudent(projectStud)}" value="Send email"/> 
+                    </h:column> -->
                 </h:dataTable>
             </h:form>
+            <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
+                <h:form>
+                    <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0">
+                        <f:facet name="header">PROJECT #{viewProjectController.projectSelected.name}</f:facet>
+                        <h:column>   
+                            <f:facet name="header">Criteria</f:facet>
+                            <h:outputLabel value="#{eval.criteria.description}"/>
+                        </h:column>
+                        <h:column>   
+                            <f:facet name="header">Evaluation MAX SCALE: #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
+                            <h:outputLabel id="minmax" value="#{eval.note}"/>
+                        </h:column>
+                        <f:facet name="footer">Average #{viewProjectController.avg}</f:facet>
+                    </h:dataTable> 
+                </h:form>
+            </h:panelGroup>
 
         </p:panelGrid>
         <h:form>

@@ -35,15 +35,15 @@ import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
  */
 @Stateless
 public class StudentFacade extends AbstractFacade<Student> {
-
+    
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
-
+    
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-
+    
     public StudentFacade() {
         super(Student.class);
     }
@@ -87,7 +87,7 @@ public class StudentFacade extends AbstractFacade<Student> {
             paj.getStudents().add(user);
             edit(user);
             em.merge(paj);
-
+            
         }
     }
 
@@ -201,17 +201,17 @@ public class StudentFacade extends AbstractFacade<Student> {
     public List<Project> closedProjects(Student s) {
         List<Project> temp = new ArrayList<>();
         for (Project p : s.getProjects()) {
-            if (!p.getBegDate().before(new Date()) && !p.getEndDate().after(new Date())) {
+            if (p.getEndDate().before(new Date()) || p.getBegDate().after(new Date())) {
                 temp.add(p);
             }
         }
         return temp;
     }
-
+    
     public List<Student> listStudentsPaj(Paj paj, Project proj) {
-
+        
         Query q = em.createNamedQuery("Student.findByPajNoProject");
-
+        
         q.setParameter("paj", paj);
         q.setParameter("project", proj);
         return (List<Student>) q.getResultList();
@@ -269,28 +269,28 @@ public class StudentFacade extends AbstractFacade<Student> {
             return null;
         }
     }
-
+    
     public void sendMail(Student s) throws RuntimeException, MessagingException {
-
+        
         final String email = "acertarorumo@gmail.com";
         final String password = "managedbean";
-
+        
         Properties props = System.getProperties();
-
+        
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.port", "587");
-
+        
         Session session = Session.getInstance(props,
                 new javax.mail.Authenticator() {
                     protected PasswordAuthentication getPasswordAuthentication() {
                         return new PasswordAuthentication(email, password);
                     }
                 });
-
+        
         try {
-
+            
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress("acertarorumo@gmail.com"));
             message.setRecipients(Message.RecipientType.TO,
@@ -298,12 +298,12 @@ public class StudentFacade extends AbstractFacade<Student> {
             message.setSubject("Teste");
             message.setText("Dear Mail Crawler,"
                     + "\n\n No spam to my email, please!");
-
+            
             Transport.send(message);
-
+            
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
     }
-
+    
 }

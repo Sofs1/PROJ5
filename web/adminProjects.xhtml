@@ -34,9 +34,12 @@
                     <f:facet name="header" class="dataTableTitle">Submitions</f:facet>
                         #{project.evaluations.size()}
                 </h:column>
-
+                <h:column>
+                    <h:commandLink type="submit" value="Remove" action="#{projectController.removeProject(project)}" />
+                </h:column>
             </h:dataTable>
             <p:commandButton value="Add Project" oncomplete="PF('dlg2').show()" update=":di"/>
+            <h:outputLabel style="color: red" value="#{projectController.erro}"/>
         </h:form>
         <h:form id="di">
             <p:dialog id="modalDialog" header="Create Project" widgetVar="dlg2" modal="true" height="auto" width="auto">

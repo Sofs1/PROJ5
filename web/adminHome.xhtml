@@ -34,9 +34,9 @@
 
 
             </h:dataTable>
+            <p:commandButton value="Add PAJ" oncomplete="PF('dlg2').show()" update=":pajEd"/>
             <h:messages style="color:#ff0000"/>
             <h:outputText value="#{pajController.erro}" style="color:#ff0000"/>
-            <p:commandButton value="Add PAJ" oncomplete="PF('dlg2').show()" update=":pajEd"/>
         </h:form>
         <p:dialog id="modalDialog" header="Create Paj Edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
             <h:form id="pajEd">

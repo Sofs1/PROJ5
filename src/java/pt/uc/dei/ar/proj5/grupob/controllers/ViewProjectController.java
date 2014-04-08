@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.component.UIColumn;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
@@ -54,12 +55,30 @@ public class ViewProjectController implements Serializable {
     private List<Student> studentsList;
 
     private UIPanel evaluationPanel;
+    private UIColumn columSee;
+    private UIColumn columEmail;
 
     @PostConstruct
     public void init() {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         setSelectedProject((Project) flash.get("project"));
         confirmedEvaluation = "Evaluation submitted";
+    }
+
+    public UIColumn getColumSee() {
+        return columSee;
+    }
+
+    public void setColumSee(UIColumn columSee) {
+        this.columSee = columSee;
+    }
+
+    public UIColumn getColumEmail() {
+        return columEmail;
+    }
+
+    public void setColumEmail(UIColumn columEmail) {
+        this.columEmail = columEmail;
     }
 
     public Double getAvg() {
@@ -239,6 +258,15 @@ public class ViewProjectController implements Serializable {
         Project p = selectedProject;
         projectFacade.addUsersToProject(studentsList, p);
 
+    }
+
+    public void viewStudentEvaluation(Student s) {
+        studentEvaluations = evaluationFacade.evaluationsStudentToProject(s, selectedProject);
+        evaluationPanel.setRendered(true);
+    }
+
+    public List<Evaluation> listEvaluationStudent(Student s) {
+        return evaluationFacade.evaluationsStudentToProject(s, selectedProject);
     }
 
 }

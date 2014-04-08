@@ -13,7 +13,7 @@ public class ExistEvaluationOnProjectException extends Exception {
 
     public ExistEvaluationOnProjectException() {
 
-        super("You can´t delete project because avaluation exist.");
+        super("You can´t delete project because exists evaluations.");
     }
 
 }

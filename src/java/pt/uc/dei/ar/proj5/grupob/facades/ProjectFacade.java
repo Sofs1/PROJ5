@@ -70,7 +70,6 @@ public class ProjectFacade extends AbstractFacade<Project> {
             s.getProjects().add(p);
             em.merge(s);
             p.getStudents().add(s);
-
         }
         em.merge(p);
 //        p.getStudents().addAll(st);

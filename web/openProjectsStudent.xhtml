@@ -51,18 +51,18 @@
                             <f:facet name="header">Evaluation MAX SCALE: #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
                             <p:spinner id="minmax" min="0" max="#{viewProjectController.session.pajSelected.scaleMax}" value="#{eval.note}"  disabled="#{!empty viewProjectController.givenEvaluations()}" />
                         </h:column>
-                        <f:facet name="footer" rendered="#{!empty viewProjectController.givenEvaluations()}">Average #{viewProjectController.avg}</f:facet>
                     </h:dataTable> 
                     <p:commandButton id="multiViewButton" value="SUBMIT" icon="ui-icon-search"   oncomplete="PF('confirmEval').show()"
                                      disabled="#{!empty viewProjectController.givenEvaluations()}"/> 
-                    <h:outputLabel style="color: #67A92D" value ="#{viewProjectController.confirmedEvaluation}" rendered="#{!empty viewProjectController.givenEvaluations()}"/>
+                    <h:outputLabel  style="color: #67A92D" value ="#{viewProjectController.confirmedEvaluation}" rendered="#{!empty viewProjectController.givenEvaluations()}"/>
+                    <h:outputLabel rendered="#{!empty viewProjectController.givenEvaluations()}" value="Project Average  #{viewProjectController.avg}"/>
                     <br></br>
                     <h:outputLabel value ="#{viewProjectController.erro}"/>
                 </h:form>
             </h:panelGroup>
             <p:dialog id="dialog" header="Submit Evaluation" widgetVar="confirmEval" resizable="false"  
                       showEffect="fade" hideEffect="explode" modal="true" closable="false"> 
-                <h:outputLabel value="Do you really want to submit your Evaluation? After that, you can´t changed it!"/>
+                <h:outputLabel value="Do you really want to submit your Evaluation? After that, you cannot change it!"/>
                 <h:form>
                     <h:commandButton value="YES" action="#{viewProjectController.giveEvaluation()}"/>
                     <h:commandButton value="NO" action="openProjectsStudent"/>

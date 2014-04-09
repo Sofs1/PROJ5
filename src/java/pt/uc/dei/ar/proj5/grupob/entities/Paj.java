@@ -41,6 +41,10 @@ public class Paj implements Serializable {
 
     @NotNull
     @Column(nullable = false)
+    private Integer scaleMin;
+
+    @NotNull
+    @Column(nullable = false)
     private Integer scaleMax;
 
     @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
@@ -77,6 +81,14 @@ public class Paj implements Serializable {
 
     public void setYearEd(int yearEd) {
         this.yearEd = yearEd;
+    }
+
+    public Integer getScaleMin() {
+        return scaleMin;
+    }
+
+    public void setScaleMin(Integer scaleMin) {
+        this.scaleMin = scaleMin;
     }
 
     public Integer getScaleMax() {

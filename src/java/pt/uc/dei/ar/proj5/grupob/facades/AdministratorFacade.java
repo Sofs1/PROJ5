@@ -5,6 +5,8 @@
  */
 package pt.uc.dei.ar.proj5.grupob.facades;
 
+import java.util.Date;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -57,9 +59,26 @@ public class AdministratorFacade extends AbstractFacade<Administrator> {
     public User searchAdmin(String email, String password) throws NotRegistedEmailException, PasswordException {
         User adminTemp = getAdminbyEmail(email);
         String passEncripted = Encrypt.cryptWithMD5(password);
+        Query q = em.createNamedQuery("Administrator.findAll");
+        List<User> temp = q.getResultList();
         if (adminTemp == null) {
-            throw new NotRegistedEmailException();
-        } else if (!adminTemp.getPass().equals(passEncripted)) {
+
+            if (temp.isEmpty()) {
+                User u = new Administrator();
+                u.setId(1);
+                u.setName("admin");
+                u.setEmail("admin@mail.com");
+                u.setPass(Encrypt.cryptWithMD5("admin"));
+                u.setRegistrationYear(new Date());
+                Administrator a = (Administrator) u;
+                this.create(a);
+                return u;
+
+            } else {
+                throw new NotRegistedEmailException();
+            }
+        } else if (!adminTemp.getPass()
+                .equals(passEncripted)) {
             throw new PasswordException();
         } else {
             return adminTemp;

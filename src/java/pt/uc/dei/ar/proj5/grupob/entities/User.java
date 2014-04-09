@@ -5,11 +5,13 @@
  */
 package pt.uc.dei.ar.proj5.grupob.entities;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -24,6 +26,10 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     protected Integer id;
+
+    @NotNull
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    protected Date registrationYear;
 
     @NotNull
     @Size(min = 1, max = 50)
@@ -42,10 +48,9 @@ public class User {
     @Column(nullable = false)
     protected String pass;
 
-    
     public User() {
     }
-    
+
     public Integer getId() {
         return id;
     }
@@ -76,6 +81,14 @@ public class User {
 
     public void setPass(String pass) {
         this.pass = pass;
+    }
+
+    public Date getRegistrationYear() {
+        return registrationYear;
+    }
+
+    public void setRegistrationYear(Date registrationYear) {
+        this.registrationYear = registrationYear;
     }
 
 }

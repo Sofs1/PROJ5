@@ -9,6 +9,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
@@ -93,9 +95,10 @@ public class PajController {
         this.pajFacade = pajFacade;
     }
 
-    public String createPaj() {
+    public void createPaj() {
         pajFacade.create(paj);
-        return "adminLandingPage";
+        this.addMessage("PAJ Edition created successfuly");
+        //return "adminHome";
     }
 
     public boolean existsEvaluations() {
@@ -120,6 +123,11 @@ public class PajController {
     public String removeCriteria(Criteria criteria) {
         criteriaFacade.removeCriteria(criteria, userEJB.getPajSelected());
         return "setCriteriaView";
+    }
+
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }

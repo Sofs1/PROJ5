@@ -229,11 +229,7 @@ public class UserController {
             userEJB.setUser(student);
             return "templateStudent";
 
-        } catch (PasswordException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
-            return "signup";
-        } catch (DuplicateEmailException ex) {
+        } catch (PasswordException | DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
             return "signup";

@@ -42,7 +42,7 @@
             <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
                 <h:form>
                     <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0">
-                        <f:facet name="header">PROJECT #{viewProjectController.projectSelected.name}</f:facet>
+                        <f:facet name="header">PROJECT #{viewProjectController.selectedProject.name}</f:facet>
                         <h:column>   
                             <f:facet name="header">Criteria</f:facet>
                             <h:outputLabel value="#{eval.criteria.description}"/>
@@ -51,11 +51,15 @@
                             <f:facet name="header">Evaluation MAX SCALE: #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
                             <p:spinner id="minmax" min="0" max="#{viewProjectController.session.pajSelected.scaleMax}" value="#{eval.note}"  disabled="#{!empty viewProjectController.givenEvaluations()}" />
                         </h:column>
+                        <h:column rendered="#{!empty viewProjectController.givenEvaluations()}">   
+                            <f:facet name="header">Average</f:facet>
+                            <h:outputLabel value="#{eval.average}"/>
+                            <f:facet name="footer">Project Average #{viewProjectController.avg}</f:facet>
+                        </h:column>
                     </h:dataTable> 
-                    <p:commandButton id="multiViewButton" value="SUBMIT" icon="ui-icon-search"   oncomplete="PF('confirmEval').show()"
+                    <p:commandButton id="multiViewButton" value="SUBMIT" oncomplete="PF('#{viewProjectController.verifySubmitedEvaluation()}').show()"  
                                      disabled="#{!empty viewProjectController.givenEvaluations()}"/> 
                     <h:outputLabel  style="color: #67A92D" value ="#{viewProjectController.confirmedEvaluation}" rendered="#{!empty viewProjectController.givenEvaluations()}"/>
-                    <h:outputLabel rendered="#{!empty viewProjectController.givenEvaluations()}" value="Project Average  #{viewProjectController.avg}"/>
                     <br></br>
                     <h:outputLabel value ="#{viewProjectController.erro}"/>
                 </h:form>
@@ -63,6 +67,14 @@
             <p:dialog id="dialog" header="Submit Evaluation" widgetVar="confirmEval" resizable="false"  
                       showEffect="fade" hideEffect="explode" modal="true" closable="false"> 
                 <h:outputLabel value="Do you really want to submit your Evaluation? After that, you cannot change it!"/>
+                <h:form>
+                    <h:commandButton value="YES" action="#{viewProjectController.giveEvaluation()}"/>
+                    <h:commandButton value="NO" action="openProjectsStudent"/>
+                </h:form>
+            </p:dialog>
+            <p:dialog id="dialog2" header="Submit Evaluation" widgetVar="confirmAny" resizable="false"  
+                      showEffect="fade" hideEffect="explode" modal="true" closable="false"> 
+                <h:outputLabel value="You didn´t answered any criterion! Do you really want to submitted it? After that, you cannot change it!"/>
                 <h:form>
                     <h:commandButton value="YES" action="#{viewProjectController.giveEvaluation()}"/>
                     <h:commandButton value="NO" action="openProjectsStudent"/>

@@ -75,6 +75,15 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             e.getCriteria().getEvaluations().add(e);
             em.merge(e.getCriteria());
         }
+
+    }
+
+    public void averageCriteriaProj(List<Evaluation> list) {
+        Query q = em.createNamedQuery("Evaluation.avgProjCrit");
+        for (Evaluation e : list) {
+            q.setParameter("id_proj", e.getProject().getId()).setParameter("id_crit", e.getCriteria().getId());
+            e.setAverage((Double) q.getSingleResult());
+        }
     }
 
     public List<Evaluation> evaluationsStudentToProject(Student s, Project p) {
@@ -127,18 +136,14 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
-    public void giveEvaluation(List<Evaluation> studentEvaluations) throws NoEntriesToEvaluation {
+    public boolean verifyEvaluation(List<Evaluation> studentEvaluations) {
         int count = 0;
         for (Evaluation e : studentEvaluations) {
             if (e.getNote() == 0.0) {
                 count++;
             }
         }
-        if (count == studentEvaluations.size()) {
-            throw new NoEntriesToEvaluation();
-        } else {
-            submitEvaluations(studentEvaluations);
-        }
+        return count != studentEvaluations.size();
     }
 
 }

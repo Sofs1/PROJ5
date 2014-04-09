@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.component.UIColumn;
 import javax.faces.component.UIPanel;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
@@ -54,10 +53,10 @@ public class ViewProjectController implements Serializable {
     private List<Evaluation> studentEvaluations;
     private Double avg;
     private List<Student> studentsList;
+    private Student studentTemp;
+    private Student temp;
 
     private UIPanel evaluationPanel;
-    private UIColumn columSee;
-    private UIColumn columEmail;
 
     @PostConstruct
     public void init() {
@@ -66,20 +65,20 @@ public class ViewProjectController implements Serializable {
         confirmedEvaluation = "Evaluation submitted";
     }
 
-    public UIColumn getColumSee() {
-        return columSee;
+    public Student getTemp() {
+        return temp;
     }
 
-    public void setColumSee(UIColumn columSee) {
-        this.columSee = columSee;
+    public void setTemp(Student temp) {
+        this.temp = temp;
     }
 
-    public UIColumn getColumEmail() {
-        return columEmail;
+    public Student getStudentTemp() {
+        return studentTemp;
     }
 
-    public void setColumEmail(UIColumn columEmail) {
-        this.columEmail = columEmail;
+    public void setStudentTemp(Student studentTemp) {
+        this.studentTemp = studentTemp;
     }
 
     public Double getAvg() {
@@ -220,14 +219,8 @@ public class ViewProjectController implements Serializable {
     }
 
     public void giveEvaluation() {
-        try {
-            evaluationFacade.giveEvaluation(studentEvaluations);
-            openEvaluation(projectSelected);
-            //avg = evaluationFacade.avgProject(selectedProject);
-        } catch (NoEntriesToEvaluation ex) {
-            Logger.getLogger(ViewProjectController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
-        }
+        evaluationFacade.submitEvaluations(studentEvaluations);
+        openEvaluation(projectSelected);
     }
 
     public List<Project> listOpenProjects() {
@@ -241,6 +234,7 @@ public class ViewProjectController implements Serializable {
     public void openEvaluation(Project p) {
         projectSelected = p;
         this.studentEvaluations = evaluationFacade.studentEvaluationsSetCriteria((Student) session.getUser(), p);
+        evaluationFacade.averageCriteriaProj(studentEvaluations);
         avg = evaluationFacade.avgProject(p);
         evaluationPanel.setRendered(true);
     }
@@ -263,14 +257,24 @@ public class ViewProjectController implements Serializable {
     }
 
     public void viewStudentEvaluation(User s) {
-        Student temp = (Student) s;
-        studentEvaluations = evaluationFacade.evaluationsStudentToProject(temp, selectedProject);
+        studentTemp = (Student) s;
+        studentEvaluations = evaluationFacade.evaluationsStudentToProject(studentTemp, projectSelected);
         evaluationPanel.setRendered(true);
+        temp = (Student) s;
+        avg = evaluationFacade.avgStudentProject(studentTemp, projectSelected);
     }
 
     public List<Evaluation> listEvaluationStudent(User s) {
-        Student temp = (Student) s;
-        return evaluationFacade.evaluationsStudentToProject(temp, selectedProject);
+        studentTemp = (Student) s;
+        return evaluationFacade.evaluationsStudentToProject(studentTemp, selectedProject);
+    }
+
+    public String verifySubmitedEvaluation() {
+        if (evaluationFacade.verifyEvaluation(studentEvaluations)) {
+            return "confirmEval";
+        } else {
+            return "confirmAny";
+        }
     }
 
 }

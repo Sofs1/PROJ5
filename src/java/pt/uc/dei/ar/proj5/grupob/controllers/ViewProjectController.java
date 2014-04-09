@@ -22,6 +22,7 @@ import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
+import pt.uc.dei.ar.proj5.grupob.entities.User;
 import pt.uc.dei.ar.proj5.grupob.facades.EvaluationFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
@@ -249,7 +250,8 @@ public class ViewProjectController implements Serializable {
     }
 
     public List<Evaluation> givenEvaluations() {
-        return evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), projectSelected);
+        Student temp = (Student) session.getUser();
+        return evaluationFacade.evaluationsStudentToProject(temp, projectSelected);
     }
 
     public void addStudentsToProject() {
@@ -260,13 +262,15 @@ public class ViewProjectController implements Serializable {
 
     }
 
-    public void viewStudentEvaluation(Student s) {
-        studentEvaluations = evaluationFacade.evaluationsStudentToProject(s, selectedProject);
+    public void viewStudentEvaluation(User s) {
+        Student temp = (Student) s;
+        studentEvaluations = evaluationFacade.evaluationsStudentToProject(temp, selectedProject);
         evaluationPanel.setRendered(true);
     }
 
-    public List<Evaluation> listEvaluationStudent(Student s) {
-        return evaluationFacade.evaluationsStudentToProject(s, selectedProject);
+    public List<Evaluation> listEvaluationStudent(User s) {
+        Student temp = (Student) s;
+        return evaluationFacade.evaluationsStudentToProject(temp, selectedProject);
     }
 
 }

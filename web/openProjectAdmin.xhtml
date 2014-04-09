@@ -38,20 +38,17 @@
                         <f:facet name="header" class="dataTableTitle">Submited?</f:facet>
                             #{viewProjectController.submitionSearch(projectStud)}
                     </h:column>
-<!--                    <h:column binding="#{viewProjectController.columSee}" rendered="#{!empty viewProjectController.studentEvaluations}">
-                     <f:facet name="header" class="dataTableTitle">See</f:facet>
-                    <h:commandLink value="See" action="#{viewProjectController.viewStudentEvaluation(projectStud)}"/> 
+                    <h:column>
+                        <h:commandLink rendered="#{!empty viewProjectController.listEvaluationStudent(projectStud)}" value="See" action="#{viewProjectController.viewStudentEvaluation(projectStud)}"/> 
+                        <h:commandLink rendered="#{empty viewProjectController.listEvaluationStudent(projectStud)}" action="#{viewProjectController.sendMailToStudent(projectStud)}" value="Send email"/> 
                     </h:column>
-                    <h:column binding="#{viewProjectController.columEmail}" rendered="#{empty viewProjectController.listEvaluationStudent(projectStud)}">
-                        <f:facet name="header" class="dataTableTitle">Send Mail</f:facet>
-                        <h:commandLink action="#{viewProjectController.sendMailToStudent(projectStud)}" value="Send email"/> 
-                    </h:column> -->
+
                 </h:dataTable>
             </h:form>
             <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
                 <h:form>
                     <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0">
-                        <f:facet name="header">PROJECT #{viewProjectController.projectSelected.name}</f:facet>
+                        <f:facet name="header">STUDENT #{viewProjectController.projectSelected.name}</f:facet>
                         <h:column>   
                             <f:facet name="header">Criteria</f:facet>
                             <h:outputLabel value="#{eval.criteria.description}"/>

@@ -51,7 +51,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
                 temp.setStudent(student);
                 temp.setProject(p);
                 temp.setCriteria(c);
-                temp.setNote(0.0);
+                temp.setNote((double) student.getPaj().getScaleMin());
                 studentEvaluations.add(temp);
             }
             return studentEvaluations;
@@ -139,7 +139,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
     public boolean verifyEvaluation(List<Evaluation> studentEvaluations) {
         int count = 0;
         for (Evaluation e : studentEvaluations) {
-            if (e.getNote() == 0.0) {
+            if (e.getNote() == (double) e.getProject().getPaj().getScaleMin()) {
                 count++;
             }
         }

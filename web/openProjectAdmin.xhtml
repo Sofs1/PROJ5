@@ -27,7 +27,6 @@
                 <br></br>
             </h:form>
 
-
             <h:form>
                 <h:dataTable value="#{viewProjectController.selectedProject.students}" var="projectStud" border="0" cellpadding="2" cellspacing="0">
                     <h:column>
@@ -58,11 +57,15 @@
                             <h:outputLabel value="#{eval.criteria.description}"/>
                         </h:column>
                         <h:column>   
-                            <f:facet name="header">Evaluation Scale: #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
-                            <h:outputLabel id="minmax" value="#{eval.note}"/>
+                            <f:facet name="header">Scale: #{viewProjectController.session.pajSelected.scaleMin} - #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
+                            <h:outputLabel id="minmax" value="#{eval.note}">
+                                <f:convertNumber maxFractionDigits="2" />
+                            </h:outputLabel>
                         </h:column>
                     </h:dataTable> 
-                    <h5>AVERAGE: #{viewProjectController.avg}</h5>
+                    <h:outputLabel id="minmax" value="AVERAGE: #{viewProjectController.avg}">
+                        <f:convertNumber maxFractionDigits="2" />
+                    </h:outputLabel>
                 </h:form>
             </h:panelGroup>
 

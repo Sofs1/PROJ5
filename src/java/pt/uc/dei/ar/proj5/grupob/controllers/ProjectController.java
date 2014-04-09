@@ -97,17 +97,14 @@ public class ProjectController {
      */
     public void createNewProject() {
         projectFacade.addProject(project, session.getPajSelected());
-        //return "adminProjects";
     }
 
     public void removeProject(Project p) {
         try {
             projectFacade.removeProject(p, session.getPajSelected());
-            //return "adminProjects";
         } catch (ExistEvaluationOnProjectException ex) {
             java.util.logging.Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
-            //return null;
         }
     }
 

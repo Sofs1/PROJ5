@@ -16,8 +16,10 @@ import javax.enterprise.context.ConversationScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
+import pt.uc.dei.ar.proj5.grupob.entities.Log;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
+import pt.uc.dei.ar.proj5.grupob.facades.LogFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.PajFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 import pt.uc.dei.ar.proj5.grupob.util.DuplicateEmailException;
@@ -45,6 +47,9 @@ public class RegistrationController implements Serializable {
     private Paj selectedPaj;
     @Inject
     private SessionController userLogado;
+    @Inject
+    private LogFacade logFacade;
+    private Log log;
 
     public RegistrationController() {
     }
@@ -52,6 +57,7 @@ public class RegistrationController implements Serializable {
     @PostConstruct
     public void initUser() {
         this.student = new Student();
+        this.log = new Log();
     }
 
     public PajFacade getPajFacade() {
@@ -122,31 +128,55 @@ public class RegistrationController implements Serializable {
         this.userLogado = userLogado;
     }
 
+    /**
+     * Starts a conversationScoped to do a registration
+     *
+     * @return signup - xhtml navigation
+     */
     public String signUp() {
         conversation.begin();
         return "signup";
 
     }
 
+    /**
+     * create a new Student
+     *
+     * @return xhtml navigation
+     */
     public String createStudent() {
         try {
             studentFacade.createStudent(student, passConf, selectedPaj);
             userLogado.setUser(student);
             conversation.end();
-            return "templateStudent";
+            log.setStudent(student);
+            log.setTask("Success - createStudent()");
+            logFacade.create(log);
+            return "openProjectsStudent";
 
         } catch (PasswordException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
+            log.setTask("Failed - createStudent()");
+            logFacade.create(log);
             return "signup";
         } catch (DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
+            log.setTask("Failed - createStudent()");
+            logFacade.create(log);
             erro = ex.getMessage();
             return "signup";
         }
     }
 
+    /**
+     * End a conversationScoped
+     *
+     * @return index - xhtml navigation
+     */
     public String cancelView() {
+        log.setTask("Navigation: signup - index");
+        logFacade.create(log);
         conversation.end();
         return "index";
     }

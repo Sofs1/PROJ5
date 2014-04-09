@@ -15,8 +15,10 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
+import pt.uc.dei.ar.proj5.grupob.entities.Log;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.facades.CriteriaFacade;
+import pt.uc.dei.ar.proj5.grupob.facades.LogFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.PajFacade;
 import pt.uc.dei.ar.proj5.grupob.util.PajDeleteException;
 
@@ -95,10 +97,12 @@ public class PajController {
         this.pajFacade = pajFacade;
     }
 
+    /**
+     * Create a new Edition Paj
+     */
     public void createPaj() {
         pajFacade.create(paj);
         this.addMessage("PAJ Edition created successfuly");
-        //return "adminHome";
     }
 
     public boolean existsEvaluations() {

@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
@@ -24,26 +23,26 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class Log implements Serializable {
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @NotNull
     @Size(min = 1, max = 150)
     @Column(length = 150, nullable = false)
     private String task;
-    
+
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date logDate;
-        
-    @NotNull
+
     @ManyToOne
     private Student student;
 
     public Log() {
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -75,7 +74,7 @@ public class Log implements Serializable {
     public void setStudent(Student student) {
         this.student = student;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -100,5 +99,9 @@ public class Log implements Serializable {
     public String toString() {
         return "pt.uc.dei.ar.proj5.grupob.entities.Log[ id=" + id + " ]";
     }
-    
+
+    public void getLogDate(Date date) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

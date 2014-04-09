@@ -47,7 +47,7 @@
                             <h:outputLabel value="#{eval.criteria.description}"/>
                         </h:column>
                         <h:column>   
-                            <f:facet name="header">Evaluation MAX SCALE: #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
+                            <f:facet name="header">Evaluation SCALE #{viewProjectController.session.pajSelected.scaleMin} - #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
                             <h:outputLabel id="minmax" value="#{eval.note}"/>
                         </h:column>
                         <f:facet name="footer">Average #{viewProjectController.avg}</f:facet>

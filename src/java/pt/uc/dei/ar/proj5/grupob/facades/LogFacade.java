@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ar.proj5.grupob.facades;
 
+import java.util.Date;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -17,6 +17,7 @@ import pt.uc.dei.ar.proj5.grupob.entities.Log;
  */
 @Stateless
 public class LogFacade extends AbstractFacade<Log> {
+
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
 
@@ -28,5 +29,10 @@ public class LogFacade extends AbstractFacade<Log> {
     public LogFacade() {
         super(Log.class);
     }
-    
+
+    public void createLog(Log log) {
+        log.setLogDate(new Date());
+        create(log);
+    }
+
 }

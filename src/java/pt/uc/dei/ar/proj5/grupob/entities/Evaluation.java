@@ -13,6 +13,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -24,16 +25,15 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Evaluation.findStudent", query = "SELECT u FROM Evaluation u WHERE u.student.id = :id"),
     @NamedQuery(name = "Evaluation.findStudentProject", query = "SELECT u FROM Evaluation u WHERE u.student.id = :id_st and u.project.id = :id_proj"),
     @NamedQuery(name = "Evaluation.avgProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.id = :id_proj"),
+    @NamedQuery(name = "Evaluation.avgProjCrit", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.id = :id_proj and u.criteria.id = :id_crit"),
     @NamedQuery(name = "Evaluation.avgStudCrit", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st and u.criteria.id = :id_crit"),
     @NamedQuery(name = "Evaluation.avgStudProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st and u.project.id = :id_proj"),
     @NamedQuery(name = "Evaluation.avgStud", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st"),
-    @NamedQuery(name = "Evaluation.avgAdminAnsStudProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st and u.project.id = :id_proj"),
+    // @NamedQuery(name = "Evaluation.avgAdminAnsStudProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st and u.project.id = :id_proj"),
     @NamedQuery(name = "Evaluation.avgAdminAnsAllStudByPaj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st and u.project.paj.id = :id_paj"),
     @NamedQuery(name = "Evaluation.avgAdminAllStudsEachAnsProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.criteria.id = :id_crit and u.project.id = :id_proj"),
     @NamedQuery(name = "Evaluation.avgAdminAllStudsEachCrit", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.criteria.id = :id_crit"),
-    @NamedQuery(name = "Evaluation.avgAdminEachPajEdi", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.paj.id = :id_paj"),
-    @NamedQuery(name = "Evaluation.avgAdminAllAnsByProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.id = :id_proj")
-
+    @NamedQuery(name = "Evaluation.avgAdminEachPajEdi", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.paj.id = :id_paj"), // @NamedQuery(name = "Evaluation.avgAdminAllAnsByProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.id = :id_proj")
 })
 public class Evaluation implements Serializable {
 
@@ -54,7 +54,18 @@ public class Evaluation implements Serializable {
     @NotNull
     private Double note;
 
+    @Transient
+    private Double average;
+
     public Evaluation() {
+    }
+
+    public Double getAverage() {
+        return average;
+    }
+
+    public void setAverage(Double average) {
+        this.average = average;
     }
 
     public Long getId() {

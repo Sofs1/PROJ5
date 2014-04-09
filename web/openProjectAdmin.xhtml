@@ -31,6 +31,10 @@
             <h:form>
                 <h:dataTable value="#{viewProjectController.selectedProject.students}" var="projectStud" border="0" cellpadding="2" cellspacing="0">
                     <h:column>
+                        <f:facet name="header" class="dataTableTitle">ID</f:facet>
+                            #{projectStud.id}
+                    </h:column>
+                    <h:column>
                         <f:facet name="header" class="dataTableTitle">Student Name</f:facet>
                             #{projectStud.name}
                     </h:column>
@@ -47,18 +51,18 @@
             </h:form>
             <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
                 <h:form>
+                    <h3>#{viewProjectController.temp.name} ID:#{viewProjectController.temp.id}</h3>
                     <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0">
-                        <f:facet name="header">STUDENT #{viewProjectController.projectSelected.name}</f:facet>
-                        <h:column>   
+                        <h:column> 
                             <f:facet name="header">Criteria</f:facet>
                             <h:outputLabel value="#{eval.criteria.description}"/>
                         </h:column>
                         <h:column>   
-                            <f:facet name="header">Evaluation MAX SCALE: #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
+                            <f:facet name="header">Evaluation Scale: #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
                             <h:outputLabel id="minmax" value="#{eval.note}"/>
                         </h:column>
-                        <f:facet name="footer">Average #{viewProjectController.avg}</f:facet>
                     </h:dataTable> 
+                    <h5>AVERAGE: #{viewProjectController.avg}</h5>
                 </h:form>
             </h:panelGroup>
 

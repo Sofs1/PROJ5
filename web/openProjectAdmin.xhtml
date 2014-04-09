@@ -75,7 +75,7 @@
                     <p:column headerText="ID">
                         #{student.id}                           
                     </p:column>
-                    <p:column headerText="Name">
+                    <p:column filterBy="name" filterMatchMode="contains" headerText="Name">
                         #{student.name}                           
                     </p:column>
                     <f:facet name="footer"><p:commandButton value="Add to project" ajax="false" actionListener="#{viewProjectController.addStudentsToProject()}"/></f:facet>

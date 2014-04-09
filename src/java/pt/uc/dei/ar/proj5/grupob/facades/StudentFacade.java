@@ -82,6 +82,7 @@ public class StudentFacade extends AbstractFacade<Student> {
         } else {
             String passEncripted = Encrypt.cryptWithMD5(user.getPass());
             user.setPass(passEncripted);
+            user.setRegistrationYear(new Date());
             create(user);
             user.setPaj(paj);
             paj.getStudents().add(user);

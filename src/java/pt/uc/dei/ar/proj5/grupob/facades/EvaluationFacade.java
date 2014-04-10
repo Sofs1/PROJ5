@@ -154,7 +154,11 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
                 count++;
             }
         }
-        return count != studentEvaluations.size();
+        if (count == studentEvaluations.size()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

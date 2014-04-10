@@ -54,7 +54,9 @@
                         </h:column>
                         <h:column rendered="#{!empty viewProjectController.givenEvaluations()}">   
                             <f:facet name="header">Average</f:facet>
-                            <h:outputLabel value="#{eval.average}"/>
+                            <h:outputLabel value="#{eval.average}">
+                                <f:convertNumber maxFractionDigits="2" />
+                            </h:outputLabel>
                         </h:column>
                     </h:dataTable> 
                     <p:commandButton id="multiViewButton" value="SUBMIT" oncomplete="PF('#{viewProjectController.verifySubmitedEvaluation()}').show()"  

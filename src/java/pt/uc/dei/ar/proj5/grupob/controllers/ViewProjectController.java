@@ -295,11 +295,11 @@ public class ViewProjectController implements Serializable {
     }
 
     public void viewStudentEvaluation(User s) {
-        studentTemp = (Student) s;
-        studentEvaluations = evaluationFacade.evaluationsStudentToProject(studentTemp, projectSelected);
+        studentEvaluations = evaluationFacade.evaluationsStudentToProject((Student) s, selectedProject);
         evaluationPanel.setRendered(true);
         temp = (Student) s;
-        avg = evaluationFacade.avgStudentProject(studentTemp, projectSelected);
+        avg = evaluationFacade.avgStudentProject((Student) s, selectedProject);
+
     }
 
     public List<Evaluation> listEvaluationStudent(User s) {
@@ -309,9 +309,9 @@ public class ViewProjectController implements Serializable {
 
     public String verifySubmitedEvaluation() {
         if (evaluationFacade.verifyEvaluation(studentEvaluations)) {
-            return "confirmEval";
-        } else {
             return "confirmAny";
+        } else {
+            return "confirmEval";
         }
     }
 

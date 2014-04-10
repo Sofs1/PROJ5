@@ -10,40 +10,40 @@
 
             <ui:define name="content">
                 <h1>Administrator Sign Up</h1>
+                <h:form>
+                    <table border="0" align="center" >
+                        <tr>
+                            <td><h:outputLabel value="NAME"  /></td>
+                            <td><h:inputText title="name" value="#{userController.admin.name}" required="true" requiredMessage="The name field is required"></h:inputText></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="EMAIL"/></td>
+                            <td>
+                                <h:inputText value="#{userController.admin.email}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="PASSWORD" /></td>
+                            <td><h:inputSecret value="#{userController.admin.pass}" required="true" requiredMessage="Password field is required"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="CONFIRM PASS" /></td>
+                            <td><h:inputSecret value="#{userController.passConf}" required="true" requiredMessage="Confirm password"/></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td><h:commandButton value="SAVE" action="#{userController.createAdmin()}"/>
+                                <h:commandButton immediate="true" value="CANCEL" action="index"/></td>
 
-                <table border="0" align="center" >
-                    <tr>
-                        <td><h:outputLabel value="NAME"  /></td>
-                        <td><h:inputText title="name" value="" required="true" requiredMessage="The name field is required"></h:inputText></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="EMAIL"/></td>
-                        <td>
-                            <h:inputText value=""/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="PASSWORD" /></td>
-                        <td><h:inputSecret value="" required="true" requiredMessage="Password field is required"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="CONFIRM PASS" /></td>
-                        <td><h:inputSecret value="" required="true" requiredMessage="Confirm password"/></td>
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td><h:commandButton value="SAVE" action=""/>
-                            <h:commandButton immediate="true" value="CANCEL" action="index"/></td>
-
-                    </tr>
-                    <tr>
-                        <td></td>
-                        <td colspan="2" ><h:messages style="color:#ff0000"/></td></tr>
-                    <td><h:outputLabel  style="color:#ff0000" value="" /></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td colspan="2" ><h:messages style="color:#ff0000"/></td></tr>
+                        <td><h:outputLabel  style="color:#ff0000" value="#{userController.erro}" /></td>
 
 
-                </table>
-
+                    </table>
+                </h:form>
             </ui:define>
         </ui:composition>
 

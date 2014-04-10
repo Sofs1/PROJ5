@@ -42,8 +42,10 @@
                             #{viewProjectController.submitionSearch(projectStud)}
                     </h:column>
                     <h:column>
-                        <h:commandLink rendered="#{!empty viewProjectController.listEvaluationStudent(projectStud)}" value="See" action="#{viewProjectController.viewStudentEvaluation(projectStud)}"/> 
-                        <h:commandLink rendered="#{empty viewProjectController.listEvaluationStudent(projectStud)}" action="#{viewProjectController.sendMailToStudent(projectStud)}" value="Send email"/> 
+                        <h:commandLink rendered="#{!empty viewProjectController.listEvaluationStudent(projectStud)}"
+                                       value="See" action="#{viewProjectController.viewStudentEvaluation(projectStud)}"/> 
+                        <h:commandLink rendered="#{empty viewProjectController.listEvaluationStudent(projectStud)}" 
+                                       action="#{viewProjectController.sendMailToStudent(projectStud)}" value="Send email"/> 
                     </h:column>
 
                 </h:dataTable>

@@ -25,7 +25,6 @@ import pt.uc.dei.ar.proj5.grupob.entities.User;
 import pt.uc.dei.ar.proj5.grupob.facades.EvaluationFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
-import pt.uc.dei.ar.proj5.grupob.util.NoEntriesToEvaluation;
 
 /**
  *
@@ -55,6 +54,7 @@ public class ViewProjectController implements Serializable {
     private List<Student> studentsList;
     private Student studentTemp;
     private Student temp;
+    private List<Student> filteredStudents;
 
     private UIPanel evaluationPanel;
 
@@ -191,6 +191,14 @@ public class ViewProjectController implements Serializable {
 
     public void setStudentsList(List<Student> studentsList) {
         this.studentsList = studentsList;
+    }
+
+    public List<Student> getFilteredStudents() {
+        return filteredStudents;
+    }
+
+    public void setFilteredStudents(List<Student> filteredStudents) {
+        this.filteredStudents = filteredStudents;
     }
 
     public String submitionSearch(Student s) {

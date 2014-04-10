@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
+import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 
@@ -159,6 +160,56 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         } else {
             return false;
         }
+    }
+
+    /**
+     * Returns the Average response of each user in each project
+     *
+     * @param p
+     * @return
+     */
+    public List<Object[]> avgAdminAnsStudProj(Paj p) {
+        Query q = em.createNamedQuery("Evaluation.avgAdminAnsStudProj");
+        q.setParameter("paj", p);
+
+        return (List<Object[]>) q.getResultList();
+    }
+
+    /**
+     * Returns the Average response of a received Student per project
+     *
+     * @param s
+     * @return
+     */
+    public List<Object[]> avgAdminStdEachProj(Student s) {
+
+        Query q = em.createNamedQuery("Evaluation.avgAdminStdEachProj");
+        q.setParameter("student", s);
+
+        return (List<Object[]>) q.getResultList();
+    }
+
+    /**
+     * Average responses of each user for all projects undertaken by edition
+     *
+     * @param p
+     * @return
+     */
+    public List<Object[]> avgAdminAnsAllStudByPaj(Paj p) {
+
+        Query q = em.createNamedQuery("Evaluation.avgAdminAnsAllStudByPaj");
+        q.setParameter("paj", p);
+
+        return (List<Object[]>) q.getResultList();
+    }
+
+    public List<Object[]> avgAdminAllStudsEachAnsProj(Project p) {
+
+        Query q = em.createNamedQuery("Evaluation.avgAdminAllStudsEachAnsProj");
+        q.setParameter("proj", p);
+
+        return (List<Object[]>) q.getResultList();
+
     }
 
 }

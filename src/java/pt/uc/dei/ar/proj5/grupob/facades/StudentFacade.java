@@ -223,6 +223,13 @@ public class StudentFacade extends AbstractFacade<Student> {
         }
     }
 
+    /**
+     * Method to send warning email to selected user
+     *
+     * @param s
+     * @throws RuntimeException
+     * @throws MessagingException
+     */
     public void sendMail(Student s) throws RuntimeException, MessagingException {
 
         final String email = "acertarorumo@gmail.com";
@@ -257,6 +264,18 @@ public class StudentFacade extends AbstractFacade<Student> {
         } catch (MessagingException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    /**
+     * Receives paj edition, and return list of students from NamedQuery
+     *
+     * @param p
+     * @return
+     */
+    public List<Student> allStudents(Long p) {
+        Query q = em.createNamedQuery("Student.findByPaj");
+        q.setParameter("paj", p);
+        return (List<Student>) q.getResultList();
     }
 
 }

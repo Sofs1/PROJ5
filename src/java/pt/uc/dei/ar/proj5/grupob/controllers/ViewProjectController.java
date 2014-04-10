@@ -56,6 +56,8 @@ public class ViewProjectController implements Serializable {
     private List<Student> studentsList;
     private Student studentTemp;
     private Student temp;
+    private List<Student> filteredStudents;
+
     private UIPanel evaluationPanel;
     @Inject
     private LogFacade logFacade;
@@ -211,6 +213,14 @@ public class ViewProjectController implements Serializable {
 
     public void setStudentsList(List<Student> studentsList) {
         this.studentsList = studentsList;
+    }
+
+    public List<Student> getFilteredStudents() {
+        return filteredStudents;
+    }
+
+    public void setFilteredStudents(List<Student> filteredStudents) {
+        this.filteredStudents = filteredStudents;
     }
 
     public String submitionSearch(Student s) {

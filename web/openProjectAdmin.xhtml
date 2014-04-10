@@ -79,13 +79,24 @@
         <h:form id="studListe">
             <p:dialog id="dialog" header="Add student(s) to project" widgetVar="studList" resizable="false"  
                       showEffect="fade" hideEffect="explode" modal="true"> 
-                <p:dataTable value="#{viewProjectController.returnListStudents()}" var="student" rowKey="#{student}" selection="#{viewProjectController.studentsList}" paginator="true" rows="8" paginatorPosition="bottom" style="width: 600px; height: 400px;">
+                <p:dataTable value="#{viewProjectController.returnListStudents()}" var="student" rowKey="#{student}" 
+                             selection="#{viewProjectController.studentsList}" filteredValue="#{viewProjectController.filteredStudents}" widgetVar="carsTable" paginator="true" rows="8" 
+                             paginatorPosition="bottom" style="width: 600px; height: 400px;">
+                    <f:facet name="header">  
+                        <p:outputPanel>  
+                            <h:outputText value="Search all fields:" />  
+                            <p:inputText id="globalFilter" onkeyup="carsTable.filter()" style="width:150px" />  
+                        </p:outputPanel>  
+                    </f:facet>
                     <p:column selectionMode="multiple"/>
-                    <p:column headerText="ID">
+                    <p:column headerText="ID" filterMatchMode="contains">
                         #{student.id}                           
                     </p:column>
-                    <p:column filterBy="name" filterMatchMode="contains" headerText="Name">
+                    <p:column headerText="Name" filterMatchMode="contains">
                         #{student.name}                           
+                    </p:column>
+                    <p:column headerText="Email" filterMatchMode="contains">
+                        #{student.email}                           
                     </p:column>
                     <f:facet name="footer"><p:commandButton value="Add to project" ajax="false" actionListener="#{viewProjectController.addStudentsToProject()}"/></f:facet>
                 </p:dataTable>

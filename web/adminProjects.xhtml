@@ -10,7 +10,7 @@
                 xmlns:p="http://primefaces.org/ui">
 
     <ui:define name="content">
-        <h1>#{sessionController.pajSelected.name}</h1>
+        <h1>Edition: #{sessionController.pajSelected.name} </h1>
         <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
         <h:form>
             <h:dataTable value="#{sessionController.pajSelected.projects}" var="project" border="0" cellpadding="2" cellspacing="0">

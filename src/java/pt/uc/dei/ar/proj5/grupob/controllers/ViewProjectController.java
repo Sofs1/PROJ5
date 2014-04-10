@@ -246,20 +246,20 @@ public class ViewProjectController implements Serializable {
         openEvaluation(projectSelected);
         log.setStudent((Student) session.getUser());
         log.setTask("Success - giveEvaluation()");
-        logFacade.create(log);
+        logFacade.createLog(log);
     }
 
     public List<Project> listOpenProjects() {
         log.setStudent((Student) session.getUser());
         log.setTask("Success - listOpenProjects()");
-        logFacade.create(log);
+        logFacade.createLog(log);
         return studentFacade.openProjects((Student) session.getUser());
     }
 
     public List<Project> listClosedProjects() {
         log.setStudent((Student) session.getUser());
         log.setTask("Success - listClosedProjects()");
-        logFacade.create(log);
+        logFacade.createLog(log);
         return studentFacade.closedProjects((Student) session.getUser());
     }
 
@@ -271,7 +271,7 @@ public class ViewProjectController implements Serializable {
         evaluationPanel.setRendered(true);
         log.setStudent((Student) session.getUser());
         log.setTask("Success - openEvaluation(Project p)");
-        logFacade.create(log);
+        logFacade.createLog(log);
     }
 
     public List<Student> returnListStudents() {
@@ -282,7 +282,7 @@ public class ViewProjectController implements Serializable {
         Student temp = (Student) session.getUser();
         log.setStudent(temp);
         log.setTask("Success - givenEvaluations()");
-        logFacade.create(log);
+        logFacade.createLog(log);
         return evaluationFacade.evaluationsStudentToProject(temp, projectSelected);
     }
 

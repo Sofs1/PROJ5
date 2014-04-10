@@ -7,6 +7,8 @@ package pt.uc.dei.ar.proj5.grupob.facades;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +17,6 @@ import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
-import pt.uc.dei.ar.proj5.grupob.util.NoEntriesToEvaluation;
 
 /**
  *
@@ -82,7 +83,12 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         Query q = em.createNamedQuery("Evaluation.avgProjCrit");
         for (Evaluation e : list) {
             q.setParameter("id_proj", e.getProject().getId()).setParameter("id_crit", e.getCriteria().getId());
-            e.setAverage((Double) q.getSingleResult());
+            try {
+                e.setAverage((Double) q.getSingleResult());
+            } catch (Exception ex) {
+                Logger.getLogger(EvaluationFacade.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
         }
     }
 
@@ -92,6 +98,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         try {
             return (List<Evaluation>) q.getResultList();
         } catch (Exception e) {
+            Logger.getLogger(EvaluationFacade.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }
@@ -102,6 +109,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         try {
             return (Double) q.getSingleResult();
         } catch (Exception e) {
+            Logger.getLogger(EvaluationFacade.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }
@@ -112,6 +120,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         try {
             return (Double) q.getSingleResult();
         } catch (Exception e) {
+            Logger.getLogger(EvaluationFacade.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }
@@ -122,6 +131,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         try {
             return (Double) q.getSingleResult();
         } catch (Exception e) {
+            Logger.getLogger(EvaluationFacade.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }
@@ -132,6 +142,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         try {
             return (Double) q.getSingleResult();
         } catch (Exception e) {
+            Logger.getLogger(EvaluationFacade.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }

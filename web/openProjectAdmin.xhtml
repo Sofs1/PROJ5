@@ -10,7 +10,7 @@
 
     <ui:define name="content">
 
-        <h1>Project: #{viewProjectController.selectedProject.name}</h1>
+        <h1>Edition: #{sessionController.pajSelected.name} |Project: #{viewProjectController.selectedProject.name}</h1>
         <p:panelGrid columns="3">
             <h:form>
                 Project Name: #{viewProjectController.selectedProject.name}

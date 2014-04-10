@@ -7,6 +7,8 @@ package pt.uc.dei.ar.proj5.grupob.facades;
 
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -43,6 +45,7 @@ public class AdministratorFacade extends AbstractFacade<Administrator> {
             User user = (Administrator) q.getSingleResult();
             return user;
         } catch (Exception e) {
+            Logger.getLogger(AdministratorFacade.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }

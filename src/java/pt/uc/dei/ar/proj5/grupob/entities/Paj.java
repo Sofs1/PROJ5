@@ -47,7 +47,7 @@ public class Paj implements Serializable {
     @Column(nullable = false)
     private Integer scaleMax;
 
-    @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)
+    @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = false)
     private List<Student> students;
 
     @OneToMany(mappedBy = "paj", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST, orphanRemoval = true)

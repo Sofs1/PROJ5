@@ -7,7 +7,6 @@ package pt.uc.dei.ar.proj5.grupob.entities;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +14,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 /**
  *
@@ -25,15 +23,15 @@ import javax.validation.constraints.Size;
 public class Log implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @NotNull
-    @Size(min = 1, max = 150)
-    @Column(length = 150, nullable = false)
     private String task;
 
+    @NotNull
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date logDate;
 

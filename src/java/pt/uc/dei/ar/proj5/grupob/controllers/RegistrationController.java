@@ -135,6 +135,8 @@ public class RegistrationController implements Serializable {
      */
     public String signUp() {
         conversation.begin();
+        log.setTask("Navigation: index(login)-signup");
+        logFacade.createLog(log);
         return "signup";
 
     }
@@ -149,21 +151,21 @@ public class RegistrationController implements Serializable {
             studentFacade.createStudent(student, passConf, selectedPaj);
             userLogado.setUser(student);
             conversation.end();
-            log.setStudent(student);
+            log.setStudent((Student) student);
             log.setTask("Success - createStudent()");
-            logFacade.create(log);
+            logFacade.createLog(log);
             return "openProjectsStudent";
 
         } catch (PasswordException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
             log.setTask("Failed - createStudent()");
-            logFacade.create(log);
+            logFacade.createLog(log);
             return "signup";
         } catch (DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             log.setTask("Failed - createStudent()");
-            logFacade.create(log);
+            logFacade.createLog(log);
             erro = ex.getMessage();
             return "signup";
         }
@@ -175,9 +177,9 @@ public class RegistrationController implements Serializable {
      * @return index - xhtml navigation
      */
     public String cancelView() {
-        log.setTask("Navigation: signup - index");
-        logFacade.create(log);
         conversation.end();
+        log.setTask("Cancel Signup");
+        logFacade.createLog(log);
         return "index";
     }
 

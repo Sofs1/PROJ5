@@ -10,6 +10,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -72,8 +73,19 @@ public class ProjectFacade extends AbstractFacade<Project> {
             p.getStudents().add(s);
         }
         em.merge(p);
-//        p.getStudents().addAll(st);
-//        em.persist(p);
+
+    }
+
+    /**
+     * Return all Projects in Data Base
+     *
+     * @return
+     */
+    public List<Project> allProjects() {
+
+        Query q = em.createNamedQuery("Project.findAll");
+
+        return (List<Project>) q.getResultList();
     }
 
 }

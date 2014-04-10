@@ -8,13 +8,17 @@ package pt.uc.dei.ar.proj5.grupob.controllers;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.context.FacesContext;
+import javax.faces.context.Flash;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
+import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.facades.EvaluationFacade;
+import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 
 /**
@@ -31,6 +35,10 @@ public class AdminReportController {
     private SessionController session;
     @Inject
     private StudentFacade studentFacade;
+    @Inject
+    private ProjectFacade projectFacade;
+    private Project selectedProject;
+
     private CartesianChartModel categoryModel;
 
     public AdminReportController() {
@@ -39,6 +47,8 @@ public class AdminReportController {
     @PostConstruct
     public void init() {
         createCategoryModel();
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        setSelectedProject((Project) flash.get("project"));
     }
 
     public EvaluationFacade getEvaluationFacade() {
@@ -71,6 +81,22 @@ public class AdminReportController {
 
     public void setStudentFacade(StudentFacade studentFacade) {
         this.studentFacade = studentFacade;
+    }
+
+    public ProjectFacade getProjectFacade() {
+        return projectFacade;
+    }
+
+    public void setProjectFacade(ProjectFacade projectFacade) {
+        this.projectFacade = projectFacade;
+    }
+
+    public Project getSelectedProject() {
+        return selectedProject;
+    }
+
+    public void setSelectedProject(Project selectedProject) {
+        this.selectedProject = selectedProject;
     }
 
     /**
@@ -128,11 +154,22 @@ public class AdminReportController {
     /**
      * Average of all users for each response in each project
      *
+     * @param p
      * @return
      */
-    public List<Object[]> avgAdminAllStudsEachAnsProj(Project p) {
+    public List<Object[]> avgAdminAllStudsEachAnsProj() {
 
-        return evaluationFacade.avgAdminAllStudsEachAnsProj(p);
+        return evaluationFacade.avgAdminAllStudsEachAnsProj(this.selectedProject);
 
+    }
+
+    /**
+     * All projects in data base
+     *
+     * @return List<Project>
+     */
+    public List<Project> allProjects() {
+
+        return projectFacade.allProjects();
     }
 }

@@ -9,16 +9,19 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.enterprise.context.RequestScoped;
+import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
+import pt.uc.dei.ar.proj5.grupob.entities.Log;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.entities.User;
 import pt.uc.dei.ar.proj5.grupob.facades.AdministratorFacade;
+import pt.uc.dei.ar.proj5.grupob.facades.LogFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.PajFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 import pt.uc.dei.ar.proj5.grupob.util.DuplicateEmailException;
@@ -30,7 +33,7 @@ import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
  * @author sofia
  */
 @Named
-@RequestScoped
+@ViewScoped
 public class UserController {
 
     @Inject
@@ -43,10 +46,15 @@ public class UserController {
     private SessionController userEJB;
     private String passConf;
     private Student student;
-    private Student studentEdit;
+    private User studentEdit;
     private User user;
     private String erro;
     private Paj selectedPaj;
+    @Inject
+    private LogFacade logFacade;
+    private Log log;
+    private UIForm choosePaj;
+    private Student stWithoutPaj;
 
     /**
      * Creates a new instance of userController
@@ -59,6 +67,39 @@ public class UserController {
         this.student = new Student();
         this.user = new User();
         this.selectedPaj = new Paj();
+        this.log = new Log();
+    }
+
+    public Student getStWithoutPaj() {
+        return stWithoutPaj;
+    }
+
+    public void setStWithoutPaj(Student stWithoutPaj) {
+        this.stWithoutPaj = stWithoutPaj;
+    }
+
+    public UIForm getChoosePaj() {
+        return choosePaj;
+    }
+
+    public void setChoosePaj(UIForm choosePaj) {
+        this.choosePaj = choosePaj;
+    }
+
+    public LogFacade getLogFacade() {
+        return logFacade;
+    }
+
+    public void setLogFacade(LogFacade logFacade) {
+        this.logFacade = logFacade;
+    }
+
+    public Log getLog() {
+        return log;
+    }
+
+    public void setLog(Log log) {
+        this.log = log;
     }
 
     public Paj getSelectedPaj() {
@@ -133,39 +174,47 @@ public class UserController {
         this.adminFacade = adminFacade;
     }
 
-    public Student getStudentEdit() {
-        return studentEdit;
+    public User getStudentEdit() {
+        return (Student) userEJB.getUser();
     }
 
-    public void setStudentEdit(Student studentEdit) {
+    public void setStudentEdit(User studentEdit) {
         this.studentEdit = studentEdit;
     }
 
-    public String createStudent() {
-
-        try {
-            studentFacade.createStudent(student, passConf, selectedPaj);
-            userEJB.setUser(student);
-            return "openProjectsStudent";
-        } catch (PasswordException | DuplicateEmailException ex) {
-            Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
-            return "signup";
-        }
-    }
-
+    /**
+     * search the student to logger
+     *
+     * @return xhtml navigation
+     */
     public String searchLogged() {
+
         try {
+            if (((Student) studentFacade.searchStudent(user.getEmail(), user.getPass())).getPaj() == null) {
+                stWithoutPaj = (Student) studentFacade.searchStudent(user.getEmail(), user.getPass());
+                choosePaj.setRendered(true);
+                return null;
+            }
             userEJB.setUser(studentFacade.searchStudent(user.getEmail(), user.getPass()));
             userEJB.setPajSelected(((Student) userEJB.getUser()).getPaj());
+            log.setStudent((Student) userEJB.getUser());
+            log.setTask("Success - searchLogged()");
+            logFacade.createLog(log);
             return "openProjectsStudent";
         } catch (NotRegistedEmailException | PasswordException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
+            log.setTask("Failed - searchLogged()");
+            logFacade.createLog(log);
             return "index";
         }
     }
 
+    /**
+     * search the administrator to logger
+     *
+     * @return xhtml navigation
+     */
     public String searchAdmin() {
         try {
             userEJB.setUser(adminFacade.searchAdmin(user.getEmail(), user.getPass()));
@@ -177,15 +226,34 @@ public class UserController {
         }
     }
 
+    /**
+     * list all the pajs editions
+     *
+     * @return List of pajs Editions
+     */
     public List<Paj> listAllPajs() {
         return pajFacade.findAll();
     }
 
+    /**
+     * Delete the logged user
+     *
+     * @return xhtml navigation
+     */
     public String removeUser() {
+        log.setStudent((Student) userEJB.getUser());
+        log.setTask("Success - searchLogged()");
+        logFacade.createLog(log);
         studentFacade.deleteStudent((Student) userEJB.getUser(), userEJB.getPajSelected());
+
         return "index";
     }
 
+    /**
+     * logout the administrator in session and ends session
+     *
+     * @return xhtml navigation
+     */
     public String logoutAdm() {
         userEJB.setUser(null);
         userEJB.setPajSelected(null);
@@ -193,24 +261,43 @@ public class UserController {
         return "index";
     }
 
+    /**
+     * logout the student in session and ends session
+     *
+     * @return xhtml navigation
+     */
     public String logoutStud() {
+        log.setStudent((Student) userEJB.getUser());
         userEJB.setUser(null);
         userEJB.setPajSelected(null);
         invalidateSession();
+        log.setStudent((Student) userEJB.getUser());
+        log.setTask("Success - logoutStud()");
+        logFacade.createLog(log);
         return "index";
     }
 
+    /**
+     * ends session
+     */
     private void invalidateSession() {
         FacesContext context = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) context.getExternalContext().getSession(false);
         session.invalidate();
     }
 
+    /**
+     * edit the student logged
+     *
+     * @return xhtml navigation
+     */
     public String editStudent() {
-        this.studentEdit = (Student) userEJB.getUser();
         try {
             studentFacade.editStudentFacade(studentEdit, passConf, userEJB.getUser().getEmail());
-            return "templateStudent";
+            log.setStudent((Student) userEJB.getUser());
+            log.setTask("Success - editStudent()");
+            logFacade.createLog(log);
+            return "openProjectsStudent";
         } catch (PasswordException | DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
@@ -218,11 +305,27 @@ public class UserController {
         }
     }
 
+    /**
+     * set the edition saved on session to null
+     *
+     * @return xhtml navigation
+     */
     public String homeAdmin() {
         userEJB.setPajSelected(null);
         return "adminHome";
     }
 
+    public void savePajSelected(Paj paj) {
+        studentFacade.editPajStudent(stWithoutPaj, paj);
+        userEJB.setPajSelected(paj);
+        choosePaj.setRendered(false);
+    }
+
+    /**
+     * create a New Administrator
+     *
+     * @return xhtml navigation
+     */
     public String createAdmin() {
         try {
             studentFacade.createStudent(student, passConf, selectedPaj);

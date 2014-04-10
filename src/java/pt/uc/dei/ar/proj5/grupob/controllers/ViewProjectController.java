@@ -19,10 +19,12 @@ import javax.inject.Named;
 import javax.mail.MessagingException;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
+import pt.uc.dei.ar.proj5.grupob.entities.Log;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.entities.User;
 import pt.uc.dei.ar.proj5.grupob.facades.EvaluationFacade;
+import pt.uc.dei.ar.proj5.grupob.facades.LogFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 
@@ -57,12 +59,32 @@ public class ViewProjectController implements Serializable {
     private List<Student> filteredStudents;
 
     private UIPanel evaluationPanel;
+    @Inject
+    private LogFacade logFacade;
+    private Log log;
 
     @PostConstruct
     public void init() {
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         setSelectedProject((Project) flash.get("project"));
         confirmedEvaluation = "Evaluation submitted";
+        this.log = new Log();
+    }
+
+    public LogFacade getLogFacade() {
+        return logFacade;
+    }
+
+    public void setLogFacade(LogFacade logFacade) {
+        this.logFacade = logFacade;
+    }
+
+    public Log getLog() {
+        return log;
+    }
+
+    public void setLog(Log log) {
+        this.log = log;
     }
 
     public Student getTemp() {
@@ -226,16 +248,28 @@ public class ViewProjectController implements Serializable {
 
     }
 
+    /**
+     * submit the student Evaluation
+     */
     public void giveEvaluation() {
         evaluationFacade.submitEvaluations(studentEvaluations);
         openEvaluation(projectSelected);
+        log.setStudent((Student) session.getUser());
+        log.setTask("Success - giveEvaluation()");
+        logFacade.createLog(log);
     }
 
     public List<Project> listOpenProjects() {
+        log.setStudent((Student) session.getUser());
+        log.setTask("Success - listOpenProjects()");
+        logFacade.createLog(log);
         return studentFacade.openProjects((Student) session.getUser());
     }
 
     public List<Project> listClosedProjects() {
+        log.setStudent((Student) session.getUser());
+        log.setTask("Success - listClosedProjects()");
+        logFacade.createLog(log);
         return studentFacade.closedProjects((Student) session.getUser());
     }
 
@@ -245,6 +279,9 @@ public class ViewProjectController implements Serializable {
         evaluationFacade.averageCriteriaProj(studentEvaluations);
         avg = evaluationFacade.avgProject(p);
         evaluationPanel.setRendered(true);
+        log.setStudent((Student) session.getUser());
+        log.setTask("Success - openEvaluation(Project p)");
+        logFacade.createLog(log);
     }
 
     public List<Student> returnListStudents() {
@@ -253,6 +290,9 @@ public class ViewProjectController implements Serializable {
 
     public List<Evaluation> givenEvaluations() {
         Student temp = (Student) session.getUser();
+        log.setStudent(temp);
+        log.setTask("Success - givenEvaluations()");
+        logFacade.createLog(log);
         return evaluationFacade.evaluationsStudentToProject(temp, projectSelected);
     }
 

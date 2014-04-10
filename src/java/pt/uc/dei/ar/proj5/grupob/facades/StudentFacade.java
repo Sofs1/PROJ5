@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.Stateless;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -20,6 +22,7 @@ import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import pt.uc.dei.ar.proj5.grupob.controllers.UserController;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -61,6 +64,7 @@ public class StudentFacade extends AbstractFacade<Student> {
             User user = (Student) q.getSingleResult();
             return user;
         } catch (Exception e) {
+            Logger.getLogger(StudentFacade.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }
@@ -137,6 +141,13 @@ public class StudentFacade extends AbstractFacade<Student> {
         }
     }
 
+    public void editPajStudent(Student st, Paj paj) {
+        st.setPaj(paj);
+        edit(st);
+        paj.getStudents().add(st);
+        em.merge(st);
+    }
+
     /**
      * first remove all the Student traces and then remove the Student
      *
@@ -145,36 +156,6 @@ public class StudentFacade extends AbstractFacade<Student> {
      */
     public void deleteStudent(Student student, Paj paj) {
         remove(em.merge(student));
-// int idStd = student.getId();
-//        // remove from Students list of Paj that student
-//        for (Student s : paj.getStudents()) {
-//            if (s.getId() == idStd) {
-//                paj.getStudents().remove(s);
-//            }
-//        }
-//        getEntityManager().merge(paj);
-//
-//        // remove from Evaluation BD the evaluations from that Student
-//        for (Evaluation e : evaluationFacade.findAll()) {
-//            if (e.getStudent().getId() == idStd) {
-//                getEntityManager().remove(getEntityManager().merge(e));
-//            }
-//        }
-//        //remove from all projects that student
-//        for (Project p : projectFacade.findAll()) {
-//            for (int i = 0; i < p.getStudents().size(); i++) {
-//                Student temp = p.getStudents().get(i);
-//                if (temp.getId() == idStd) {
-//                    getEntityManager().remove(getEntityManager().merge(temp));
-//                }
-//            }
-//        }
-//        //remove student from Log's table
-//        for (Log l : logFacade.findAll()) {
-//            if (l.getStudent().getId() == idStd) {
-//                getEntityManager().remove(l);
-//            }
-//        }
     }
 
     /**
@@ -215,42 +196,12 @@ public class StudentFacade extends AbstractFacade<Student> {
 
         q.setParameter("paj", paj);
         q.setParameter("project", proj);
-        return (List<Student>) q.getResultList();
-//        Query q = em.createNamedQuery("Student.findByPaj");
-//        q.setParameter("paj", paj.getId());
-//    
-//
-//        try {
-//            List<Student> studs = (List<Student>) q.getResultList();
-//            List<Student> selected = new ArrayList();
-//            boolean have = false;
-//
-//            for (int i = 0; i < studs.size(); i++) {
-//
-//                if (studs.get(i).getProjects().isEmpty()) {
-//
-//                    selected.add(studs.get(i));
-//
-//                } else {
-//
-//                    for (int j = 0; j < studs.get(i).getProjects().size() && !have; j++) {
-//
-//                        if (studs.get(i).getProjects().get(j).equals(proj)) {
-//
-//                            have = true;
-//
-//                        } else {
-//
-//                            selected.add(studs.get(i));
-//                        }
-//                    }
-//                    have = false;
-//                }
-//            }
-//            return selected;
-//        } catch (Exception e) {
-//            return null;
-//        }
+        try {
+            return (List<Student>) q.getResultList();
+        } catch (Exception e) {
+            Logger.getLogger(StudentFacade.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
     }
 
     /**
@@ -267,6 +218,7 @@ public class StudentFacade extends AbstractFacade<Student> {
         try {
             return (List<Student>) q.getResultList();
         } catch (Exception e) {
+            Logger.getLogger(StudentFacade.class.getName()).log(Level.SEVERE, null, e);
             return null;
         }
     }

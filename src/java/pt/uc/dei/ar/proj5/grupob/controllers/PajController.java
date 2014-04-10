@@ -95,10 +95,12 @@ public class PajController {
         this.pajFacade = pajFacade;
     }
 
+    /**
+     * Create a new Edition Paj
+     */
     public void createPaj() {
         pajFacade.create(paj);
         this.addMessage("PAJ Edition created successfuly");
-        //return "adminHome";
     }
 
     public boolean existsEvaluations() {

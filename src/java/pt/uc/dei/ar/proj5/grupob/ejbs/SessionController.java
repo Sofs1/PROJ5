@@ -11,6 +11,7 @@ import javax.ejb.Stateful;
 import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
+import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.entities.User;
 
 /**
@@ -51,6 +52,13 @@ public class SessionController implements Serializable {
 
     public void setPajSelected(Paj pajSelected) {
         this.pajSelected = pajSelected;
+    }
+
+    public Student castStudent() {
+        if (user instanceof Student) {
+            return (Student) user;
+        }
+        return null;
     }
 
 }

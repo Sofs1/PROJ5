@@ -10,7 +10,7 @@
 
     <ui:define name="content">
 
-        <h1>Project: #{viewProjectController.selectedProject.name}</h1>
+        <h1>Edition: #{sessionController.pajSelected.name} |Project: #{viewProjectController.selectedProject.name}</h1>
         <p:panelGrid columns="3">
             <h:form>
                 Project Name: #{viewProjectController.selectedProject.name}
@@ -26,7 +26,6 @@
                 </h:outputText>
                 <br></br>
             </h:form>
-
 
             <h:form>
                 <h:dataTable value="#{viewProjectController.selectedProject.students}" var="projectStud" border="0" cellpadding="2" cellspacing="0">
@@ -58,11 +57,15 @@
                             <h:outputLabel value="#{eval.criteria.description}"/>
                         </h:column>
                         <h:column>   
-                            <f:facet name="header">Evaluation Scale: #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
-                            <h:outputLabel id="minmax" value="#{eval.note}"/>
+                            <f:facet name="header">Scale: #{viewProjectController.session.pajSelected.scaleMin} - #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
+                            <h:outputLabel id="minmax" value="#{eval.note}">
+                                <f:convertNumber maxFractionDigits="2" />
+                            </h:outputLabel>
                         </h:column>
                     </h:dataTable> 
-                    <h5>AVERAGE: #{viewProjectController.avg}</h5>
+                    <h:outputLabel id="minmax" value="AVERAGE: #{viewProjectController.avg}">
+                        <f:convertNumber maxFractionDigits="2" />
+                    </h:outputLabel>
                 </h:form>
             </h:panelGroup>
 

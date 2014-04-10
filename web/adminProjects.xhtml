@@ -35,7 +35,7 @@
                         #{project.evaluations.size()}
                 </h:column>
                 <h:column>
-                    <h:commandLink type="submit" value="Remove" action="#{projectController.removeProject(project)}" />
+                    <h:commandButton type="submit" value="Remove" action="#{projectController.removeProject(project)}" />
                 </h:column>
             </h:dataTable>
             <p:commandButton value="Add Project" oncomplete="PF('dlg2').show()" update=":di"/>

@@ -17,6 +17,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -27,6 +29,9 @@ import javax.validation.constraints.Size;
  * @author sofia
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Project.findAll", query = "SELECT p FROM Project p")
+})
 public class Project implements Serializable {
 
     private static final long serialVersionUID = 1L;

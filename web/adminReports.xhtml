@@ -2,6 +2,7 @@
 <!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
                 template="./templateAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:h="http://xmlns.jcp.org/jsf/html"
                 xmlns:f="http://xmlns.jcp.org/jsf/core">
@@ -10,16 +11,21 @@
     <ui:define name="content">
         <p:tabView effect="fade" effectDuration="normal">
 
-            <p:tab title="Report 1">
-                <h:form>
-                    <h:panelGrid id="rap1" columns="2" cellpadding="10">
+            <!-- PRIMEIRO TAB-->
+
+            <p:tab title="Each User / Each Project">
+                <h:form id="rep1">
+                    <h:panelGrid id="rap1" columns="2" cellpadding="0">
                         <p:dataTable id="dataTable" var="evaluation" value="#{adminReportController.averageAnsEachStudEachProj()}" 
-                                     paginator="true" rows="5" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                                     paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
                             <f:facet name="header">  
                                 Average response of each user in each project  
                             </f:facet>
-                            <p:column sortBy="user" headerText="Average Value">  
-                                <h:outputText value="#{evaluation[0]}" />  
+                            <p:column sortBy="user" headerText="Average Value" >  
+                                <h:outputText value="#{evaluation[0]}" >
+                                    <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
+                                </h:outputText>
+
                             </p:column>
                             <p:column sortBy="project" headerText="User">  
                                 <h:outputText value="#{evaluation[1]}" />  
@@ -30,40 +36,44 @@
                         </p:dataTable>
 
                         <p:barChart id="stacked" value="#{adminReportController.categoryModel}" legendPosition="ne" style="height:300px; width: 600px;"  
-                                    title="Stacked Bar Chart" stacked="true" barMargin="50" min="0" max="30"/>
+                                    title="Stacked Bar Chart" stacked="true" barMargin="30" min="0" max="30" animate="true"/>
 
                     </h:panelGrid>
                     <p:commandButton value="Print" type="button" icon="ui-icon-print">  
-                        <p:printer target="dataTable"/>
-                        <p:printer target="stacked" />  
+                        <p:printer target="rep1"/>
                     </p:commandButton>
                 </h:form>
-
             </p:tab>
 
-            <p:tab title="Report 2">
+            <!--SEGUNDO TAB-->
+
+            <p:tab title="Each User / All Projects">
                 <h:form>
-                    <h:panelGrid columns="2" cellpadding="10">
+                    <!--                    <h:panelGrid columns="2" cellpadding="10">-->
 
-                        <p:dataTable id="dataTable" var="evaluation" value="#{adminReportController.averageAnsEachStudEachProj()}">
-                            <f:facet name="header">  
-                                Average response of each user in each project  
-                            </f:facet>
-                            <p:column sortBy="user" headerText="Average Value">  
-                                <h:outputText value="#{evaluation[0]}" />  
-                            </p:column>
-                            <p:column sortBy="project" headerText="User">  
-                                <h:outputText value="#{evaluation[1]}" />  
-                            </p:column>
-                            <p:column sortBy="average" headerText="Project">  
-                                <h:outputText value="#{evaluation[2]}" />  
-                            </p:column>
-                        </p:dataTable>
+                    <p:dataTable id="dataTable" var="evaluation" value="#{adminReportController.averageAnsEachStudEachProj()}" 
+                                 paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                                 paginatorPosition="bottom" style="width:60%; 
+                                 margin-left:20%; 
+                                 margin-right:20%;">
+                        <f:facet name="header">  
+                            Average response of each user in all projects in <u>#{adminReportController.session.pajSelected.name} PAJ Edition</u> 
+                        </f:facet>
+                        <p:column sortBy="user" headerText="Average Value" style="text-align: center">  
+                            <h:outputText value="#{evaluation[0]}" >
+                                <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
+                            </h:outputText>
+                        </p:column>
+                        <p:column sortBy="project" headerText="User" style="text-align: center">  
+                            <h:outputText value="#{evaluation[1]}" />  
+                        </p:column>
+                    </p:dataTable>
 
-                    </h:panelGrid> 
+
+                    <!--                    </h:panelGrid> -->
                 </h:form>
             </p:tab>
-
+            <!--TERCEIRO TAB-->
             <p:tab title="Report 3">
                 <h:form>
                     <h:panelGrid columns="2" cellpadding="10">

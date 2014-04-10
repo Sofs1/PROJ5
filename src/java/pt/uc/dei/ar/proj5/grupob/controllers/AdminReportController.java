@@ -83,6 +83,9 @@ public class AdminReportController {
         return evaluationFacade.avgAdminAnsStudProj(session.getPajSelected());
     }
 
+    /**
+     * Generate chart result to Average response of each user in each project.
+     */
     public void createCategoryModel() {
 
         List<Student> list = studentFacade.allStudents(this.session.getPajSelected().getId());
@@ -109,6 +112,27 @@ public class AdminReportController {
                 categoryModel.addSeries(a);
             }
         }
+    }
+
+    /**
+     * Calls Evaluation bean method in order to get list of average responses of
+     * each user for all projects undertaken by edition.
+     *
+     * @return
+     */
+    public List<Object[]> avgAdminAnsAllStudByPaj() {
+
+        return evaluationFacade.avgAdminAnsAllStudByPaj(session.getPajSelected());
+    }
+
+    /**
+     * Average of all users for each response in each project
+     *
+     * @return
+     */
+    public List<Object[]> avgAdminAllStudsEachAnsProj(Project p) {
+
+        return evaluationFacade.avgAdminAllStudsEachAnsProj(p);
 
     }
 }

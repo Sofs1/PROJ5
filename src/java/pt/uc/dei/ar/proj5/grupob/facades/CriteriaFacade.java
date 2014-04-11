@@ -6,7 +6,6 @@
 package pt.uc.dei.ar.proj5.grupob.facades;
 
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
@@ -31,6 +30,12 @@ public class CriteriaFacade extends AbstractFacade<Criteria> {
         super(Criteria.class);
     }
 
+    /**
+     * Create a criteria and persist to a BD
+     *
+     * @param criteria
+     * @param paj
+     */
     public void createCriteria(Criteria criteria, Paj paj) {
         paj.getCriteria().add(criteria);
         criteria.setPaj(paj);
@@ -38,6 +43,12 @@ public class CriteriaFacade extends AbstractFacade<Criteria> {
         em.merge(paj);
     }
 
+    /**
+     * remove the criteria from paj edition
+     *
+     * @param criteria
+     * @param paj
+     */
     public void removeCriteria(Criteria criteria, Paj paj) {
         paj.getCriteria().remove(criteria);
         this.remove(criteria);

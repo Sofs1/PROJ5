@@ -54,11 +54,4 @@ public class SessionController implements Serializable {
         this.pajSelected = pajSelected;
     }
 
-    public Student castStudent() {
-        if (user instanceof Student) {
-            return (Student) user;
-        }
-        return null;
-    }
-
 }

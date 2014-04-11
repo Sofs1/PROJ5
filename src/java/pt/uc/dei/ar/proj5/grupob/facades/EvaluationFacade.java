@@ -81,6 +81,11 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
 
     }
 
+    /**
+     * Submit a empty evaluation to that student when project is closed
+     *
+     * @param s Student
+     */
     public void submitEmptyEvaluation(Student s) {
         for (Project p : s.getProjects()) {
             if (p.getEvaluations().isEmpty() && p.getEndDate().before(new Date())) {
@@ -98,6 +103,11 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
+    /**
+     * average from that criteria in that project
+     *
+     * @param list
+     */
     public void averageCriteriaProj(List<Evaluation> list) {
         Query q = em.createNamedQuery("Evaluation.avgProjCrit");
         for (Evaluation e : list) {
@@ -111,6 +121,12 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
+    /**
+     *
+     * @param s Student
+     * @param p Project
+     * @return Evaluation List from that student on that project
+     */
     public List<Evaluation> evaluationsStudentToProject(Student s, Project p) {
         Query q = em.createNamedQuery("Evaluation.findStudentProject");
         q.setParameter("id_st", s.getId()).setParameter("id_proj", p.getId());
@@ -122,6 +138,12 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
+    /**
+     * average from that project
+     *
+     * @param p Project
+     * @return average value
+     */
     public Double avgProject(Project p) {
         Query q = em.createNamedQuery("Evaluation.avgProj");
         q.setParameter("id_proj", p.getId());
@@ -133,6 +155,12 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
+    /**
+     * project's average from that PAJ edition
+     *
+     * @param p Project
+     * @return average value
+     */
     public Double avgPaj(Paj p) {
         Query q = em.createNamedQuery("Evaluation.avgPaj");
         q.setParameter("id_paj", p.getId());
@@ -144,6 +172,12 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
+    /**
+     * student's average from that PAJ edition
+     *
+     * @param s Student
+     * @return average value
+     */
     public Double avgStudent(Student s) {
         Query q = em.createNamedQuery("Evaluation.avgStud");
         q.setParameter("id_st", s.getId());
@@ -155,6 +189,13 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
+    /**
+     * student's average from in that Project
+     *
+     * @param s Student
+     * @param p Project
+     * @return average value
+     */
     public Double avgStudentProject(Student s, Project p) {
         Query q = em.createNamedQuery("Evaluation.avgStudProj");
         q.setParameter("id_st", s.getId()).setParameter("id_proj", p.getId());
@@ -166,6 +207,13 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
+    /**
+     * student's average from in that Criterion
+     *
+     * @param s Student
+     * @param c Criteria
+     * @return average value
+     */
     public Double avgStudentCriteria(Student s, Criteria c) {
         Query q = em.createNamedQuery("Evaluation.avgStudCrit");
         q.setParameter("id_st", s.getId()).setParameter("id_crit", c.getId());
@@ -177,6 +225,13 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
+    /**
+     *
+     * @param s Student
+     * @param c Criteria
+     * @param p Project
+     * @return average value
+     */
     public Double noteStudentCriteriaProject(Student s, Criteria c, Project p) {
         Query q = em.createNamedQuery("Evaluation.avgStudProjCrit");
         q.setParameter("id_proj", p.getId()).setParameter("id_crit", c.getId()).setParameter("id_st", s.getId());
@@ -188,6 +243,12 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
         }
     }
 
+    /**
+     * verify if the list of Evaluations it´s with the minimum values
+     *
+     * @param studentEvaluations
+     * @return boolean
+     */
     public boolean verifyEvaluation(List<Evaluation> studentEvaluations) {
         int count = 0;
         for (Evaluation e : studentEvaluations) {
@@ -205,8 +266,8 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
     /**
      * Returns the Average response of each user in each project
      *
-     * @param p
-     * @return
+     * @param p Paj
+     * @return list of results
      */
     public List<Object[]> avgAdminAnsStudProj(Paj p) {
         Query q = em.createNamedQuery("Evaluation.avgAdminAnsStudProj");
@@ -218,8 +279,8 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
     /**
      * Returns the Average response of a received Student per project
      *
-     * @param s
-     * @return
+     * @param s Student
+     * @return list of results
      */
     public List<Object[]> avgAdminStdEachProj(Student s) {
 
@@ -232,8 +293,8 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
     /**
      * Average responses of each user for all projects undertaken by edition
      *
-     * @param p
-     * @return
+     * @param p Paj
+     * @return list of results
      */
     public List<Object[]> avgAdminAnsAllStudByPaj(Paj p) {
 
@@ -255,7 +316,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
     /**
      * Average of all users for each response in all projects
      *
-     * @param p
+     * @param p Paj
      * @return List<Object[]>
      */
     public List<Object[]> avgAdminAllStudsEachCrit(Paj p) {
@@ -277,6 +338,11 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
 
     }
 
+    /**
+     *
+     * @param p Paj
+     * @return list of results
+     */
     public List<Object[]> avgAdminAllAnsByProj(Paj p) {
 
         Query q = em.createNamedQuery("Evaluation.avgAdminAllAnsByProj");

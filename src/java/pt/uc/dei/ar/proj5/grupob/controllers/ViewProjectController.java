@@ -223,6 +223,11 @@ public class ViewProjectController implements Serializable {
         this.filteredStudents = filteredStudents;
     }
 
+    /**
+     *
+     * @param s student
+     * @return yes/no
+     */
     public String submitionSearch(Student s) {
 
         String result = "No";
@@ -238,6 +243,11 @@ public class ViewProjectController implements Serializable {
         return result;
     }
 
+    /**
+     * send a mail to the selected student
+     *
+     * @param s student
+     */
     public void sendMailToStudent(Student s) {
         try {
             studentFacade.sendMail(s);
@@ -259,6 +269,10 @@ public class ViewProjectController implements Serializable {
         logFacade.createLog(log);
     }
 
+    /**
+     *
+     * @return list of open Projects
+     */
     public List<Project> listOpenProjects() {
         log.setStudentID(session.getUser().getId());
         log.setTask("Success - listOpenProjects()");
@@ -266,6 +280,10 @@ public class ViewProjectController implements Serializable {
         return studentFacade.openProjects((Student) session.getUser());
     }
 
+    /**
+     *
+     * @return list of closed Projects
+     */
     public List<Project> listClosedProjects() {
         log.setStudentID(session.getUser().getId());
         log.setTask("Success - listClosedProjects()");
@@ -273,6 +291,11 @@ public class ViewProjectController implements Serializable {
         return studentFacade.closedProjects((Student) session.getUser());
     }
 
+    /**
+     * open a Evaluation from the selected project
+     *
+     * @param p Project
+     */
     public void openEvaluation(Project p) {
         projectSelected = p;
         this.studentEvaluations = evaluationFacade.studentEvaluationsSetCriteria((Student) session.getUser(), p);
@@ -284,10 +307,18 @@ public class ViewProjectController implements Serializable {
         logFacade.createLog(log);
     }
 
+    /**
+     *
+     * @return Student's list
+     */
     public List<Student> returnListStudents() {
         return studentFacade.listStudentsPaj(loggedUser.getPajSelected(), selectedProject);
     }
 
+    /**
+     *
+     * @return List of evaluations of the logged student on the selected project
+     */
     public List<Evaluation> givenEvaluations() {
         log.setStudentID(session.getUser().getId());
         log.setTask("Success - givenEvaluations()");
@@ -295,6 +326,9 @@ public class ViewProjectController implements Serializable {
         return evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), projectSelected);
     }
 
+    /**
+     * adds a Student list to th selected Project
+     */
     public void addStudentsToProject() {
 
         List<Student> list = studentsList;
@@ -303,6 +337,11 @@ public class ViewProjectController implements Serializable {
 
     }
 
+    /**
+     * view Student Evaluation
+     *
+     * @param s Student
+     */
     public void viewStudentEvaluation(User s) {
         studentEvaluations = evaluationFacade.evaluationsStudentToProject((Student) s, selectedProject);
         evaluationPanel.setRendered(true);
@@ -311,11 +350,21 @@ public class ViewProjectController implements Serializable {
 
     }
 
+    /**
+     *
+     * @param s Student
+     * @return Evaluation List from the selected User
+     */
     public List<Evaluation> listEvaluationStudent(User s) {
         studentTemp = (Student) s;
         return evaluationFacade.evaluationsStudentToProject(studentTemp, selectedProject);
     }
 
+    /**
+     * verify if the submitted Evaluation was changed from the minimum values
+     *
+     * @return dialog_Name that will open
+     */
     public String verifySubmitedEvaluation() {
         int scaleMin = loggedUser.getPajSelected().getScaleMin();
         int count = 0;
@@ -326,9 +375,9 @@ public class ViewProjectController implements Serializable {
         }
 
         if (studentEvaluations.size() == count) {
-            return "confirmAny";
-        } else {
             return "confirmEval";
+        } else {
+            return "confirmAny";
         }
     }
 

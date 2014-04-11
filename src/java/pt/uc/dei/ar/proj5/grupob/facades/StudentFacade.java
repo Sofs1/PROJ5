@@ -22,7 +22,6 @@ import javax.mail.internet.MimeMessage;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import pt.uc.dei.ar.proj5.grupob.controllers.UserController;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -141,6 +140,12 @@ public class StudentFacade extends AbstractFacade<Student> {
         }
     }
 
+    /**
+     * Edit the student
+     *
+     * @param st Student
+     * @param paj
+     */
     public void editPajStudent(Student st, Paj paj) {
         st.setPaj(paj);
         edit(st);
@@ -190,6 +195,13 @@ public class StudentFacade extends AbstractFacade<Student> {
         return temp;
     }
 
+    /**
+     * list the students from the selected paj doesn't exits on project
+     *
+     * @param paj
+     * @param proj Project
+     * @return student's list
+     */
     public List<Student> listStudentsPaj(Paj paj, Project proj) {
 
         Query q = em.createNamedQuery("Student.findByPajNoProject");
@@ -269,8 +281,8 @@ public class StudentFacade extends AbstractFacade<Student> {
     /**
      * Receives paj edition, and return list of students from NamedQuery
      *
-     * @param p
-     * @return
+     * @param p id_pajEdition
+     * @return Student List
      */
     public List<Student> allStudents(Long p) {
         Query q = em.createNamedQuery("Student.findByPaj");

@@ -39,6 +39,12 @@ public class AdministratorFacade extends AbstractFacade<Administrator> {
         super(Administrator.class);
     }
 
+    /**
+     * Lookks for the administrator with that email
+     *
+     * @param email
+     * @return User Administrator
+     */
     private User getAdminbyEmail(String email) {
         Query q = em.createNamedQuery("Administrator.findByEmail");
         q.setParameter("email", email);

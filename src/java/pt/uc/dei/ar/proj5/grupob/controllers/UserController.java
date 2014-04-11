@@ -282,10 +282,9 @@ public class UserController implements Serializable {
         log.setStudentID(userEJB.getUser().getId());
         userEJB.setUser(null);
         userEJB.setPajSelected(null);
-        invalidateSession();
-        log.setStudentID(userEJB.getUser().getId());
         log.setTask("Success - logoutStud()");
         logFacade.createLog(log);
+        invalidateSession();
         return "index";
     }
 

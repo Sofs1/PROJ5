@@ -153,26 +153,64 @@ public class StudentReportController {
         a.setLabel("Evolution");
         for (Project p : ((Student) session.getUser()).getProjects()) {
             a.set(p.getName(), evaluationFacade.avgStudentProject((Student) session.getUser(), p));
-
         }
         categoryModelEvolution.addSeries(a);
     }
 
     public void createCategoryModelEvolutionCriteria() {
         categoryModelEvolutionCriteria = new CartesianChartModel();
+        ChartSeries a = new ChartSeries();
 
-        for (Criteria c : ((Student) session.getUser()).getPaj().getCriteria()) {
-            ChartSeries a = new ChartSeries();
-            a.setLabel(c.getDescription());
+        for (Project p : ((Student) session.getUser()).getProjects()) {
+            List<Evaluation> list = evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), p);
 
-            for (Project p : ((Student) session.getUser()).getProjects()) {
-                a.set(p.getName(), evaluationFacade.avgStudentCriteria((Student) session.getUser(), c));
-
+            for (Criteria c : session.getPajSelected().getCriteria()) {
+                for (Evaluation e : list) {
+                    a.setLabel(c.getDescription());
+                    a.set(e.getProject().getName(), e.getNote());
+                }
+                categoryModelEvolutionCriteria.addSeries(a);
             }
-            categoryModelEvolutionCriteria.addSeries(a);
+
         }
     }
 
+//        for (Criteria c : session.getPajSelected().getCriteria()) {
+//            ChartSeries a = new ChartSeries();
+//            a.setLabel(c.getDescription());
+//            
+//            
+//            List<Evaluation> list = evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), p);
+//            
+//            
+//
+//            for (Evaluation e : list) {
+//                a.set(e.getProject().getName(), e.getNote());
+//
+//            }
+//            categoryModelEvolutionCriteria.addSeries(a);
+//        }
+//        
+    //  public void createCategoryModelEvolutionCriteria() {
+    //        categoryModelEvolutionCriteria = new CartesianChartModel();
+    //
+    //        for (Project p : session.getPajSelected().getProjects()) {
+    //            ChartSeries a = new ChartSeries();
+    //            List<Evaluation> list = evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), p);
+    //            for (Criteria c : session.getPajSelected().getCriteria()) {
+    //
+    //                //a.setLabel(c.getDescription());
+    //                for (Evaluation e : list) {
+    //                    a.setLabel(e.getCriteria().getDescription());
+    //                    a.set(e.getProject().getName(), e.getNote());
+    //
+    //                }
+    //
+    //            }
+    //            categoryModelEvolutionCriteria.addSeries(a);
+    //        }
+    //
+    //    }
     /**
      * Looks to the List of Evaluations to a selected Project
      *

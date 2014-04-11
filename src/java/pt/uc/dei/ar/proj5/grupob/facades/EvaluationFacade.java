@@ -26,15 +26,15 @@ import pt.uc.dei.ar.proj5.grupob.entities.Student;
  */
 @Stateless
 public class EvaluationFacade extends AbstractFacade<Evaluation> {
-    
+
     @PersistenceContext(unitName = "PajSelfEvaluationPU")
     private EntityManager em;
-    
+
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
-    
+
     public EvaluationFacade() {
         super(Evaluation.class);
     }
@@ -78,9 +78,9 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             e.getCriteria().getEvaluations().add(e);
             em.merge(e.getCriteria());
         }
-        
+
     }
-    
+
     public void submitEmptyEvaluation(Student s) {
         for (Project p : s.getProjects()) {
             if (p.getEvaluations().isEmpty() && p.getEndDate().before(new Date())) {
@@ -97,7 +97,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             }
         }
     }
-    
+
     public void averageCriteriaProj(List<Evaluation> list) {
         Query q = em.createNamedQuery("Evaluation.avgProjCrit");
         for (Evaluation e : list) {
@@ -107,10 +107,10 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             } catch (Exception ex) {
                 Logger.getLogger(EvaluationFacade.class.getName()).log(Level.SEVERE, null, ex);
             }
-            
+
         }
     }
-    
+
     public List<Evaluation> evaluationsStudentToProject(Student s, Project p) {
         Query q = em.createNamedQuery("Evaluation.findStudentProject");
         q.setParameter("id_st", s.getId()).setParameter("id_proj", p.getId());
@@ -121,7 +121,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             return null;
         }
     }
-    
+
     public Double avgProject(Project p) {
         Query q = em.createNamedQuery("Evaluation.avgProj");
         q.setParameter("id_proj", p.getId());
@@ -132,7 +132,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             return null;
         }
     }
-    
+
     public Double avgPaj(Paj p) {
         Query q = em.createNamedQuery("Evaluation.avgPaj");
         q.setParameter("id_paj", p.getId());
@@ -143,7 +143,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             return null;
         }
     }
-    
+
     public Double avgStudent(Student s) {
         Query q = em.createNamedQuery("Evaluation.avgStud");
         q.setParameter("id_st", s.getId());
@@ -154,7 +154,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             return null;
         }
     }
-    
+
     public Double avgStudentProject(Student s, Project p) {
         Query q = em.createNamedQuery("Evaluation.avgStudProj");
         q.setParameter("id_st", s.getId()).setParameter("id_proj", p.getId());
@@ -165,7 +165,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             return null;
         }
     }
-    
+
     public Double avgStudentCriteria(Student s, Criteria c) {
         Query q = em.createNamedQuery("Evaluation.avgStudCrit");
         q.setParameter("id_st", s.getId()).setParameter("id_crit", c.getId());
@@ -176,7 +176,18 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
             return null;
         }
     }
-    
+
+    public Double noteStudentCriteriaProject(Student s, Criteria c, Project p) {
+        Query q = em.createNamedQuery("Evaluation.avgStudProjCrit");
+        q.setParameter("id_proj", p.getId()).setParameter("id_crit", c.getId()).setParameter("id_st", s.getId());
+        try {
+            return (Double) q.getSingleResult();
+        } catch (Exception e) {
+            Logger.getLogger(EvaluationFacade.class.getName()).log(Level.SEVERE, null, e);
+            return null;
+        }
+    }
+
     public boolean verifyEvaluation(List<Evaluation> studentEvaluations) {
         int count = 0;
         for (Evaluation e : studentEvaluations) {
@@ -200,7 +211,7 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
     public List<Object[]> avgAdminAnsStudProj(Paj p) {
         Query q = em.createNamedQuery("Evaluation.avgAdminAnsStudProj");
         q.setParameter("paj", p);
-        
+
         return (List<Object[]>) q.getResultList();
     }
 
@@ -211,10 +222,10 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
      * @return
      */
     public List<Object[]> avgAdminStdEachProj(Student s) {
-        
+
         Query q = em.createNamedQuery("Evaluation.avgAdminStdEachProj");
         q.setParameter("student", s);
-        
+
         return (List<Object[]>) q.getResultList();
     }
 
@@ -225,20 +236,20 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
      * @return
      */
     public List<Object[]> avgAdminAnsAllStudByPaj(Paj p) {
-        
+
         Query q = em.createNamedQuery("Evaluation.avgAdminAnsAllStudByPaj");
         q.setParameter("paj", p);
-        
+
         return (List<Object[]>) q.getResultList();
     }
-    
+
     public List<Object[]> avgAdminAllStudsEachAnsProj(Project p) {
-        
+
         Query q = em.createNamedQuery("Evaluation.avgAdminAllStudsEachAnsProj");
         q.setParameter("proj", p);
-        
+
         return (List<Object[]>) q.getResultList();
-        
+
     }
 
     /**

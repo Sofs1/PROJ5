@@ -8,6 +8,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <h:outputStylesheet name="./css/default.css"/>
         <h:outputStylesheet name="./css/cssLayout.css"/>
+        <h:outputStylesheet name="./css/styles.css"/>
         <title>SelfEvaluation</title>
     </h:head>
 
@@ -25,13 +26,18 @@
         <div>
             <div id="left">
                 <ui:insert name="left">
-                    <h:form>
-                        <h:commandButton value="OPEN PROJECTS" action="openProjectsStudent"/>
-                        <br></br>
-                        <h:commandButton value="CLOSED PROJECTS" action="closedProjectStudent"/>
-                        <br></br>
-                        <h:commandButton value="REPORTS" action="#{studentReportController.submitEvaluationEmpty()}"/>
-                    </h:form>
+                    <div id='cssmenu'>
+                        <h:form>
+                            <ul>
+                                <li><h:commandLink class="menu2" value="OPEN PROJECTS" action="openProjectsStudent"/>
+                                </li>
+                                <li><h:commandLink class="menu2" value="CLOSED PROJECTS" action="closedProjectStudent"/>
+                                </li>
+                                <li><h:commandLink class="menu2" value="REPORTS" action="#{studentReportController.submitEvaluationEmpty()}"/>
+                                </li>
+                            </ul>
+                        </h:form>
+                    </div>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">

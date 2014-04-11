@@ -27,7 +27,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Evaluation.avgProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.id = :id_proj"),
     @NamedQuery(name = "Evaluation.avgPaj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.paj.id = :id_paj"),
     @NamedQuery(name = "Evaluation.avgProjCrit", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.id = :id_proj and u.criteria.id = :id_crit"),
-    @NamedQuery(name = "Evaluation.avgStudProjCrit", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.id = :id_proj and u.criteria.id = :id_crit"),
+    // @NamedQuery(name = "Evaluation.noteStudProjCrit", query = "SELECT u.note FROM Evaluation u WHERE u.project.id = :id_proj, u.criteria.id :id_crit and u.student.id = :id_st"),
     @NamedQuery(name = "Evaluation.avgStudCrit", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st and u.criteria.id = :id_crit"),
     @NamedQuery(name = "Evaluation.avgStudProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st and u.project.id = :id_proj"),
     @NamedQuery(name = "Evaluation.avgStud", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st"),

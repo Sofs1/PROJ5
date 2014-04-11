@@ -254,20 +254,20 @@ public class ViewProjectController implements Serializable {
     public void giveEvaluation() {
         evaluationFacade.submitEvaluations(studentEvaluations);
         openEvaluation(projectSelected);
-        log.setStudent((Student) session.getUser());
+        log.setStudentID(session.getUser().getId());
         log.setTask("Success - giveEvaluation()");
         logFacade.createLog(log);
     }
 
     public List<Project> listOpenProjects() {
-        log.setStudent((Student) session.getUser());
+        log.setStudentID(session.getUser().getId());
         log.setTask("Success - listOpenProjects()");
         logFacade.createLog(log);
         return studentFacade.openProjects((Student) session.getUser());
     }
 
     public List<Project> listClosedProjects() {
-        log.setStudent((Student) session.getUser());
+        log.setStudentID(session.getUser().getId());
         log.setTask("Success - listClosedProjects()");
         logFacade.createLog(log);
         return studentFacade.closedProjects((Student) session.getUser());
@@ -279,7 +279,7 @@ public class ViewProjectController implements Serializable {
         evaluationFacade.averageCriteriaProj(studentEvaluations);
         avg = evaluationFacade.avgProject(p);
         evaluationPanel.setRendered(true);
-        log.setStudent((Student) session.getUser());
+        log.setStudentID(session.getUser().getId());
         log.setTask("Success - openEvaluation(Project p)");
         logFacade.createLog(log);
     }
@@ -289,11 +289,10 @@ public class ViewProjectController implements Serializable {
     }
 
     public List<Evaluation> givenEvaluations() {
-        Student temp = (Student) session.getUser();
-        log.setStudent(temp);
+        log.setStudentID(session.getUser().getId());
         log.setTask("Success - givenEvaluations()");
         logFacade.createLog(log);
-        return evaluationFacade.evaluationsStudentToProject(temp, projectSelected);
+        return evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), projectSelected);
     }
 
     public void addStudentsToProject() {

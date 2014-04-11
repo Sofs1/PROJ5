@@ -209,7 +209,7 @@ public class UserController implements Serializable {
             }
             userEJB.setUser(studentFacade.searchStudent(user.getEmail(), user.getPass()));
             userEJB.setPajSelected(((Student) userEJB.getUser()).getPaj());
-            log.setStudent((Student) userEJB.getUser());
+            log.setStudentID(userEJB.getUser().getId());
             log.setTask("Success - searchLogged()");
             logFacade.createLog(log);
             return "openProjectsStudent";
@@ -253,7 +253,7 @@ public class UserController implements Serializable {
      * @return xhtml navigation
      */
     public String removeUser() {
-        log.setStudent((Student) userEJB.getUser());
+        log.setStudentID(userEJB.getUser().getId());
         log.setTask("Success - searchLogged()");
         logFacade.createLog(log);
         studentFacade.deleteStudent((Student) userEJB.getUser(), userEJB.getPajSelected());
@@ -279,11 +279,11 @@ public class UserController implements Serializable {
      * @return xhtml navigation
      */
     public String logoutStud() {
-        log.setStudent((Student) userEJB.getUser());
+        log.setStudentID(userEJB.getUser().getId());
         userEJB.setUser(null);
         userEJB.setPajSelected(null);
         invalidateSession();
-        log.setStudent((Student) userEJB.getUser());
+        log.setStudentID(userEJB.getUser().getId());
         log.setTask("Success - logoutStud()");
         logFacade.createLog(log);
         return "index";
@@ -306,7 +306,7 @@ public class UserController implements Serializable {
     public String editStudent() {
         try {
             studentFacade.editStudentFacade(studentEdit, passConf, userEJB.getUser().getEmail());
-            log.setStudent((Student) userEJB.getUser());
+            log.setStudentID(userEJB.getUser().getId());
             log.setTask("Success - editStudent()");
             logFacade.createLog(log);
             return "openProjectsStudent";

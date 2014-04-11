@@ -161,17 +161,15 @@ public class StudentReportController {
     public void createCategoryModelEvolutionCriteria() {
         categoryModelEvolutionCriteria = new CartesianChartModel();
 
-        for (Project p : ((Student) session.getUser()).getProjects()) {
+        for (Criteria c : ((Student) session.getUser()).getPaj().getCriteria()) {
             ChartSeries a = new ChartSeries();
-            List<Evaluation> list = evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), p);
-            a.setLabel(p.getName());
+            a.setLabel(c.getDescription());
 
-            for (Evaluation e : list) {
-                a.set(e.getCriteria().getDescription(), e.getNote());
+            for (Project p : ((Student) session.getUser()).getProjects()) {
+                a.set(p.getName(), evaluationFacade.avgStudentCriteria((Student) session.getUser(), c));
 
             }
-            categoryModel.addSeries(a);
-
+            categoryModelEvolutionCriteria.addSeries(a);
         }
     }
 
@@ -192,6 +190,7 @@ public class StudentReportController {
         selectedProject = selected;
         createCategoryModel();
         createCategoryModelEvolution();
+        createCategoryModelEvolutionCriteria();
         tableEvalProj.setRendered(true);
 
     }

@@ -46,7 +46,7 @@ public class RegistrationController implements Serializable {
     private String erro;
     private Paj selectedPaj;
     @Inject
-    private SessionController userLogado;
+    private SessionController session;
     @Inject
     private LogFacade logFacade;
     private Log log;
@@ -121,11 +121,11 @@ public class RegistrationController implements Serializable {
     }
 
     public SessionController getUserLogado() {
-        return userLogado;
+        return session;
     }
 
     public void setUserLogado(SessionController userLogado) {
-        this.userLogado = userLogado;
+        this.session = userLogado;
     }
 
     /**
@@ -149,9 +149,9 @@ public class RegistrationController implements Serializable {
     public String createStudent() {
         try {
             studentFacade.createStudent(student, passConf, selectedPaj);
-            userLogado.setUser(student);
+            session.setUser(student);
             conversation.end();
-            log.setStudent((Student) student);
+            log.setStudentID(session.getUser().getId());
             log.setTask("Success - createStudent()");
             logFacade.createLog(log);
             return "openProjectsStudent";

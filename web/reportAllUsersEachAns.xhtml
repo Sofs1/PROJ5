@@ -29,6 +29,9 @@
                 </p:column>
             </p:dataTable>
 
+            <p:barChart id="basic" value="#{adminReportController.categoryModel3}" legendPosition="ne"  
+                        title="All Users Average To Each Answer" min="#{sessionController.pajSelected.scaleMin}" max="#{sessionController.pajSelected.scaleMax}" style="width:400px" animate="true"/>
+
         </h:form>
     </ui:define>
 

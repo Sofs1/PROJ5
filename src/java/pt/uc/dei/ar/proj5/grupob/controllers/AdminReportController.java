@@ -5,7 +5,9 @@
  */
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
@@ -13,6 +15,8 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
+import org.primefaces.model.chart.DonutChartModel;
+import org.primefaces.model.chart.LineChartSeries;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -40,7 +44,11 @@ public class AdminReportController {
     private boolean renderedTable;
     private CartesianChartModel categoryModel;
     private CartesianChartModel categoryModel2;
+    private CartesianChartModel categoryModel3;
     private UIComponent tableGenerated;
+    private DonutChartModel donutModel;
+    private CartesianChartModel linearModel;
+    private CartesianChartModel linearModel2;
 
     public AdminReportController() {
     }
@@ -49,6 +57,9 @@ public class AdminReportController {
     public void init() {
         createCategoryModel();
         createChartEachStudentAllProj();
+        createChartAvgAdminAllStudsEachAnsProj();
+        createChartToOverallResult();
+        createChartEvolThroProj();
         this.renderedTable = false;
     }
 
@@ -122,6 +133,38 @@ public class AdminReportController {
 
     public void setCategoryModel2(CartesianChartModel categoryModel2) {
         this.categoryModel2 = categoryModel2;
+    }
+
+    public DonutChartModel getDonutModel() {
+        return donutModel;
+    }
+
+    public void setDonutModel(DonutChartModel donutModel) {
+        this.donutModel = donutModel;
+    }
+
+    public CartesianChartModel getCategoryModel3() {
+        return categoryModel3;
+    }
+
+    public void setCategoryModel3(CartesianChartModel categoryModel3) {
+        this.categoryModel3 = categoryModel3;
+    }
+
+    public CartesianChartModel getLinearModel() {
+        return linearModel;
+    }
+
+    public void setLinearModel(CartesianChartModel linearModel) {
+        this.linearModel = linearModel;
+    }
+
+    public CartesianChartModel getLinearModel2() {
+        return linearModel2;
+    }
+
+    public void setLinearModel2(CartesianChartModel linearModel2) {
+        this.linearModel2 = linearModel2;
     }
 
     /**
@@ -234,6 +277,7 @@ public class AdminReportController {
     public void makeRendered() {
 
         this.renderedTable = true;
+        createChartAllProjStats();
     }
 
     //Charts 
@@ -259,6 +303,74 @@ public class AdminReportController {
                 categoryModel2.addSeries(a);
 
             }
+        }
+    }
+
+    /**
+     * Generate chart result to Average of all projects
+     */
+    public void createChartAllProjStats() {
+
+        donutModel = new DonutChartModel();
+
+        List<Object[]> list = evaluationFacade.avgAdminAllStudsEachAnsProj(this.selectedProject);
+        Map<String, Number> circle = new LinkedHashMap<String, Number>();
+
+        for (int i = 0; i < list.size(); i++) {
+
+            circle.put((String) list.get(i)[1], (Double) list.get(i)[0]);
+        }
+        donutModel.addCircle(circle);
+
+    }
+
+    /**
+     * Generate chart result to Average of all users for each response in all
+     * projects in Paj Edition
+     */
+    public void createChartAvgAdminAllStudsEachAnsProj() {
+
+        categoryModel3 = new CartesianChartModel();
+        List<Object[]> list = evaluationFacade.avgAdminAllStudsEachCrit(session.getPajSelected());
+
+        if (!list.isEmpty()) {
+            for (int i = 0; i < list.size(); i++) {
+                ChartSeries a = new ChartSeries();
+                a.setLabel((String) list.get(i)[1]);
+                a.set("Criteria", (Double) list.get(i)[0]);
+                categoryModel3.addSeries(a);
+            }
+        }
+    }
+
+    public void createChartToOverallResult() {
+
+        linearModel = new CartesianChartModel();
+
+        List<Object[]> list = evaluationFacade.avgAdminEachPajEdi();
+
+        for (int i = 0; i < list.size(); i++) {
+
+            LineChartSeries a = new LineChartSeries();
+            a.setLabel((String) list.get(i)[1]);
+
+            a.set(i, (Double) list.get(i)[0]);
+
+            linearModel.addSeries(a);
+        }
+    }
+
+    public void createChartEvolThroProj() {
+
+        linearModel2 = new CartesianChartModel();
+
+        List<Object[]> list = evaluationFacade.avgAdminAllAnsByProj(session.getPajSelected());
+
+        LineChartSeries a = new LineChartSeries();
+        a.setLabel("Projects");
+        for (int i = 0; i < list.size(); i++) {
+            a.set((String) list.get(i)[1], (Double) list.get(i)[0]);
+            linearModel2.addSeries(a);
         }
     }
 

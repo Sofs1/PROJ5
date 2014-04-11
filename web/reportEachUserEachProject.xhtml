@@ -20,31 +20,31 @@
                 <f:facet name="header">  
                     Average response of each user in each project  
                 </f:facet>
-                <p:column sortBy="user" headerText="Average Value" >  
-                    <h:outputText value="#{evaluation[0]}" >
-                        <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
-                    </h:outputText>
-
-                </p:column>
                 <p:column sortBy="project" headerText="User">  
                     <h:outputText value="#{evaluation[1]}" />  
                 </p:column>
                 <p:column sortBy="average" headerText="Project">  
                     <h:outputText value="#{evaluation[2]}" />  
                 </p:column>
+                <p:column sortBy="user" headerText="Average Value" >  
+                    <h:outputText value="#{evaluation[0]}" >
+                        <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
+                    </h:outputText>
+
+                </p:column>
             </p:dataTable>
-            <br></br>
-            <div style="width:100%; 
-                 margin-left:20%; 
-                 margin-right:20%;">
-                <p:barChart id="stacked" value="#{adminReportController.categoryModel}" legendPosition="ne" style="height:300px; width: 600px;"  
-                            title="Stacked Bar Chart" stacked="true" barMargin="30" min="#{sessionController.pajSelected.scaleMin}" max="50" animate="true"/>
 
-                <p:commandButton value="Print" type="button" icon="ui-icon-print">  
-                    <p:printer target="rep1"/>
-                </p:commandButton>
+            <!--            <div style="width:100%; 
+                             margin-left:20%; 
+                             margin-right:20%;">-->
+            <p:barChart id="stacked" value="#{adminReportController.categoryModel}" legendPosition="ne" style="height:300px;"  
+                        title="Each User / Each Project" stacked="true" barMargin="30" min="#{sessionController.pajSelected.scaleMin}" max="50" animate="true"/>
 
-            </div>
+            <p:commandButton value="Print" type="button" icon="ui-icon-print">  
+                <p:printer target="rep1"/>
+            </p:commandButton>
+
+            <!--            </div>-->
         </h:form>
     </ui:define>
 

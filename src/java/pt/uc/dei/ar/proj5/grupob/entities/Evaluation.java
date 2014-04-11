@@ -25,6 +25,7 @@ import javax.validation.constraints.NotNull;
     @NamedQuery(name = "Evaluation.findStudent", query = "SELECT u FROM Evaluation u WHERE u.student.id = :id"),
     @NamedQuery(name = "Evaluation.findStudentProject", query = "SELECT u FROM Evaluation u WHERE u.student.id = :id_st and u.project.id = :id_proj"),
     @NamedQuery(name = "Evaluation.avgProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.id = :id_proj"),
+    @NamedQuery(name = "Evaluation.avgPaj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.paj.id = :id_paj"),
     @NamedQuery(name = "Evaluation.avgProjCrit", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.project.id = :id_proj and u.criteria.id = :id_crit"),
     @NamedQuery(name = "Evaluation.avgStudCrit", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st and u.criteria.id = :id_crit"),
     @NamedQuery(name = "Evaluation.avgStudProj", query = "SELECT AVG(u.note) FROM Evaluation u WHERE u.student.id = :id_st and u.project.id = :id_proj"),
@@ -136,3 +137,8 @@ public class Evaluation implements Serializable {
     }
 
 }
+//
+//
+//@NamedQuery(name = "AutoUser.usersThatDontEvaluate", query = 
+//        "SELECT u.userName FROM AutoUser u WHERE u.userId NOT IN "
+//                + "(SELECT e.owner.userId FROM AutoEvaluation e WHERE e.project.projectId=:projectId)"),

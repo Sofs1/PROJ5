@@ -15,6 +15,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import pt.uc.dei.ar.proj5.grupob.entities.Administrator;
 import pt.uc.dei.ar.proj5.grupob.entities.User;
+import pt.uc.dei.ar.proj5.grupob.util.DuplicateEmailException;
 import pt.uc.dei.ar.proj5.grupob.util.Encrypt;
 import pt.uc.dei.ar.proj5.grupob.util.NotRegistedEmailException;
 import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
@@ -85,6 +86,29 @@ public class AdministratorFacade extends AbstractFacade<Administrator> {
             throw new PasswordException();
         } else {
             return adminTemp;
+        }
+    }
+
+    /**
+     * create a new user (Administrator)
+     *
+     * @param user
+     * @param passConf
+     * @throws PasswordException
+     * @throws DuplicateEmailException
+     */
+    public void createAdmin(Administrator user, String passConf) throws PasswordException, DuplicateEmailException {
+        if (getAdminbyEmail(user.getEmail()) != null) {
+            throw new DuplicateEmailException();
+        } else if (!user.getPass().equals(passConf)) {
+            throw new PasswordException();
+        } else {
+            String passEncripted = Encrypt.cryptWithMD5(user.getPass());
+            user.setPass(passEncripted);
+            user.setRegistrationYear(new Date());
+            create(user);
+            edit(user);
+
         }
     }
 

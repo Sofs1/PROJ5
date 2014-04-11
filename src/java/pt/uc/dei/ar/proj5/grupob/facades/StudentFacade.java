@@ -256,8 +256,8 @@ public class StudentFacade extends AbstractFacade<Student> {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(s.getEmail()));
             message.setSubject("Teste");
-            message.setText("Dear Mail Crawler,"
-                    + "\n\n No spam to my email, please!");
+            message.setText("Dear Student,"
+                    + "\n\n must submit your Evaluation");
 
             Transport.send(message);
 

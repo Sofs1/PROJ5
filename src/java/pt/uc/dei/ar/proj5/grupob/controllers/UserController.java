@@ -5,6 +5,7 @@
  */
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -16,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
+import pt.uc.dei.ar.proj5.grupob.entities.Administrator;
 import pt.uc.dei.ar.proj5.grupob.entities.Log;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
@@ -34,7 +36,7 @@ import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
  */
 @Named
 @ViewScoped
-public class UserController {
+public class UserController implements Serializable {
 
     @Inject
     private PajFacade pajFacade;
@@ -46,6 +48,7 @@ public class UserController {
     private SessionController userEJB;
     private String passConf;
     private Student student;
+    private Administrator admin;
     private User studentEdit;
     private User user;
     private String erro;
@@ -65,9 +68,18 @@ public class UserController {
     @PostConstruct
     public void initUser() {
         this.student = new Student();
+        this.admin = new Administrator();
         this.user = new User();
         this.selectedPaj = new Paj();
         this.log = new Log();
+    }
+
+    public Administrator getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Administrator admin) {
+        this.admin = admin;
     }
 
     public Student getStWithoutPaj() {
@@ -328,15 +340,30 @@ public class UserController {
      */
     public String createAdmin() {
         try {
-            studentFacade.createStudent(student, passConf, selectedPaj);
-            userEJB.setUser(student);
-            return "templateStudent";
+            adminFacade.createAdmin(admin, passConf);
+            userEJB.setUser(admin);
+            return "adminHome";
 
         } catch (PasswordException | DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
             erro = ex.getMessage();
             return "signup";
         }
+    }
+
+    public void deleteAdmin(Administrator ad) {
+        adminFacade.remove(ad);
+    }
+
+    public List<Administrator> listAdmin() {
+        return adminFacade.findAll();
+    }
+
+    public boolean adminBOSS() {
+        if (userEJB.getUser().getEmail().equals("admin@mail.com")) {
+            return true;
+        }
+        return false;
     }
 
 }

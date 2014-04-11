@@ -71,6 +71,14 @@
                         </h:outputText>
                     </p:column>
                 </p:dataTable>
+
+                <!--                AQUI COMEÇA O GRAFICO-->
+                <br></br>
+                <div style="width: 40%; margin-right: 30%; margin-left: 30%;">
+                    <p:donutChart id="custom" value="#{adminReportController.donutModel}"   
+                                  legendPosition="e" sliceMargin="5" showDataLabels="true" dataFormat="value" shadow="false"  
+                                  title="#{adminReportController.selectedProject.name}" style="width:auto;height:300px" /> 
+                </div>
             </h:panelGroup>
         </h:form>
     </ui:define>

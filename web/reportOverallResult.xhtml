@@ -11,7 +11,7 @@
 
     <ui:define name="content">
         <h:form>
-            <h1>Overall results btw PAJ</h1>
+            <h1>Overall results between PAJ editions</h1>
             <p:dataTable id="dataTable" var="evaluation" value="#{adminReportController.avgAdminEachPajEdi()}" 
                          paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
                          paginatorPosition="bottom" style="width:60%; 
@@ -29,6 +29,9 @@
                     </h:outputText>
                 </p:column>
             </p:dataTable>
+            <br></br>
+            <p:lineChart value="#{adminReportController.linearModel}" legendPosition="e" zoom="true" animate="true"  
+                         title="Overall results between different editions" minY="0" maxY="10" style="width:400px;" />
 
         </h:form>
     </ui:define>

@@ -318,7 +318,15 @@ public class ViewProjectController implements Serializable {
     }
 
     public String verifySubmitedEvaluation() {
-        if (evaluationFacade.verifyEvaluation(studentEvaluations)) {
+        int scaleMin = loggedUser.getPajSelected().getScaleMin();
+        int count = 0;
+        for (Evaluation e : studentEvaluations) {
+            if (e.getNote() == scaleMin) {
+                count++;
+            }
+        }
+
+        if (studentEvaluations.size() == count) {
             return "confirmAny";
         } else {
             return "confirmEval";

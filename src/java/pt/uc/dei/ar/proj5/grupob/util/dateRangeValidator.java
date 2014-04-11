@@ -37,6 +37,11 @@ public class dateRangeValidator implements Validator {
             startDateComponent.setValid(false);
             throw new ValidatorException(new FacesMessage(
                     FacesMessage.SEVERITY_ERROR, "Start date may not be after end date.", null));
+        } else if (endDate.before(new Date())) {
+
+            startDateComponent.setValid(false);
+            throw new ValidatorException(new FacesMessage(
+                    FacesMessage.SEVERITY_ERROR, "You can´t start a project in a past date, sorry.", null));
         }
     }
 }

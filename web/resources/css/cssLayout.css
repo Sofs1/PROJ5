@@ -19,6 +19,7 @@
     float: left;
     height: 100%;
     padding: 5px;
+    position: fixed;
     width: 150px;
 }
 
@@ -187,4 +188,11 @@
 
 .playBtn:hover{
     width: 42%
+}
+
+.edAvg{
+    color: #C97200;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px;
 }

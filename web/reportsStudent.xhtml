@@ -68,8 +68,8 @@
                              title="Evolution throw projects on criteria" minY="#{sessionController.pajSelected.scaleMin}" maxY="#{sessionController.pajSelected.scaleMax}" style="height:300px"/> 
                 <br></br>
 
-                <h:outputLabel value="Edition Average" />
-                <h:outputText value="#{studentReportController.avgEdition()}" >
+                <h:outputLabel class="edAvg" value="Edition Average" />
+                <h:outputText class="edAvg" value="#{studentReportController.avgEdition()}" >
                     <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
                 </h:outputText>
 

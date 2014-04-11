@@ -9,52 +9,55 @@
     <ui:define name="content">
         <h1>Edition: #{sessionController.pajSelected.name} | CLOSED PROJECTS</h1>
 
-        <h:panelGrid columns="2">
+        <!--        <h:panelGrid columns="2">-->
 
-            <h:panelGroup>
-                <h:form>
-                    <h:dataTable value="#{viewProjectController.listClosedProjects()}" var="project" border="0" cellpadding="2" cellspacing="0">
-                        <h:column>
-                            <f:facet name="header" class="dataTableTitle">Project Name</f:facet>
-                                #{project.name}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header" class="dataTableTitle">Beginning Date</f:facet>
-                            <h:outputText value="#{project.begDate}">
-                                <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
-                            </h:outputText>   
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header" class="dataTableTitle">End Date</f:facet>
-                            <h:outputText value="#{project.endDate}">
-                                <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
-                            </h:outputText>   
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header" class="dataTableTitle">Evaluation</f:facet>
-                            <h:commandLink value="Open Evaluation" action="#{viewProjectController.openEvaluation(project)}"></h:commandLink>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
-            </h:panelGroup>
+        <h:panelGroup>
+            <h:form>
+                <h:dataTable value="#{viewProjectController.listClosedProjects()}" var="project" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
+                             headerClass="dataTableTitle">
+                    <f:facet name="header" class="dataTableTitle">#{viewProjectController.projectSelected.name}</f:facet>
+                    <h:column>
+                        <f:facet name="header" class="dataTableTitle">Project Name</f:facet>
+                            #{project.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" class="dataTableTitle">Beginning Date</f:facet>
+                        <h:outputText value="#{project.begDate}">
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
+                        </h:outputText>   
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" class="dataTableTitle">End Date</f:facet>
+                        <h:outputText value="#{project.endDate}">
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
+                        </h:outputText>   
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" class="dataTableTitle">Evaluation</f:facet>
+                        <h:commandLink value="Open Evaluation" action="#{viewProjectController.openEvaluation(project)}"></h:commandLink>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </h:panelGroup>
 
-            <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
-                <h:form>
-                    <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0">
-                        <f:facet name="header">#{viewProjectController.projectSelected.name}</f:facet>
-                        <h:column>   
-                            <f:facet name="header">Criteria</f:facet>
-                            <h:outputLabel value="#{eval.criteria.description}"/>
-                        </h:column>
-                        <h:column>   
-                            <f:facet name="header">Scale: #{viewProjectController.session.pajSelected.scaleMin} - #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
-                            <h:outputLabel id="minmax" value="#{eval.note}"/>
-                        </h:column>
-                        <f:facet name="footer">Average #{viewProjectController.avg}</f:facet>
-                    </h:dataTable> 
-                </h:form>
-            </h:panelGroup>
-        </h:panelGrid>
+        <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
+            <h:form>
+                <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
+                             headerClass="dataTableTitle">
+                    <f:facet name="header">#{viewProjectController.projectSelected.name}</f:facet>
+                    <h:column>   
+                        <f:facet name="header">Criteria</f:facet>
+                        <h:outputLabel value="#{eval.criteria.description}"/>
+                    </h:column>
+                    <h:column>   
+                        <f:facet name="header">Scale: #{viewProjectController.session.pajSelected.scaleMin} - #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
+                        <h:outputLabel id="minmax" value="#{eval.note}"/>
+                    </h:column>
+                    <f:facet name="footer">Average #{viewProjectController.avg}</f:facet>
+                </h:dataTable> 
+            </h:form>
+        </h:panelGroup>
+        <!--</h:panelGrid>-->
 
 
 

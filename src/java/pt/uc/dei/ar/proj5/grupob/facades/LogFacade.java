@@ -30,6 +30,11 @@ public class LogFacade extends AbstractFacade<Log> {
         super(Log.class);
     }
 
+    /**
+     * persist a Log
+     *
+     * @param log
+     */
     public void createLog(Log log) {
         log.setLogDate(new Date());
         create(log);

@@ -103,10 +103,17 @@ public class PajController {
         this.addMessage("PAJ Edition created successfuly");
     }
 
+    /**
+     *
+     * @return boolean if exists Evaluations
+     */
     public boolean existsEvaluations() {
         return pajFacade.exitsEvaluations(userEJB.getPajSelected());
     }
 
+    /**
+     * remove PAJ Edition
+     */
     public void removepaj() {
         try {
             pajFacade.removePaj(paj);
@@ -116,17 +123,32 @@ public class PajController {
         }
     }
 
+    /**
+     * create a new Criterion
+     *
+     * @return xhtml page - setCriteriaView
+     */
     public String createCriteria() {
         criteriaFacade.createCriteria(criteria, userEJB.getPajSelected());
         criteria = null;
         return "setCriteriaView";
     }
 
+    /**
+     *
+     * @param criteria
+     * @return remove the selected criteria
+     */
     public String removeCriteria(Criteria criteria) {
         criteriaFacade.removeCriteria(criteria, userEJB.getPajSelected());
         return "setCriteriaView";
     }
 
+    /**
+     * add a new message
+     *
+     * @param summary message
+     */
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);

@@ -46,6 +46,12 @@ public class ProjectFacade extends AbstractFacade<Project> {
         this.studentFacade = studentFacade;
     }
 
+    /**
+     * adds the project p to paj
+     *
+     * @param p project
+     * @param paj
+     */
     public void addProject(Project p, Paj paj) {
         paj.getProjects().add(p);
         p.setPaj(paj);
@@ -53,6 +59,13 @@ public class ProjectFacade extends AbstractFacade<Project> {
         em.merge(paj);
     }
 
+    /**
+     * remove project from paj
+     *
+     * @param p Project
+     * @param paj
+     * @throws ExistEvaluationOnProjectException
+     */
     public void removeProject(Project p, Paj paj) throws ExistEvaluationOnProjectException {
         if (!p.getEvaluations().isEmpty()) {
             throw new ExistEvaluationOnProjectException();
@@ -64,6 +77,12 @@ public class ProjectFacade extends AbstractFacade<Project> {
 
     }
 
+    /**
+     * adds a student list to a project
+     *
+     * @param st Student's list
+     * @param p Project
+     */
     public void addUsersToProject(List<Student> st, Project p) {
 
         for (Student s : st) {

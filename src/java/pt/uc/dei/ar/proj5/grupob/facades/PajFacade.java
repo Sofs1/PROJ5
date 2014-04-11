@@ -32,6 +32,12 @@ public class PajFacade extends AbstractFacade<Paj> {
         super(Paj.class);
     }
 
+    /**
+     * verify if exist Evaluations in the selected project
+     *
+     * @param paj
+     * @return boolean
+     */
     public boolean exitsEvaluations(Paj paj) {
         for (Project p : paj.getProjects()) {
             if (!p.getEvaluations().isEmpty()) {
@@ -41,6 +47,12 @@ public class PajFacade extends AbstractFacade<Paj> {
         return false;
     }
 
+    /**
+     * remove selected Paj edition
+     *
+     * @param paj
+     * @throws PajDeleteException
+     */
     public void removePaj(Paj paj) throws PajDeleteException {
         if (!exitsEvaluations(paj)) {
             for (Student s : paj.getStudents()) {

@@ -97,6 +97,11 @@ public class ProjectController {
         return flashProject;
     }
 
+    /**
+     * put a selected project into a flash memory
+     *
+     * @param flashProject
+     */
     public void setFlashProject(Project flashProject) {
         this.flashProject = flashProject;
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
@@ -110,6 +115,11 @@ public class ProjectController {
         projectFacade.addProject(project, session.getPajSelected());
     }
 
+    /**
+     * remove the selected Project
+     *
+     * @param p Project
+     */
     public void removeProject(Project p) {
         try {
             projectFacade.removeProject(p, session.getPajSelected());
@@ -123,7 +133,7 @@ public class ProjectController {
      * Saves selected project in flash scope to use in selected project view
      *
      * @param p
-     * @return String
+     * @return xhtml page - openProjectAdmin
      */
     public String openProject(Project p) {
 

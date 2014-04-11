@@ -14,11 +14,12 @@ import javax.inject.Named;
 import org.primefaces.model.chart.CartesianChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import pt.uc.dei.ar.proj5.grupob.ejbs.SessionController;
-import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
 import pt.uc.dei.ar.proj5.grupob.entities.Evaluation;
+import pt.uc.dei.ar.proj5.grupob.entities.Log;
 import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.facades.EvaluationFacade;
+import pt.uc.dei.ar.proj5.grupob.facades.LogFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 
@@ -38,6 +39,9 @@ public class StudentReportController {
     private StudentFacade studentFacade;
     @Inject
     private ProjectFacade projectFacade;
+    @Inject
+    private LogFacade logFacade;
+    private Log log;
 
     private Project selectedProject;
 
@@ -52,6 +56,7 @@ public class StudentReportController {
 
     @PostConstruct
     public void init() {
+        this.log = new Log();
     }
 
     public UIPanel getTableEvalProj() {
@@ -127,7 +132,7 @@ public class StudentReportController {
     }
 
     /**
-     * Generate chart result to Average response of each user in each project.
+     * Generate chart from Evaluation on Project
      */
     public void createCategoryModel() {
         categoryModel = new CartesianChartModel();
@@ -146,6 +151,9 @@ public class StudentReportController {
         }
     }
 
+    /**
+     * Generate chart from Project Average Evolution on Edition
+     */
     public void createCategoryModelEvolution() {
         categoryModelEvolution = new CartesianChartModel();
 
@@ -158,59 +166,23 @@ public class StudentReportController {
     }
 
     public void createCategoryModelEvolutionCriteria() {
+
         categoryModelEvolutionCriteria = new CartesianChartModel();
-        ChartSeries a = new ChartSeries();
 
         for (Project p : ((Student) session.getUser()).getProjects()) {
+            ChartSeries a = new ChartSeries();
             List<Evaluation> list = evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), p);
+            a.setLabel(p.getName());
 
-            for (Criteria c : session.getPajSelected().getCriteria()) {
-                for (Evaluation e : list) {
-                    a.setLabel(c.getDescription());
-                    a.set(e.getProject().getName(), e.getNote());
-                }
-                categoryModelEvolutionCriteria.addSeries(a);
+            for (Evaluation e : list) {
+                a.set(e.getCriteria().getDescription(), e.getNote());
+
             }
+            categoryModelEvolutionCriteria.addSeries(a);
 
         }
     }
 
-//        for (Criteria c : session.getPajSelected().getCriteria()) {
-//            ChartSeries a = new ChartSeries();
-//            a.setLabel(c.getDescription());
-//            
-//            
-//            List<Evaluation> list = evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), p);
-//            
-//            
-//
-//            for (Evaluation e : list) {
-//                a.set(e.getProject().getName(), e.getNote());
-//
-//            }
-//            categoryModelEvolutionCriteria.addSeries(a);
-//        }
-//        
-    //  public void createCategoryModelEvolutionCriteria() {
-    //        categoryModelEvolutionCriteria = new CartesianChartModel();
-    //
-    //        for (Project p : session.getPajSelected().getProjects()) {
-    //            ChartSeries a = new ChartSeries();
-    //            List<Evaluation> list = evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), p);
-    //            for (Criteria c : session.getPajSelected().getCriteria()) {
-    //
-    //                //a.setLabel(c.getDescription());
-    //                for (Evaluation e : list) {
-    //                    a.setLabel(e.getCriteria().getDescription());
-    //                    a.set(e.getProject().getName(), e.getNote());
-    //
-    //                }
-    //
-    //            }
-    //            categoryModelEvolutionCriteria.addSeries(a);
-    //        }
-    //
-    //    }
     /**
      * Looks to the List of Evaluations to a selected Project
      *
@@ -220,6 +192,10 @@ public class StudentReportController {
         return evaluationFacade.evaluationsStudentToProject((Student) session.getUser(), selectedProject);
     }
 
+    /**
+     *
+     * @return List of Student's logged Projects
+     */
     public List<Project> studentProjects() {
         return ((Student) session.getUser()).getProjects();
     }
@@ -230,23 +206,47 @@ public class StudentReportController {
         createCategoryModelEvolution();
         createCategoryModelEvolutionCriteria();
         tableEvalProj.setRendered(true);
+        log.setStudentID(session.getUser().getId());
+        log.setTask("Success - Select Project/See Graphics Reports");
+        logFacade.createLog(log);
 
     }
 
+    /**
+     *
+     * @return average from selected Project
+     */
     public Double avgProject() {
         return evaluationFacade.avgProject(selectedProject);
     }
 
+    /**
+     *
+     * @return average from the Student logged on the selected project
+     */
     public Double avgStdProject() {
         return evaluationFacade.avgStudentProject((Student) session.getUser(), selectedProject);
     }
 
+    /**
+     *
+     * @return average from edition
+     */
     public Double avgEdition() {
         return evaluationFacade.avgPaj(session.getPajSelected());
     }
 
+    /**
+     * If the logged student goes to reportsStudent and have no submitted
+     * projects that already close, submit that evaluations to the min scale
+     *
+     * @return index xhtml - reportsStudent
+     */
     public String submitEvaluationEmpty() {
         evaluationFacade.submitEmptyEvaluation((Student) session.getUser());
+        log.setStudentID(session.getUser().getId());
+        log.setTask("Navigation: reportsStudent");
+        logFacade.createLog(log);
         return "reportsStudent";
     }
 }

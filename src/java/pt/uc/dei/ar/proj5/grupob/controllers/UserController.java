@@ -350,14 +350,27 @@ public class UserController implements Serializable {
         }
     }
 
+    /**
+     * delete the administrator
+     *
+     * @param ad selected administrator
+     */
     public void deleteAdmin(Administrator ad) {
         adminFacade.remove(ad);
     }
 
+    /**
+     *
+     * @return all the list of administrators
+     */
     public List<Administrator> listAdmin() {
         return adminFacade.findAll();
     }
 
+    /**
+     *
+     * @return boolean if the logged user is the main administrator
+     */
     public boolean adminBOSS() {
         if (userEJB.getUser().getEmail().equals("admin@mail.com")) {
             return true;

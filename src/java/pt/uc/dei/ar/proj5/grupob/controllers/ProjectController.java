@@ -35,6 +35,7 @@ public class ProjectController {
     private Project project;
     private Project projectSelected;
     private String erro;
+    private Project flashProject;
 
     public ProjectController() {
     }
@@ -90,6 +91,16 @@ public class ProjectController {
 
     public void setProjectSelected(Project projectSelected) {
         this.projectSelected = projectSelected;
+    }
+
+    public Project getFlashProject() {
+        return flashProject;
+    }
+
+    public void setFlashProject(Project flashProject) {
+        this.flashProject = flashProject;
+        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
+        flash.put("project", flashProject);
     }
 
     /**

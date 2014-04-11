@@ -1,0 +1,78 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./templateAdmin.xhtml"
+                xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:define name="content">
+        <h1>All Projects Statistics</h1>
+
+        <br></br>
+        <h:form id="formoriginal">
+            <!--                        TABELA COM OS PROJECTOS-->
+
+            <p:dataTable id="projects" var="project" value="#{adminReportController.allProjects()}" rowKey="#{project}"  
+                         selection="#{adminReportController.selectedProject}" selectionMode="single"  paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                         paginatorPosition="bottom" style="width:60%; 
+                         margin-left:20%; 
+                         margin-right:20%;">  
+
+                <f:ajax event="rowSelect" listener="#{adminReportController.makeRendered()}" render=":tabla"/>
+
+                <f:facet name="header">  
+                    All Projects. <u>Please select one.</u>  
+                </f:facet>  
+
+                <p:column headerText="ID">  
+                    #{project.id}  
+                </p:column>  
+
+                <p:column headerText="Project Name">  
+                    #{project.name}  
+                </p:column> 
+
+                <p:column headerText="Begginning Date">
+                    <h:outputText value="#{project.begDate}">
+                        <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
+                    </h:outputText>
+                </p:column>  
+
+                <p:column headerText="End Date"> 
+                    <h:outputText value="#{project.endDate}">
+                        <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
+                    </h:outputText>  
+                </p:column> 
+            </p:dataTable>
+        </h:form>
+
+        <!--                        TABELA COM O RELATORIO-->
+
+        <h:form id="tabla" >
+            <h:panelGroup rendered="#{adminReportController.renderedTable}">
+                <p:dataTable id="table" var="evaluation" value="#{adminReportController.avgAdminAllStudsEachAnsProj()}" paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" 
+                             paginatorPosition="bottom" style="width:60%; 
+                             margin-left:20%; 
+                             margin-right:20%;">
+                    <f:facet name="tableHeader">  
+                        Average of all users for each response in each project  
+                    </f:facet>
+                    <p:column sortBy="tableProject" headerText="Criterion">  
+                        <h:outputText value="#{evaluation[1]}" />  
+                    </p:column>
+                    <p:column sortBy="tableAverage" headerText="Project">  
+                        <h:outputText value="#{evaluation[2]}" />  
+                    </p:column>
+                    <p:column sortBy="tableUser" headerText="Average Value">  
+                        <h:outputText value="#{evaluation[0]}" >
+                            <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
+                        </h:outputText>
+                    </p:column>
+                </p:dataTable>
+            </h:panelGroup>
+        </h:form>
+    </ui:define>
+
+</ui:composition>

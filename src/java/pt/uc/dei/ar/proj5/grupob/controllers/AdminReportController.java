@@ -8,8 +8,7 @@ package pt.uc.dei.ar.proj5.grupob.controllers;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
-import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
+import javax.faces.component.UIComponent;
 import javax.inject.Inject;
 import javax.inject.Named;
 import org.primefaces.model.chart.CartesianChartModel;
@@ -38,8 +37,10 @@ public class AdminReportController {
     @Inject
     private ProjectFacade projectFacade;
     private Project selectedProject;
-
+    private boolean renderedTable;
     private CartesianChartModel categoryModel;
+    private CartesianChartModel categoryModel2;
+    private UIComponent tableGenerated;
 
     public AdminReportController() {
     }
@@ -47,8 +48,8 @@ public class AdminReportController {
     @PostConstruct
     public void init() {
         createCategoryModel();
-        Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
-        setSelectedProject((Project) flash.get("project"));
+        createChartEachStudentAllProj();
+        this.renderedTable = false;
     }
 
     public EvaluationFacade getEvaluationFacade() {
@@ -97,6 +98,30 @@ public class AdminReportController {
 
     public void setSelectedProject(Project selectedProject) {
         this.selectedProject = selectedProject;
+    }
+
+    public UIComponent getTableGenerated() {
+        return tableGenerated;
+    }
+
+    public void setTableGenerated(UIComponent tableGenerated) {
+        this.tableGenerated = tableGenerated;
+    }
+
+    public boolean isRenderedTable() {
+        return renderedTable;
+    }
+
+    public void setRenderedTable(boolean renderedTable) {
+        this.renderedTable = renderedTable;
+    }
+
+    public CartesianChartModel getCategoryModel2() {
+        return categoryModel2;
+    }
+
+    public void setCategoryModel2(CartesianChartModel categoryModel2) {
+        this.categoryModel2 = categoryModel2;
     }
 
     /**
@@ -154,11 +179,11 @@ public class AdminReportController {
     /**
      * Average of all users for each response in each project
      *
-     * @param p
      * @return
      */
     public List<Object[]> avgAdminAllStudsEachAnsProj() {
 
+        //this.tableGenerated.setRendered(true);
         return evaluationFacade.avgAdminAllStudsEachAnsProj(this.selectedProject);
 
     }
@@ -172,4 +197,69 @@ public class AdminReportController {
 
         return projectFacade.allProjects();
     }
+
+    /**
+     * Average of all users for each response in all projects
+     *
+     * @return List<Object[]>
+     */
+    public List<Object[]> avgAdminAllStudsEachCrit() {
+
+        return evaluationFacade.avgAdminAllStudsEachCrit(session.getPajSelected());
+    }
+
+    /**
+     * Overall results between different editions
+     *
+     * @return List<Object[]>
+     */
+    public List<Object[]> avgAdminEachPajEdi() {
+
+        return evaluationFacade.avgAdminEachPajEdi();
+    }
+
+    /**
+     * Evolution of the average responses of all students throughout the project
+     *
+     * @return List<Object[]>
+     */
+    public List<Object[]> avgAdminAllAnsByProj() {
+
+        return evaluationFacade.avgAdminAllAnsByProj(session.getPajSelected());
+    }
+
+    /**
+     * Set table rendered
+     */
+    public void makeRendered() {
+
+        this.renderedTable = true;
+    }
+
+    //Charts 
+    /**
+     * Generate chart result to Average response of each user in each project.
+     */
+    public void createChartEachStudentAllProj() {
+
+        List<Object[]> list = evaluationFacade.avgAdminAnsAllStudByPaj(session.getPajSelected());
+
+        categoryModel2 = new CartesianChartModel();
+
+        if (!list.isEmpty()) {
+
+            for (int i = 0; i < list.size(); i++) {
+                ChartSeries a = new ChartSeries();
+
+                String student = (String) list.get(i)[1];
+                double avg = (Double) list.get(i)[0];
+                a.setLabel(student);
+                a.set("Students", avg);
+
+                categoryModel2.addSeries(a);
+
+            }
+        }
+    }
+
 }

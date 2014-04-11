@@ -208,4 +208,36 @@ public class EvaluationFacade extends AbstractFacade<Evaluation> {
 
     }
 
+    /**
+     * Average of all users for each response in all projects
+     *
+     * @param p
+     * @return List<Object[]>
+     */
+    public List<Object[]> avgAdminAllStudsEachCrit(Paj p) {
+
+        Query q = em.createNamedQuery("Evaluation.avgAdminAllStudsEachCrit");
+        q.setParameter("paj", p);
+        return (List<Object[]>) q.getResultList();
+    }
+
+    /**
+     * Overall results between different editions
+     *
+     * @return List<Object[]>
+     */
+    public List<Object[]> avgAdminEachPajEdi() {
+
+        Query q = em.createNamedQuery("Evaluation.avgAdminEachPajEdi");
+        return (List<Object[]>) q.getResultList();
+
+    }
+
+    public List<Object[]> avgAdminAllAnsByProj(Paj p) {
+
+        Query q = em.createNamedQuery("Evaluation.avgAdminAllAnsByProj");
+        q.setParameter("paj", p);
+        return (List<Object[]>) q.getResultList();
+    }
+
 }

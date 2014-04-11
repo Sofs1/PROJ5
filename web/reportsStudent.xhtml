@@ -10,82 +10,88 @@
 
 
     <ui:define name="content">
-        <h1>"Each answer / Each Criterion"</h1>
-        <h:panelGroup>
-            <h:form>
-                <p:dataTable id="dataTable" var="proj" value="#{studentReportController.studentProjects()}" 
-                             paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                    <f:facet name="header">  
-                        List of your Projects
-                    </f:facet>
-                    <p:column headerText="ID" >  
-                        <h:outputText value="#{proj.id}" />
-                    </p:column>
-                    <p:column  headerText="Name">  
-                        <h:outputText value="#{proj.name}" />  
-                    </p:column>
-                    <p:column >  
-                        <h:commandButton value="Select" action="#{studentReportController.saveProjectSelected(proj)}" />
-                    </p:column>
-                </p:dataTable>
-            </h:form>
-        </h:panelGroup>
+        <h1>Each answer / Each Criterion</h1>
+        <h:form id="rep1">
+            <h:panelGroup>
 
-        <h:panelGroup binding="#{studentReportController.tableEvalProj}" rendered ="false" >
-            <h:form>
-                <br></br>
-                <p:dataTable id="dataTable" var="evaluation" value="#{studentReportController.studentEvaluation()}" 
-                             paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
-                    <f:facet name="header">  
-                        Your response to #{studentReportController.selectedProject.name}
-                    </f:facet>
-                    <p:column headerText="Criterion" >  
-                        <h:outputText value="#{evaluation.criteria.description}" >
-                            <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
-                        </h:outputText>
+                <h:form>
 
-                    </p:column>
-                    <p:column  headerText="Value">  
-                        <h:outputText value="#{evaluation.note}" />  
-                    </p:column>
-                    <f:facet name="footer">  
-                        Project Average #{studentReportController.avgStdProject()}
-                    </f:facet>
-                </p:dataTable>
+                    <p:dataTable id="dataTable" var="proj" value="#{studentReportController.studentProjects()}" 
+                                 paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                        <f:facet name="header">  
+                            List of your Projects
+                        </f:facet>
+                        <p:column headerText="ID" >  
+                            <h:outputText value="#{proj.id}" />
+                        </p:column>
+                        <p:column  headerText="Name">  
+                            <h:outputText value="#{proj.name}" />  
+                        </p:column>
+                        <p:column >  
+                            <h:commandButton value="Select" action="#{studentReportController.saveProjectSelected(proj)}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </h:panelGroup>
 
-                <br></br>
+            <h:panelGroup binding="#{studentReportController.tableEvalProj}" rendered ="false" >
+                <h:form>
+                    <br></br>
+                    <p:dataTable id="dataTable" var="evaluation" value="#{studentReportController.studentEvaluation()}" 
+                                 paginator="true" rows="10" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom">
+                        <f:facet name="header">  
+                            Your response to #{studentReportController.selectedProject.name}
+                        </f:facet>
+                        <p:column headerText="Criterion" >  
+                            <h:outputText value="#{evaluation.criteria.description}" >
+                                <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
+                            </h:outputText>
 
-                <p:barChart id="horizontal" value="#{studentReportController.categoryModel}" legendPosition="se" style="height:500px" extender="my_ext" 
-                            title="Your Evaluation on Projects" orientation="horizontal" min="#{sessionController.pajSelected.scaleMin}" max="#{sessionController.pajSelected.scaleMax}" />  
+                        </p:column>
+                        <p:column  headerText="Value">  
+                            <h:outputText value="#{evaluation.note}" />  
+                        </p:column>
+                        <f:facet name="footer">  
+                            Project Average #{studentReportController.avgStdProject()}
+                        </f:facet>
+                    </p:dataTable>
 
-                <br></br>
+                    <br></br>
 
-                <p:lineChart id="linear" value="#{studentReportController.categoryModelEvolution}" legendPosition="e" extender="my_ext" 
-                             title="Evolution throw projects" minY="#{sessionController.pajSelected.scaleMin}" maxY="#{sessionController.pajSelected.scaleMax}" style="height:300px"/> 
-                <br></br>
+                    <p:barChart id="horizontal" value="#{studentReportController.categoryModel}" legendPosition="se" style="height:500px" extender="my_ext" 
+                                title="Your Evaluation on Projects" orientation="horizontal" min="#{sessionController.pajSelected.scaleMin}" max="#{sessionController.pajSelected.scaleMax}" />  
 
-                <p:lineChart id="critera" value="#{studentReportController.categoryModelEvolutionCriteria}" legendPosition="e" extender="my_ext" 
-                             title="Evolution throw projects on criteria" minY="#{sessionController.pajSelected.scaleMin}" maxY="#{sessionController.pajSelected.scaleMax}" style="height:300px"/> 
-                <br></br>
+                    <br></br>
 
-                <h:outputLabel class="edAvg" value="Edition Average" />
-                <h:outputText class="edAvg" value="#{studentReportController.avgEdition()}" >
-                    <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
-                </h:outputText>
+                    <p:lineChart id="linear" value="#{studentReportController.categoryModelEvolution}" legendPosition="e" extender="my_ext" 
+                                 title="Evolution throw projects" minY="#{sessionController.pajSelected.scaleMin}" maxY="#{sessionController.pajSelected.scaleMax}" style="height:300px"/> 
+                    <br></br>
 
-                <script type="text/javascript">
-                    function my_ext() {
-                        this.cfg.axes.xaxis.tickOptions = {
-                            formatString: '%#.2f'
-                        };
-                    }
-                </script>
+                    <p:lineChart id="critera" value="#{studentReportController.categoryModelEvolutionCriteria}" legendPosition="e" extender="my_ext" 
+                                 title="Evolution throw projects on criteria" minY="#{sessionController.pajSelected.scaleMin}" maxY="#{sessionController.pajSelected.scaleMax}" style="height:300px"/> 
+                    <br></br>
 
-            </h:form>
+                    <h:outputLabel value="Edition Average" />
+                    <h:outputText value="#{studentReportController.avgEdition()}" >
+                        <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
+                    </h:outputText>
 
-        </h:panelGroup>
+                    <script type="text/javascript">
+                        function my_ext() {
+                            this.cfg.axes.xaxis.tickOptions = {
+                                formatString: '%#.2f'
+                            };
+                        }
+                    </script>
 
 
+                </h:form>
+            </h:panelGroup>
+            <p:commandButton value="Print" type="button" icon="ui-icon-print">  
+                <p:printer target="rep1"/>
+            </p:commandButton>
+
+        </h:form>
     </ui:define>
 
 </ui:composition>

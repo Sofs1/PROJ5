@@ -343,23 +343,25 @@ public class AdminReportController {
         }
     }
 
+    /**
+     * Generate chart result to Overall result
+     */
     public void createChartToOverallResult() {
 
         linearModel = new CartesianChartModel();
 
         List<Object[]> list = evaluationFacade.avgAdminEachPajEdi();
-
+        LineChartSeries a = new LineChartSeries();
+        a.setLabel("Paj Edition");
         for (int i = 0; i < list.size(); i++) {
-
-            LineChartSeries a = new LineChartSeries();
-            a.setLabel((String) list.get(i)[1]);
-
-            a.set(i, (Double) list.get(i)[0]);
-
+            a.set((String) list.get(i)[1], (Double) list.get(i)[0]);
             linearModel.addSeries(a);
         }
     }
 
+    /**
+     * Generate chart that marks the evolution throught project in each edition
+     */
     public void createChartEvolThroProj() {
 
         linearModel2 = new CartesianChartModel();
@@ -370,6 +372,7 @@ public class AdminReportController {
         a.setLabel("Projects");
         for (int i = 0; i < list.size(); i++) {
             a.set((String) list.get(i)[1], (Double) list.get(i)[0]);
+            a.setMarkerStyle("diamond");
             linearModel2.addSeries(a);
         }
     }

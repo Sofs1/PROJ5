@@ -12,7 +12,8 @@
         <h1>All PAJ Editions</h1>
         <h:form>
             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
-            <h:dataTable value="#{userController.listAllPajs()}" var="paj" border="0" cellpadding="2" cellspacing="0">
+            <h:dataTable value="#{userController.listAllPajs()}" var="paj" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
+                         headerClass="dataTableTitle">
                 <h:column>
                     <f:facet name="header" class="dataTableTitle">PAJ Name</f:facet>
                     <h:commandLink type="submit" value="#{paj.name}" action="adminProjects" >

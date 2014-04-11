@@ -5,28 +5,27 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-    <h:body>
-        <ui:composition template="./templateAdmin.xhtml">
-            <ui:define name="content">
-                <h1>Edition: #{sessionController.pajSelected.name} | Criteria List</h1>
-                <h:form rendered="#{pajController.existsEvaluations() eq false}">
-                    <br></br>
-                    <h:inputText value="#{pajController.criteria.description}"/>
-                    <h:commandButton value="ADD CRITERIA" action="#{pajController.createCriteria()}" />
-                    <br></br>
-                    <br></br>
-                </h:form>
-                <h:form>
-                    <h:dataTable value="#{sessionController.pajSelected.criteria}" var="crit" border="0" cellpadding="2" cellspacing="0">
-                        <h:column>
-                            #{crit.description}
-                        </h:column>
-                        <h:column rendered="#{pajController.existsEvaluations() eq false}">
-                            <h:commandLink  actionListener="#{pajController.removeCriteria(crit)}" value="remove"/>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
-            </ui:define>
-        </ui:composition>
-    </h:body>
+
+    <ui:composition template="./templateAdmin.xhtml">
+        <ui:define name="content">
+            <h1>Edition: #{sessionController.pajSelected.name} | Criteria List</h1>
+            <h:form rendered="#{pajController.existsEvaluations() eq false}">
+                <br></br>
+                <h:inputText value="#{pajController.criteria.description}"/>
+                <h:commandButton value="ADD CRITERIA" action="#{pajController.createCriteria()}" />
+                <br></br>
+                <br></br>
+            </h:form>
+            <h:form>
+                <h:dataTable value="#{sessionController.pajSelected.criteria}" var="crit" border="0" cellpadding="2" cellspacing="0">
+                    <h:column>
+                        #{crit.description}
+                    </h:column>
+                    <h:column rendered="#{pajController.existsEvaluations() eq false}">
+                        <h:commandLink  actionListener="#{pajController.removeCriteria(crit)}" value="remove"/>
+                    </h:column>
+                </h:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
 </html>

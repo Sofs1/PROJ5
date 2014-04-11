@@ -40,22 +40,19 @@
             <div id="left">
                 <ui:insert name="left">
                     <h:form>
-                        <h:commandButton value="HOME [PAJs]" action="#{userController.homeAdmin()}"/>
+                        <h:commandButton class="btnMenu" value="HOME [PAJs]" action="#{userController.homeAdmin()}"/>
                         <br></br>
-                        <h:commandButton value="PROJECTS" disabled="#{empty sessionController.pajSelected}" action="adminProjects"/>
+                        <h:commandButton class="btnMenu" value="PROJECTS" disabled="#{empty sessionController.pajSelected}" action="adminProjects"/>
                         <br></br>
-                        <h:commandButton value="CRITERIA" disabled="#{empty sessionController.pajSelected}" action="setCriteriaView"/>
+                        <h:commandButton class="btnMenu" value="CRITERIA" disabled="#{empty sessionController.pajSelected}" action="setCriteriaView"/>
                         <br></br>
-                        <h:commandButton value="REPORTS"  disabled="#{empty sessionController.pajSelected}" action="adminReports"/>
+                        <h:commandButton class="btnMenu" value="REPORTS"  disabled="#{empty sessionController.pajSelected}" action="adminReports"/>
                     </h:form>
                 </ui:insert>
             </div>
             <div id="content" class="left_content">
                 <ui:insert name="content">Content</ui:insert>
             </div>
-        </div>
-        <div id="bottom">
-            <ui:insert name="bottom">@Made By Sofia &amp; Orlando</ui:insert>
         </div>
 
     </h:body>

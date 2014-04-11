@@ -11,9 +11,11 @@
 
     <ui:define name="content">
         <h1>Edition: #{sessionController.pajSelected.name} </h1>
-        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+
         <h:form>
-            <h:dataTable value="#{sessionController.pajSelected.projects}" var="project" border="0" cellpadding="2" cellspacing="0">
+            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <h:dataTable value="#{sessionController.pajSelected.projects}" var="project" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
+                         headerClass="dataTableTitle">
                 <h:column>
                     <f:facet name="header" class="dataTableTitle">Project Name</f:facet>
                     <h:commandLink action="#{projectController.openProject(project)}" value="#{project.name}"/>

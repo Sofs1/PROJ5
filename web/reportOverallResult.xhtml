@@ -30,9 +30,10 @@
                 </p:column>
             </p:dataTable>
             <br></br>
-            <p:lineChart value="#{adminReportController.linearModel}" legendPosition="e" zoom="true" animate="true"  
-                         title="Overall results between different editions" minY="0" maxY="10" style="width:400px;" />
-
+            <div style="width: 40%; margin-left: 30%; margin-right: 30%;">
+                <p:lineChart value="#{adminReportController.linearModel}" legendPosition="e" zoom="true" animate="true"  
+                             title="Overall results between different editions" minY="0" maxY="10" style="width:400px;" />
+            </div>
         </h:form>
     </ui:define>
 

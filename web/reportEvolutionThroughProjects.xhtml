@@ -9,6 +9,7 @@
 
 
     <ui:define name="content">
+
         <h:form>
             <h1>Evolution of the average responses throughout the project</h1>
             <p:dataTable id="dataTable" var="evaluation" value="#{adminReportController.avgAdminAllAnsByProj()}" 
@@ -29,9 +30,10 @@
                 </p:column>
             </p:dataTable>
 
-            <p:lineChart value="#{adminReportController.linearModel2}" legendPosition="e" zoom="true" animate="true"  
-                         title="Overall results between different editions" minY="0" maxY="10" style="width:400px;" />
-
+            <div style="width: 40%; margin-left: 30%; margin-right: 30%; margin-top: 10px;">
+                <p:lineChart value="#{adminReportController.linearModel2}" legendPosition="e" zoom="true" animate="true"  
+                             title="Overall results between different editions" minY="0" maxY="10" style="width:400px;" />
+            </div>
         </h:form>
     </ui:define>
 

@@ -35,10 +35,17 @@ public class Log implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date logDate;
 
-    @ManyToOne
-    private Student student;
+    private Integer studentID;
 
     public Log() {
+    }
+
+    public Integer getStudentID() {
+        return studentID;
+    }
+
+    public void setStudentID(Integer studentID) {
+        this.studentID = studentID;
     }
 
     public Long getId() {
@@ -63,14 +70,6 @@ public class Log implements Serializable {
 
     public void setLogDate(Date logDate) {
         this.logDate = logDate;
-    }
-
-    public Student getStudent() {
-        return student;
-    }
-
-    public void setStudent(Student student) {
-        this.student = student;
     }
 
     @Override

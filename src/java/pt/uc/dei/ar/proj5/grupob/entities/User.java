@@ -17,8 +17,8 @@ import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @MappedSuperclass
 public class User {

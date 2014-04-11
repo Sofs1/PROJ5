@@ -12,8 +12,8 @@ import pt.uc.dei.ar.proj5.grupob.entities.Criteria;
 import pt.uc.dei.ar.proj5.grupob.entities.Paj;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Stateless
 public class CriteriaFacade extends AbstractFacade<Criteria> {

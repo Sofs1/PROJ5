@@ -6,8 +6,8 @@
 package pt.uc.dei.ar.proj5.grupob.util;
 
 /**
- *
- * @author Sofia Vitor
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 public class AlreadyExistsYourEvaluation extends Exception {
 

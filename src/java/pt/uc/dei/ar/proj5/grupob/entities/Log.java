@@ -11,13 +11,12 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Entity
 public class Log implements Serializable {

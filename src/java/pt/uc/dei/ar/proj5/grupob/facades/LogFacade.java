@@ -12,8 +12,8 @@ import javax.persistence.PersistenceContext;
 import pt.uc.dei.ar.proj5.grupob.entities.Log;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Stateless
 public class LogFacade extends AbstractFacade<Log> {

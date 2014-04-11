@@ -18,8 +18,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Entity
 @NamedQueries({

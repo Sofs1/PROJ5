@@ -17,8 +17,8 @@ import pt.uc.dei.ar.proj5.grupob.entities.Student;
 import pt.uc.dei.ar.proj5.grupob.util.ExistEvaluationOnProjectException;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Stateless
 public class ProjectFacade extends AbstractFacade<Project> {

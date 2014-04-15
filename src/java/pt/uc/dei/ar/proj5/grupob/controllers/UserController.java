@@ -31,8 +31,8 @@ import pt.uc.dei.ar.proj5.grupob.util.NotRegistedEmailException;
 import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Named
 @ViewScoped

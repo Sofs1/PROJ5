@@ -5,17 +5,14 @@ package pt.uc.dei.ar.proj5.grupob.util;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
- *
- * @author Sofia Vitor
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
-public class PasswordException extends Exception{
+public class PasswordException extends Exception {
 
     public PasswordException() {
         super("Password doesn´t match");
     }
-    
-    
-    
+
 }

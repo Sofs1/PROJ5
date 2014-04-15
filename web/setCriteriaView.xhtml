@@ -17,11 +17,14 @@
                 <br></br>
             </h:form>
             <h:form>
-                <h:dataTable value="#{sessionController.pajSelected.criteria}" var="crit" border="0" cellpadding="2" cellspacing="0">
+                <h:dataTable value="#{sessionController.pajSelected.criteria}" var="crit" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
+                             headerClass="dataTableTitle">
                     <h:column>
-                        #{crit.description}
+                        <f:facet name="header" class="dataTableTitle">Criteria Name</f:facet>
+                            #{crit.description}
                     </h:column>
                     <h:column rendered="#{pajController.existsEvaluations() eq false}">
+                        <f:facet name="header" class="dataTableTitle">Remove</f:facet>
                         <h:commandLink  actionListener="#{pajController.removeCriteria(crit)}" value="remove"/>
                     </h:column>
                 </h:dataTable>

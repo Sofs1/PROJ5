@@ -14,8 +14,8 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 /**
- *
- * @author Zueb LDA
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @FacesValidator("scaleRangeValidator")
 public class ScaleRangeValidator implements Validator {

@@ -13,15 +13,15 @@
         <h1>Edition: #{sessionController.pajSelected.name} |Project: #{viewProjectController.selectedProject.name}</h1>
         <p:panelGrid columns="3">
             <h:form>
-                Project Name: #{viewProjectController.selectedProject.name}
+                <b>Project Name:</b> #{viewProjectController.selectedProject.name}
                 <br></br>
-                Beggining Date
-                <h:outputText value="#{viewProjectController.selectedProject.begDate}">
+                <b>Beggining Date</b>
+                <h:outputText style="text-align: right" value="#{viewProjectController.selectedProject.begDate}">
                     <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
                 </h:outputText>
                 <br></br>
-                End Date
-                <h:outputText value="#{viewProjectController.selectedProject.endDate}">
+                <b>End Date</b>
+                <h:outputText style="text-align: right" value="#{viewProjectController.selectedProject.endDate}">
                     <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
                 </h:outputText>
                 <br></br>

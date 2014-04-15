@@ -29,10 +29,12 @@
                     </h:outputText>
                 </p:column>
             </p:dataTable>
-
-            <p:barChart id="horizontal" value="#{adminReportController.categoryModel2}" legendPosition="se" style="height:300px; width: 800px"  
-                        title="Horizontal Bar Chart" orientation="horizontal" min="#{sessionController.pajSelected.scaleMin}" max="#{sessionController.pajSelected.scaleMax}" extender="my_ext"/>
-
+            <div style="width:80%; 
+                 margin-left:15%; 
+                 margin-right:25%; margin-top: 15px;">
+                <p:barChart id="horizontal" value="#{adminReportController.categoryModel2}" legendPosition="se" style="height:300px; width: 800px"  
+                            title="Horizontal Bar Chart" orientation="horizontal" min="#{sessionController.pajSelected.scaleMin}" max="#{sessionController.pajSelected.scaleMax}" extender="my_ext"/>
+            </div>
         </h:form>
         <script type="text/javascript">
             function my_ext() {

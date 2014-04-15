@@ -28,14 +28,14 @@
                 <ui:insert name="left">
                     <div id='cssmenu'>
                         <h:form>
-                            <ul>
-                                <li><h:commandLink class="menu2" value="OPEN PROJECTS" action="openProjectsStudent"/>
-                                </li>
-                                <li><h:commandLink class="menu2" value="CLOSED PROJECTS" action="closedProjectStudent"/>
-                                </li>
-                                <li><h:commandLink class="menu2" value="REPORTS" action="#{studentReportController.submitEvaluationEmpty()}"/>
-                                </li>
-                            </ul>
+
+                            <h:commandButton class="btnMenu" value="OPEN PROJECTS" action="openProjectsStudent"/>
+
+                            <h:commandButton class="btnMenu" value="CLOSED PROJECTS" action="closedProjectStudent"/>
+
+                            <h:commandButton class="btnMenu" value="REPORTS" action="#{studentReportController.submitEvaluationEmpty()}"/>
+
+
                         </h:form>
                     </div>
                 </ui:insert>

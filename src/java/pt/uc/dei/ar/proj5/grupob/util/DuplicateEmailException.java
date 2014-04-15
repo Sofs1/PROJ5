@@ -3,18 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package pt.uc.dei.ar.proj5.grupob.util;
 
 /**
- *
- * @author Sofia Vitor
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 public class DuplicateEmailException extends Exception {
-    
-     public DuplicateEmailException() {
+
+    public DuplicateEmailException() {
         super("Duplicate e-mail");
     }
-    
-    
+
 }

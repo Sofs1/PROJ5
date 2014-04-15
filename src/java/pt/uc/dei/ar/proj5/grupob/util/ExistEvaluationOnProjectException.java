@@ -6,8 +6,8 @@
 package pt.uc.dei.ar.proj5.grupob.util;
 
 /**
- *
- * @author Zueb LDA
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 public class ExistEvaluationOnProjectException extends Exception {
 

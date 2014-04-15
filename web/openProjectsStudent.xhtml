@@ -10,83 +10,86 @@
     <ui:define name="content">
         <h1>Edition: #{sessionController.pajSelected.name} | OPEN PROJECTS</h1>
 
-        <h:panelGrid columns="2">
+        <!--        <h:panelGrid columns="2">-->
 
-            <h:panelGroup>
-                <h:form>
-                    <h:dataTable value="#{viewProjectController.listOpenProjects()}" var="project" border="0" cellpadding="2" cellspacing="0">
-                        <h:column>
-                            <f:facet name="header" class="dataTableTitle">Project Name</f:facet>
-                                #{project.name}
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header" class="dataTableTitle">Beginning Date</f:facet>
-                            <h:outputText value="#{project.begDate}">
-                                <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
-                            </h:outputText>   
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header" class="dataTableTitle">End Date</f:facet>
-                            <h:outputText value="#{project.endDate}">
-                                <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
-                            </h:outputText>   
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header" class="dataTableTitle">Evaluation</f:facet>
-                            <h:commandLink value="Open Evaluation" action="#{viewProjectController.openEvaluation(project)}"></h:commandLink>
-                        </h:column>
-                    </h:dataTable>
-                </h:form>
-            </h:panelGroup>
+        <h:panelGroup>
             <h:form>
-                <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
-
-                    <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0">
-                        <h:column>  
-                            <f:facet name="header">Criteria</f:facet>
-                            <h:outputLabel value="#{eval.criteria.description}"/>
-                        </h:column>
-                        <h:column>   
-                            <f:facet name="header">Scale: #{viewProjectController.session.pajSelected.scaleMin}
-                                - #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
-                            <p:spinner id="minmax" min="#{viewProjectController.session.pajSelected.scaleMin}"
-                                       max="#{viewProjectController.session.pajSelected.scaleMax}" value="#{eval.note}"  disabled="#{!empty viewProjectController.givenEvaluations()}" />
-                        </h:column>
-                        <h:column rendered="#{!empty viewProjectController.givenEvaluations()}">   
-                            <f:facet name="header">Average</f:facet>
-                            <h:outputLabel value="#{eval.average}">
-                                <f:convertNumber maxFractionDigits="2" />
-                            </h:outputLabel>
-                        </h:column>
-                    </h:dataTable> 
-
-                    <h:outputLabel  style="color: #67A92D" value ="#{viewProjectController.confirmedEvaluation}" rendered="#{!empty viewProjectController.givenEvaluations()}"/>
-                    <br></br>
-                    <h:outputLabel value ="#{viewProjectController.erro}"/>
-
-
-                    <p:commandButton id="multiViewButton" value="SUBMIT" oncomplete="PF('#{viewProjectController.verifySubmitedEvaluation()}').show()"  
-                                     disabled="#{!empty viewProjectController.givenEvaluations()}"/> 
-
-                </h:panelGroup>
-                <p:dialog id="dialog" header="Submit Evaluation" widgetVar="confirmEval" resizable="false"  
-                          showEffect="fade" hideEffect="explode" modal="true" closable="false"> 
-                    <h:outputLabel value="Do you really want to submit your Evaluation? After that, you cannot change it!"/>
-
-                    <h:commandButton value="YES" action="#{viewProjectController.giveEvaluation()}"/>
-                    <h:commandButton value="NO" action="openProjectsStudent"/>
-
-                </p:dialog>
-                <p:dialog id="dialog2" header="Submit Evaluation" widgetVar="confirmAny" resizable="false"  
-                          showEffect="fade" hideEffect="explode" modal="true" closable="false"> 
-                    <h:outputLabel value="You didn´t answered any criterion! Do you really want to submitted it? After that, you cannot change it!"/>
-
-                    <h:commandButton value="YES" action="#{viewProjectController.giveEvaluation()}"/>
-                    <h:commandButton value="NO" action="openProjectsStudent"/>
-
-                </p:dialog>
+                <h:dataTable value="#{viewProjectController.listOpenProjects()}" var="project" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
+                             headerClass="dataTableTitle">
+                    <h:column>
+                        <f:facet name="header" class="dataTableTitle">Project Name</f:facet>
+                            #{project.name}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" class="dataTableTitle">Beginning Date</f:facet>
+                        <h:outputText value="#{project.begDate}">
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
+                        </h:outputText>   
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" class="dataTableTitle">End Date</f:facet>
+                        <h:outputText value="#{project.endDate}">
+                            <f:convertDateTime type="date" pattern="dd-MM-yyyy" timeZone="Europe/Lisbon"/>
+                        </h:outputText>   
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header" class="dataTableTitle">Evaluation</f:facet>
+                        <h:commandLink value="Open Evaluation" action="#{viewProjectController.openEvaluation(project)}"></h:commandLink>
+                    </h:column>
+                </h:dataTable>
             </h:form>
-        </h:panelGrid> 
+        </h:panelGroup>
+        <h:form>
+            <h:panelGroup binding="#{viewProjectController.evaluationPanel}" rendered="false">
+
+                <h:dataTable value="#{viewProjectController.studentEvaluations}" var="eval" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
+                             headerClass="dataTableTitle">
+                    <f:facet name="header" class="dataTableTitle">#{viewProjectController.projectSelected.name}</f:facet>
+                    <h:column>  
+                        <f:facet name="header">Criteria</f:facet>
+                        <h:outputLabel value="#{eval.criteria.description}"/>
+                    </h:column>
+                    <h:column>   
+                        <f:facet name="header">Scale: #{viewProjectController.session.pajSelected.scaleMin}
+                            - #{viewProjectController.session.pajSelected.scaleMax}</f:facet>
+                        <p:spinner id="minmax" min="#{viewProjectController.session.pajSelected.scaleMin}"
+                                   max="#{viewProjectController.session.pajSelected.scaleMax}" value="#{eval.note}"  disabled="#{!empty viewProjectController.givenEvaluations()}" />
+                    </h:column>
+                    <h:column rendered="#{!empty viewProjectController.givenEvaluations()}">   
+                        <f:facet name="header">Average</f:facet>
+                        <h:outputLabel value="#{eval.average}">
+                            <f:convertNumber maxFractionDigits="2" />
+                        </h:outputLabel>
+                    </h:column>
+                </h:dataTable> 
+
+                <h:outputLabel  style="color: #67A92D" value ="#{viewProjectController.confirmedEvaluation}" rendered="#{!empty viewProjectController.givenEvaluations()}"/>
+                <br></br>
+                <h:outputLabel value ="#{viewProjectController.erro}"/>
+
+
+                <p:commandButton id="multiViewButton" value="SUBMIT" oncomplete="PF('#{viewProjectController.verifySubmitedEvaluation()}').show()"  
+                                 disabled="#{!empty viewProjectController.givenEvaluations()}"/> 
+
+            </h:panelGroup>
+            <p:dialog id="dialog" header="Submit Evaluation" widgetVar="confirmEval" resizable="false"  
+                      showEffect="fade" hideEffect="explode" modal="true" closable="false"> 
+                <h:outputLabel value="Do you really want to submit your Evaluation? After that, you cannot change it!"/>
+
+                <h:commandButton value="YES" action="#{viewProjectController.giveEvaluation()}"/>
+                <h:commandButton value="NO" action="openProjectsStudent"/>
+
+            </p:dialog>
+            <p:dialog id="dialog2" header="Submit Evaluation" widgetVar="confirmAny" resizable="false"  
+                      showEffect="fade" hideEffect="explode" modal="true" closable="false"> 
+                <h:outputLabel value="You didn´t answered any criterion! Do you really want to submitted it? After that, you cannot change it!"/>
+
+                <h:commandButton value="YES" action="#{viewProjectController.giveEvaluation()}"/>
+                <h:commandButton value="NO" action="openProjectsStudent"/>
+
+            </p:dialog>
+        </h:form>
+        <!--        </h:panelGrid> -->
     </ui:define>
 
 

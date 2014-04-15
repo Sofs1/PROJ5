@@ -15,8 +15,8 @@ import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 
 /**
- *
- * @author Zueb LDA
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @FacesValidator("actualDateValidator")
 public class ActualDateValidator implements Validator {

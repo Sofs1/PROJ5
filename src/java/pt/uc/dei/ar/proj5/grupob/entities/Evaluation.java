@@ -17,8 +17,8 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Entity
 @NamedQueries({

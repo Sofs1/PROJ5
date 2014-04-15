@@ -1,6 +1,4 @@
-
 package pt.uc.dei.ar.proj5.grupob.util;
-
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -8,7 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * @author Sofia
+ * @author Ana Sofia Mendes
  * @author Orlando Neves
  */
 public class Encrypt {

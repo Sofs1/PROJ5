@@ -5,67 +5,71 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/loginCss.css"/>
         <title>Sign Up</title>
     </h:head>
     <h:body>
-        <div align="center">
+        <div class="background">
+            <div align="center">
 
-            <h:form id="signTbl">
-                <table border="0" align="center" >
-                    <tr>
-                        <td colspan="2"  ><h2> SIGN UP SELF EVALUATION</h2></td></tr>
-                    <tr>
-                        <td><h:outputLabel value="NAME"  /></td>
-                        <td><p:inputText id="n" value="#{registrationController.student.name}" required="true" requiredMessage="The name field is required"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="EMAIL"/></td>
-                        <td>
-                            <p:inputText id="mail" label="Email" value="#{registrationController.student.email}" required="true" requiredMessage="Email is required"/>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="PASSWORD" /></td>
-                        <td><p:password id="pass1" value="#{registrationController.student.pass}" label="Password" match="pass2" required="true" requiredMessage="Password field is required" feedback="true"/></td>
-                    </tr>
-                    <tr>
-                        <td><h:outputLabel value="CONFIRM PASS" /></td>
-                        <td><p:password id="pass2" value="#{registrationController.passConf}" label="Confirmation Pass" required="true" requiredMessage="Confirm password"/></td>
-                    </tr>
-                    <td></td>
-                    <td>
-                        <p:commandButton value="PAJ Edition" oncomplete="PF('dlg2').show()" update="list_paj" />
-                    </td>
-                    <tr>
+                <h:form id="signTbl">
+                    <table border="0" align="center" >
+                        <tr>
+                            <td colspan="2"  ><h2> SIGN UP SELF EVALUATION</h2></td></tr>
+                        <tr>
+                            <td><h:outputLabel value="NAME"  /></td>
+                            <td><p:inputText id="n" value="#{registrationController.student.name}" required="true" requiredMessage="The name field is required"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="EMAIL"/></td>
+                            <td>
+                                <p:inputText id="mail" label="Email" value="#{registrationController.student.email}" required="true" requiredMessage="Email is required"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="PASSWORD" /></td>
+                            <td><p:password id="pass1" value="#{registrationController.student.pass}" label="Password" match="pass2" required="true" requiredMessage="Password field is required" feedback="true"/></td>
+                        </tr>
+                        <tr>
+                            <td><h:outputLabel value="CONFIRM PASS" /></td>
+                            <td><p:password id="pass2" value="#{registrationController.passConf}" label="Confirmation Pass" required="true" requiredMessage="Confirm password"/></td>
+                        </tr>
                         <td></td>
-                        <td><p:commandButton type="submit" ajax="false" value="Save" action="#{registrationController.createStudent()}"/>
-                            <p:commandButton immediate="true" value="CANCEL" action="#{registrationController.cancelView()}"/></td>
-
-                    </tr>
-
-                    <tr>
-                        <td colspan="2"  >
-                            <p:message for="n" />
-                            <p:message for="mail" />
-                            <p:message for="pass1" />
-                            <p:message for="pass2" />
+                        <td>
+                            <p:commandButton value="PAJ Edition" oncomplete="PF('dlg2').show()" update="list_paj" />
                         </td>
-                    </tr>
-                </table>
-                <h:outputLabel value="#{registrationController.erro}"/>
-                <h:form id="list_paj">
-                    <p:dialog id="dialog_paj" header="Choose PAJ edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
-                        <p:dataTable value="#{registrationController.listAllPajs()}" var="paj" rowKey="#{paj}" selectionMode="single" selection="#{registrationController.selectedPaj}" paginator="true" rows="8" paginatorPosition="bottom">
-                            <p:column>
-                                #{paj.name}                           
-                            </p:column>
-                            <f:facet name="footer">
-                                <p:commandButton value="Select" icon="ui-icon-circle-check" oncomplete="PF('dlg2').hide()"/>
-                            </f:facet>
-                        </p:dataTable>
-                    </p:dialog>
+                        <tr>
+                            <td></td>
+                            <td><p:commandButton type="submit" ajax="false" value="Save" action="#{registrationController.createStudent()}"/>
+                                <p:commandButton immediate="true" value="CANCEL" action="#{registrationController.cancelView()}"/></td>
+
+                        </tr>
+
+                        <tr>
+                            <td colspan="2"  >
+                                <p:message for="n" />
+                                <p:message for="mail" />
+                                <p:message for="pass1" />
+                                <p:message for="pass2" />
+                            </td>
+                        </tr>
+                    </table>
+                    <h:outputLabel value="#{registrationController.erro}"/>
+                    <h:form id="list_paj">
+                        <p:dialog id="dialog_paj" header="Choose PAJ edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
+                            <p:dataTable value="#{registrationController.listAllPajs()}" var="paj" rowKey="#{paj}" selectionMode="single" selection="#{registrationController.selectedPaj}" paginator="true" rows="8" paginatorPosition="bottom">
+                                <p:column>
+                                    #{paj.name}                           
+                                </p:column>
+                                <f:facet name="footer">
+                                    <p:commandButton value="Select" icon="ui-icon-circle-check" oncomplete="PF('dlg2').hide()"/>
+                                </f:facet>
+                            </p:dataTable>
+                        </p:dialog>
+                    </h:form>
                 </h:form>
-            </h:form>
+            </div>
         </div>
 
     </h:body>

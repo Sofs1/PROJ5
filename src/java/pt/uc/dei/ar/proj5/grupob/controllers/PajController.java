@@ -21,8 +21,8 @@ import pt.uc.dei.ar.proj5.grupob.facades.PajFacade;
 import pt.uc.dei.ar.proj5.grupob.util.PajDeleteException;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Named
 @RequestScoped

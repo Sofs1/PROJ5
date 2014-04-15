@@ -21,8 +21,8 @@ import pt.uc.dei.ar.proj5.grupob.entities.Project;
 import pt.uc.dei.ar.proj5.grupob.entities.Student;
 
 /**
- *
- * @author sofia
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Stateless
 public class EvaluationFacade extends AbstractFacade<Evaluation> {

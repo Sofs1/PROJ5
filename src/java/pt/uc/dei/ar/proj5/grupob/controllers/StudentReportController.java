@@ -24,8 +24,8 @@ import pt.uc.dei.ar.proj5.grupob.facades.ProjectFacade;
 import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 
 /**
- *
- * @author Zueb LDA
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Named
 @RequestScoped

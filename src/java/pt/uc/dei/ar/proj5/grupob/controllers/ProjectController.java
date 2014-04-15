@@ -19,8 +19,8 @@ import pt.uc.dei.ar.proj5.grupob.facades.StudentFacade;
 import pt.uc.dei.ar.proj5.grupob.util.ExistEvaluationOnProjectException;
 
 /**
- *
- * @author Zueb LDA
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Named
 @RequestScoped

@@ -6,7 +6,6 @@
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,8 +25,8 @@ import pt.uc.dei.ar.proj5.grupob.util.DuplicateEmailException;
 import pt.uc.dei.ar.proj5.grupob.util.PasswordException;
 
 /**
- *
- * @author Zueb LDA
+ * @author Ana Sofia Mendes
+ * @author Orlando Neves
  */
 @Named("registrationController")
 @ConversationScoped

@@ -37,14 +37,14 @@
             <!--            <div style="width:100%; 
                              margin-left:20%; 
                              margin-right:20%;">-->
-            <p:barChart id="stacked" value="#{adminReportController.categoryModel}" legendPosition="ne" style="height:300px;"  
-                        title="Each User / Each Project" stacked="true" barMargin="30" min="#{sessionController.pajSelected.scaleMin}" max="50" animate="true"/>
+            <p:barChart  id="stacked" value="#{adminReportController.categoryModel}" legendPosition="ne" style="height:300px;"  
+                         title="Each User / Each Project" stacked="true" barMargin="30" min="#{sessionController.pajSelected.scaleMin}" max="50" animate="true"/>
 
             <p:commandButton value="Print" type="button" icon="ui-icon-print">  
                 <p:printer target="rep1"/>
             </p:commandButton>
 
-            <!--            </div>-->
+            <!--</div>-->
         </h:form>
     </ui:define>
 

@@ -36,7 +36,6 @@ public class PajController {
     private SessionController userEJB;
     @Inject
     private CriteriaFacade criteriaFacade;
-    private String erro;
 
     public PajController() {
     }
@@ -45,14 +44,6 @@ public class PajController {
     public void initPajController() {
         this.paj = new Paj();
         this.criteria = new Criteria();
-    }
-
-    public String getErro() {
-        return erro;
-    }
-
-    public void setErro(String erro) {
-        this.erro = erro;
     }
 
     public CriteriaFacade getCriteriaFacade() {
@@ -117,9 +108,10 @@ public class PajController {
     public void removepaj() {
         try {
             pajFacade.removePaj(paj);
+            this.addMessage("PAJ Edition has been sucessfully removed");
         } catch (PajDeleteException ex) {
             Logger.getLogger(PajController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
+            this.errorMessage(ex.getMessage());
         }
     }
 
@@ -151,6 +143,16 @@ public class PajController {
      */
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    /**
+     * add a new error message
+     *
+     * @param summary message
+     */
+    public void errorMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
 

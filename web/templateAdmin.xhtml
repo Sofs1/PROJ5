@@ -17,10 +17,10 @@
         <div id="top" align="right">
             <ui:insert name="top">
                 <h:form>
-                    <h:outputLabel value="Hi #{sessionController.user.name} | "/>
-                    <h:commandLink rendered="#{userController.adminBOSS()}" action="adminSignup" value="Add administrator" />&nbsp;|&nbsp;
+                    <p:outputLabel value="Hi #{sessionController.user.name} | "/>
+                    <p:commandLink rendered="#{userController.adminBOSS()}" action="adminSignup" value="Add administrator" />&nbsp;|&nbsp;
                     <p:commandLink rendered="#{userController.adminBOSS()}" oncomplete="PF('dlg1').show()" value="Remove administrator" />&nbsp;|&nbsp;
-                    <h:commandLink action="#{userController.logoutAdm()}" value="LOGOUT" />
+                    <p:commandLink action="#{userController.logoutAdm()}" value="LOGOUT" />
 
                     <p:dialog id="dialog_paj" header="Choose PAJ edition" widgetVar="dlg1" modal="true" height="auto" width="auto">
                         <p:dataTable value="#{userController.listAdmin()}" var="admin" rowKey="#{admin}" paginator="true" rows="8" paginatorPosition="bottom">
@@ -28,7 +28,7 @@
                                 #{admin.name}                           
                             </p:column>
                             <p:column>
-                                <h:commandButton value="Delete" action="#{userController.deleteAdmin(admin)}"/>                         
+                                <h:commandButton value="Delete" action="#{userController.deleteAdmin(admin)}"/> 
                             </p:column>
                         </p:dataTable>
                     </p:dialog>

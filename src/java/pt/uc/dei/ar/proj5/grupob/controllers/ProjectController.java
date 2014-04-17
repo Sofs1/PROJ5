@@ -8,6 +8,7 @@ package pt.uc.dei.ar.proj5.grupob.controllers;
 import java.util.logging.Level;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.RequestScoped;
+import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 import javax.inject.Inject;
@@ -34,7 +35,7 @@ public class ProjectController {
     private SessionController session;
     private Project project;
     private Project projectSelected;
-    private String erro;
+    //private String erro;
     private Project flashProject;
 
     public ProjectController() {
@@ -53,14 +54,13 @@ public class ProjectController {
         this.studentFacade = studentFacade;
     }
 
-    public String getErro() {
-        return erro;
-    }
-
-    public void setErro(String erro) {
-        this.erro = erro;
-    }
-
+//    public String getErro() {
+//        return erro;
+//    }
+//
+//    public void setErro(String erro) {
+//        this.erro = erro;
+//    }
     public ProjectFacade getProjectFacade() {
         return projectFacade;
     }
@@ -125,7 +125,7 @@ public class ProjectController {
             projectFacade.removeProject(p, session.getPajSelected());
         } catch (ExistEvaluationOnProjectException ex) {
             java.util.logging.Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
+            errorMessage(ex.getMessage());
         }
     }
 
@@ -142,6 +142,16 @@ public class ProjectController {
 
         return "openProjectAdmin";
 
+    }
+
+    /**
+     * add a new error message
+     *
+     * @param summary message
+     */
+    public void errorMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }

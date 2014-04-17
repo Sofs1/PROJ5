@@ -12,6 +12,7 @@
         <div class="background">
             <div align="center">
                 <h:form>
+                    <p:messages id="messages" autoUpdate="true" closable="true" />
                     <table border="0" cellpadding="0" align="center">
                         <tr>
                             <td colspan="2"><h2 align="center">ADMINISTRATOR LOGIN</h2></td>
@@ -28,12 +29,6 @@
                             <td></td>
                             <td><p:commandButton ajax="false" value="Log In" action="#{userController.searchAdmin()}"/></td>
                         </tr>
-                        <tr>
-                            <td colspan="2">
-                                <h:outputLabel style="color:#ff0000"  value="#{userController.erro}"></h:outputLabel>
-                            </td>
-                        </tr>
-
                     </table>
                 </h:form>
             </div>

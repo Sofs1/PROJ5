@@ -13,7 +13,7 @@
         <h1>Edition: #{sessionController.pajSelected.name} </h1>
 
         <h:form>
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <p:messages id="messages" autoUpdate="true" closable="true" />
             <h:dataTable value="#{sessionController.pajSelected.projects}" var="project" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
                          headerClass="dataTableTitle">
                 <h:column>
@@ -37,11 +37,16 @@
                         #{project.evaluations.size()}
                 </h:column>
                 <h:column>
-                    <h:commandButton type="submit" value="Remove" action="#{projectController.removeProject(project)}" />
+                    <p:commandLink type="submit" value="Remove" action="#{projectController.removeProject(project)}">
+                        <p:confirm header="Remove confirm" message="You really want to remove the selected project?" icon="ui-icon-alert" />  
+                    </p:commandLink>
                 </h:column>
             </h:dataTable>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+            </p:confirmDialog> 
             <p:commandButton value="Add Project" oncomplete="PF('dlg2').show()" update=":di"/>
-            <h:outputLabel style="color: red" value="#{projectController.erro}"/>
         </h:form>
         <h:form id="di">
             <p:dialog id="modalDialog" header="Create Project" widgetVar="dlg2" modal="true" height="auto" width="auto">

@@ -11,7 +11,7 @@
     <ui:define name="content">
         <h1>All PAJ Editions</h1>
         <h:form>
-            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+            <p:messages id="messages" autoUpdate="true" closable="true" />
             <h:dataTable value="#{userController.listAllPajs()}" var="paj" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
                          headerClass="dataTableTitle">
                 <h:column>
@@ -29,16 +29,18 @@
                         #{paj.projects.size()}
                 </h:column>
                 <h:column>
-                    <h:commandLink type="submit" value="Remove" action="#{pajController.removepaj()}" >
+                    <p:commandLink type="submit" value="Remove" action="#{pajController.removepaj()}" >
                         <f:setPropertyActionListener target="#{pajController.paj}" value="#{paj}" />
-                    </h:commandLink>
+                        <p:confirm header="Remove confirm" message="You really want to remove the selected paj edition?" icon="ui-icon-alert" />  
+                    </p:commandLink>
                 </h:column>
-
-
             </h:dataTable>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+            </p:confirmDialog>  
             <p:commandButton value="Add PAJ" oncomplete="PF('dlg2').show()" update=":pajEd"/>
-            <!--            <h:messages style="color:#ff0000"/>-->
-            <h:outputText value="#{pajController.erro}" style="color:#ff0000"/>
         </h:form>
         <p:dialog id="modalDialog" header="Create Paj Edition" widgetVar="dlg2" modal="true" height="auto" width="auto">
             <h:form id="pajEd">

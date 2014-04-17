@@ -71,7 +71,7 @@ public class ProjectFacade extends AbstractFacade<Project> {
             throw new ExistEvaluationOnProjectException();
         } else {
             paj.getProjects().remove(p);
-            this.remove(p);
+            remove(p);
             em.merge(paj);
         }
 

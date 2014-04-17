@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.component.UIForm;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
@@ -51,7 +52,6 @@ public class UserController implements Serializable {
     private Administrator admin;
     private User studentEdit;
     private User user;
-    private String erro;
     private Paj selectedPaj;
     @Inject
     private LogFacade logFacade;
@@ -72,6 +72,7 @@ public class UserController implements Serializable {
         this.user = new User();
         this.selectedPaj = new Paj();
         this.log = new Log();
+        this.studentEdit = userEJB.getUser();
     }
 
     public Administrator getAdmin() {
@@ -138,14 +139,6 @@ public class UserController implements Serializable {
         this.student = student;
     }
 
-    public void setErro(String erro) {
-        this.erro = erro;
-    }
-
-    public String getErro() {
-        return erro;
-    }
-
     public String getPassConf() {
         return passConf;
     }
@@ -187,7 +180,7 @@ public class UserController implements Serializable {
     }
 
     public User getStudentEdit() {
-        return (Student) userEJB.getUser();
+        return studentEdit;
     }
 
     public void setStudentEdit(User studentEdit) {
@@ -215,7 +208,7 @@ public class UserController implements Serializable {
             return "openProjectsStudent";
         } catch (NotRegistedEmailException | PasswordException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
+            errorMessage(ex.getMessage());
             log.setTask("Failed - searchLogged()");
             logFacade.createLog(log);
             return "index";
@@ -233,7 +226,7 @@ public class UserController implements Serializable {
             return "adminHome";
         } catch (NotRegistedEmailException | PasswordException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
+            errorMessage(ex.getMessage());
             return "adminLogin";
         }
     }
@@ -254,10 +247,9 @@ public class UserController implements Serializable {
      */
     public String removeUser() {
         log.setStudentID(userEJB.getUser().getId());
-        log.setTask("Success - searchLogged()");
+        log.setTask("Success - removeUser()");
         logFacade.createLog(log);
         studentFacade.deleteStudent((Student) userEJB.getUser(), userEJB.getPajSelected());
-
         return "index";
     }
 
@@ -308,10 +300,11 @@ public class UserController implements Serializable {
             log.setStudentID(userEJB.getUser().getId());
             log.setTask("Success - editStudent()");
             logFacade.createLog(log);
+            sucessMessage("Account sucessfully edited");
             return "openProjectsStudent";
         } catch (PasswordException | DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
+            errorMessage(ex.getMessage());
             return null;
         }
     }
@@ -345,7 +338,7 @@ public class UserController implements Serializable {
 
         } catch (PasswordException | DuplicateEmailException ex) {
             Logger.getLogger(UserController.class.getName()).log(Level.SEVERE, null, ex);
-            erro = ex.getMessage();
+            errorMessage(ex.getMessage());
             return "signup";
         }
     }
@@ -376,6 +369,26 @@ public class UserController implements Serializable {
             return true;
         }
         return false;
+    }
+
+    /**
+     * add a new message
+     *
+     * @param summary message
+     */
+    public void sucessMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+
+    /**
+     * add a new error message
+     *
+     * @param summary message
+     */
+    public void errorMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, summary, null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
     }
 
 }

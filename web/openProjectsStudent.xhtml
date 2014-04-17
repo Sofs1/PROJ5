@@ -9,9 +9,6 @@
 
     <ui:define name="content">
         <h1>Edition: #{sessionController.pajSelected.name} | OPEN PROJECTS</h1>
-
-        <!--        <h:panelGrid columns="2">-->
-
         <h:panelGroup>
             <h:form>
                 <h:dataTable value="#{viewProjectController.listOpenProjects()}" var="project" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
@@ -56,20 +53,24 @@
                                    max="#{viewProjectController.session.pajSelected.scaleMax}" value="#{eval.note}"  disabled="#{!empty viewProjectController.givenEvaluations()}" />
                     </h:column>
                     <h:column rendered="#{!empty viewProjectController.givenEvaluations()}">   
-                        <f:facet name="header">Average</f:facet>
+                        <f:facet name="header">Project Average</f:facet>
                         <h:outputLabel value="#{eval.average}">
                             <f:convertNumber maxFractionDigits="2" />
                         </h:outputLabel>
                     </h:column>
-                </h:dataTable> 
 
-                <h:outputLabel  style="color: #67A92D" value ="#{viewProjectController.confirmedEvaluation}" rendered="#{!empty viewProjectController.givenEvaluations()}"/>
+                </h:dataTable> 
+                <br></br>
+                <h:outputLabel value="Project Average  " rendered="#{!empty viewProjectController.givenEvaluations()}" />
+                <h:outputText value="#{viewProjectController.avg}"  rendered="#{!empty viewProjectController.givenEvaluations()}">
+                    <f:convertNumber minFractionDigits="1" maxFractionDigits="2"/>
+                </h:outputText>
                 <br></br>
                 <h:outputLabel value ="#{viewProjectController.erro}"/>
-
-
+                <br></br>
                 <p:commandButton id="multiViewButton" value="SUBMIT" oncomplete="PF('#{viewProjectController.verifySubmitedEvaluation()}').show()"  
                                  disabled="#{!empty viewProjectController.givenEvaluations()}"/> 
+                <h:outputLabel  style="color: #67A92D" value ="#{viewProjectController.confirmedEvaluation}" rendered="#{!empty viewProjectController.givenEvaluations()}"/>
 
             </h:panelGroup>
             <p:dialog id="dialog" header="Submit Evaluation" widgetVar="confirmEval" resizable="false"  
@@ -89,7 +90,6 @@
 
             </p:dialog>
         </h:form>
-        <!--        </h:panelGrid> -->
     </ui:define>
 
 

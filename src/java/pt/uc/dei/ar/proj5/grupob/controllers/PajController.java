@@ -5,6 +5,7 @@
  */
 package pt.uc.dei.ar.proj5.grupob.controllers;
 
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
@@ -89,9 +90,10 @@ public class PajController {
     /**
      * Create a new Edition Paj
      */
-    public void createPaj() {
+    public String createPaj() {
         pajFacade.create(paj);
         this.addMessage("PAJ Edition created successfuly");
+        return "adminHome";
     }
 
     /**
@@ -105,14 +107,25 @@ public class PajController {
     /**
      * remove PAJ Edition
      */
-    public void removepaj() {
+    public String removepaj() {
         try {
             pajFacade.removePaj(paj);
             this.addMessage("PAJ Edition has been sucessfully removed");
+
         } catch (PajDeleteException ex) {
             Logger.getLogger(PajController.class.getName()).log(Level.SEVERE, null, ex);
             this.errorMessage(ex.getMessage());
         }
+        return "adminHome?faces-redirect=true";
+    }
+
+    /**
+     * list all the pajs editions
+     *
+     * @return List of pajs Editions
+     */
+    public List<Paj> listAllPajs() {
+        return pajFacade.findAll();
     }
 
     /**

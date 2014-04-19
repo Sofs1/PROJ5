@@ -35,7 +35,6 @@ public class ProjectController {
     private SessionController session;
     private Project project;
     private Project projectSelected;
-    //private String erro;
     private Project flashProject;
 
     public ProjectController() {
@@ -54,13 +53,6 @@ public class ProjectController {
         this.studentFacade = studentFacade;
     }
 
-//    public String getErro() {
-//        return erro;
-//    }
-//
-//    public void setErro(String erro) {
-//        this.erro = erro;
-//    }
     public ProjectFacade getProjectFacade() {
         return projectFacade;
     }
@@ -120,13 +112,14 @@ public class ProjectController {
      *
      * @param p Project
      */
-    public void removeProject(Project p) {
+    public String removeProject(Project p) {
         try {
             projectFacade.removeProject(p, session.getPajSelected());
         } catch (ExistEvaluationOnProjectException ex) {
             java.util.logging.Logger.getLogger(ProjectController.class.getName()).log(Level.SEVERE, null, ex);
             errorMessage(ex.getMessage());
         }
+        return "adminProjects?faces-redirect=true";
     }
 
     /**
@@ -139,7 +132,6 @@ public class ProjectController {
 
         Flash flash = FacesContext.getCurrentInstance().getExternalContext().getFlash();
         flash.put("project", p);
-
         return "openProjectAdmin";
 
     }

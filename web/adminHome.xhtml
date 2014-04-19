@@ -12,7 +12,7 @@
         <h1>All PAJ Editions</h1>
         <h:form>
             <p:messages id="messages" autoUpdate="true" closable="true" />
-            <h:dataTable value="#{userController.listAllPajs()}" var="paj" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
+            <h:dataTable id="table_paj" value="#{pajController.listAllPajs()}" var="paj" border="0" cellpadding="2" cellspacing="0" styleClass="dataTable"
                          headerClass="dataTableTitle">
                 <h:column>
                     <f:facet name="header" class="dataTableTitle">PAJ Name</f:facet>
@@ -37,7 +37,7 @@
             </h:dataTable>
 
             <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
-                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />  
                 <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
             </p:confirmDialog>  
             <p:commandButton value="Add PAJ" oncomplete="PF('dlg2').show()" update=":pajEd"/>
